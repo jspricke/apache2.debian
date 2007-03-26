@@ -1,3 +1,12 @@
+apache2 (2.2.3-3.3) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * High-urgency upload for RC bugfix.
+  * apache2.2-common should depend on procps, since it will fail to create
+    httpd.conf if it's not installed.  Closes: #398535.
+
+ -- Steve Langasek <vorlon@debian.org>  Mon,  5 Feb 2007 01:55:57 -0800
+
 apache2 (2.2.3-3.2) unstable; urgency=high
 
   * Non-maintainer upload.
