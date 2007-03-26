@@ -1,3 +1,12 @@
+apache2 (2.2.3-3.2) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * 043_ajp_connection_reuse: Patch from upstream Bugzilla, fixing a critical
+    issue with regard to connection reuse in mod_proxy_ajp.
+    Closes: #396265
+
+ -- Andreas Barth <aba@not.so.argh.org>  Sat,  9 Dec 2006 21:05:45 +0000
+
 apache2 (2.2.3-3.1) unstable; urgency=low
 
   * Non-maintainer upload.
