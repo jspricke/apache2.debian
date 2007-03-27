@@ -1,5 +1,7 @@
 apache2 (2.2.3-4) unstable; urgency=high
 
+  * High-urgency upload for RC bugfixes.
+  * Ack NMUs - thanks Andi, Steve.
   * Refactor apache2.2-common.postinst slightly, to account for sarge
     upgrades (since it's a new package name, rather than an upgrade).
     (Closes: #396782, #415775)
