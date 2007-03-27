@@ -14,6 +14,10 @@ if [ -e /usr/sbin/apache2 ]; then
     fi
 fi
 
+mod_is_enabled() {
+    test -L /etc/apache2/mods-enabled/$1.load
+}
+
 # Detect whether this is a new install or an upgrade.
 # Ordinarily one just checks $2, but since we renamed apache2-common to
 # apache2.2-common, we have to be more devious.
@@ -60,7 +64,8 @@ if [ $UPGRADE = new_install ]; then
         fi
 fi
 
-if [ $UPGRADE != new_install ] && dpkg --compare-versions "$2" lt 2.2.3-3.1; then
+# Note, this line catches new installs as well as upgrades
+if dpkg --compare-versions "$2" lt 2.2.3-3.1; then
 	a2enmod alias
 	a2enmod autoindex
 	a2enmod dir
@@ -83,15 +88,15 @@ if [ $UPGRADE != new_install ] && dpkg --compare-versions "$2" lt 2.2.3-3.1; the
 fi
 if [ $UPGRADE = from_2_0 ]; then
         # Module replacements from previous versions of apache2
-	if [ -L /etc/apache2/mods-enabled/proxy.load ]; then
+	if mod_is_enabled proxy; then
 		a2enmod proxy_http
 		a2enmod disk_cache
 	fi
-	if [ -L /etc/apache2/mods-enabled/imap.load ]; then
+	if mod_is_enabled imap; then
 		a2dismod imap
 		a2enmod imagemap
 	fi
-	if [ -L /etc/apache2/mods-enabled/auth_ldap.load ]; then
+	if mod_is_enabled auth_ldap; then
 		a2dismod auth_ldap
 		a2enmod authnz_ldap
 	fi
