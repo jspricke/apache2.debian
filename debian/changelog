@@ -1,4 +1,4 @@
-apache2 (2.2.3-3.4) unstable; urgency=high
+apache2 (2.2.3-4) unstable; urgency=high
 
   * Refactor apache2.2-common.postinst slightly, to account for sarge
     upgrades (since it's a new package name, rather than an upgrade).
@@ -7,7 +7,7 @@ apache2 (2.2.3-3.4) unstable; urgency=high
     disk_cache modules, which used to be included in the mod_proxy config.
     (Closes: #407171)
 
- -- Peter Samuelson <peter@p12n.org>  Mon, 26 Mar 2007 11:15:49 -0500
+ -- Peter Samuelson <peter@p12n.org>  Tue, 27 Mar 2007 07:06:49 -0500
 
 apache2 (2.2.3-3.3) unstable; urgency=high
 
