@@ -3,7 +3,8 @@ apache2 (2.2.3-4+etch1) unstable; urgency=low
   * Re-add README.Debian and describe 
     - the config dir layout (closes: #419552)
     - which files are ignored by Include
-    - when and how to change "restart" to "reload" in the logrotate script
+    - how to change "restart" to "reload" in the logrotate script
+      when using SSL keys with passwords
   * Comment out CacheEnable by default, to prevent filling up /var.
     Document the problem in README.Debian and NEWS.Debian, point to
     htcacheclean and give a warning when doing a2enmod disk_cache

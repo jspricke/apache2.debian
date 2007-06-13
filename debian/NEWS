@@ -1,15 +1,19 @@
-apache2 (2.2.3-5) unstable; urgency=low
+apache2 (2.2.3-4+etch1) unstable; urgency=low
 
-  Note to users of mod_proxy who have upgraded from Apache 2.0.x,
-  and to users of mod_disk_cache:
+  Note to
+  - users of mod_disk_cache, and
+  - users of mod_proxy who have upgraded from apache2 2.0.x (as in Debian
+    "sarge" 3.1) to 2.2.3-4 (as in Debian "etch" 4.0r0). If you are directly
+    upgrading from 2.0.x to 2.2.3-4+etch1 (Debian "etch" 4.0r1), or doing a 
+    new installation, you are not affected.
 
   If mod_proxy was enabled at the time of the upgrade from 2.0.x to 2.2.3-4,
   mod_disk_cache was enabled and disk caching switched on. This could lead to
   the /var partition being filled up by the indefinitely growing disk cache.
 
-  From version 2.2.3-5, disk caching is again switched off in the default
-  configuration of mod_disk_cache, as it was in 2.0.x. If you had mod_proxy
-  enabled during the upgrade from 2.0, you should check whether
+  From version 2.2.3-4+etch1, disk caching is again switched off in the
+  default configuration of mod_disk_cache, as it was in 2.0.x. If you had
+  mod_proxy enabled during the upgrade from 2.0, you should check whether
   /var/cache/apache2/mod_disk_cache contains files that you don't want to be
   there.
 
@@ -17,4 +21,4 @@ apache2 (2.2.3-5) unstable; urgency=low
   /etc/apache2/mods-available/disk_cache.conf and check that their
   configuration is correct.
 
- -- Stefan Fritsch <sf@debian.org>  Sat, 09 Jun 2007 11:03:03 +0200
+ -- Stefan Fritsch <sf@debian.org>  Wed, 13 Jun 2007 19:53:03 +0200
