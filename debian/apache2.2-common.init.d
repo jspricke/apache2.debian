@@ -89,6 +89,34 @@ apache_stop() {
 	fi
 }
 
+apache_sync_stop() {
+	# running ?
+	PIDTMP=$(pidof_apache)
+	if $(kill -0 "${PIDTMP:-}" 2> /dev/null); then
+	    PID=$PIDTMP
+	fi
+
+	apache_stop
+
+	# wait until really stopped
+	if [ -n "${PID:-}" ]; then
+		i=0
+		while $(kill -0 "${PID:-}" 2> /dev/null);  do
+        		if [[ $i == '30' ]]; then
+        			break;
+        	 	else
+        			if [[ $i == '0' ]]; then
+                			echo -n " waiting "
+        			else
+                	      		echo -n "."
+        		 	fi
+        			i=$(($i+1))
+        			sleep 2
+        	      fi
+		 done
+	fi
+}
+
 # Stupid hack to keep lintian happy. (Warrk! Stupidhack!).
 case $1 in
 	start)
@@ -129,10 +157,9 @@ case $1 in
 	;;
 	restart | force-reload)
 		log_begin_msg "Forcing reload of web server (apache2)..."
-		if ! apache_stop; then
+		if ! apache_sync_stop; then
                         log_end_msg 1
                 fi
-		sleep 10
 		if $APACHE2CTL start; then
                         log_end_msg 0
                 else

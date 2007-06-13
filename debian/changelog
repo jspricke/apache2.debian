@@ -4,6 +4,8 @@ apache2 (2.2.3-4+etch1) unstable; urgency=low
     Document the problem in README.Debian and NEWS.Debian, point to
     htcacheclean and give a warning when doing a2enmod disk_cache
     (Closes: #423653). 
+  * When doing a restart, wait for the server to die before trying
+    to start it again (Closes: #298689).
   * Re-add README.Debian and describe 
     - how to change "restart" to "reload" in the logrotate script
       when using SSL keys with passwords
