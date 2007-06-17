@@ -1,4 +1,4 @@
-apache2 (2.2.3-4+etch1) unstable; urgency=low
+apache2 (2.2.3-4+etch1) stable; urgency=low
 
   * Comment out CacheEnable by default, to prevent filling up /var.
     Document the problem in README.Debian and NEWS.Debian, point to
