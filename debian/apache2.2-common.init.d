@@ -102,10 +102,10 @@ apache_sync_stop() {
 	if [ -n "${PID:-}" ]; then
 		i=0
 		while $(kill -0 "${PID:-}" 2> /dev/null);  do
-        		if [[ $i == '30' ]]; then
+        		if [ $i == '30' ]; then
         			break;
         	 	else
-        			if [[ $i == '0' ]]; then
+        			if [ $i == '0' ]; then
                 			echo -n " waiting "
         			else
                 	      		echo -n "."
