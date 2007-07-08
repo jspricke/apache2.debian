@@ -7,6 +7,8 @@ apache2 (2.2.3-4+etch2) UNRELEASED; urgency=low
   * Only allow group www-data to execute suexec (Closes: #431048)
   * Display warning when NO_START=1 even with VERBOSE=no, to avoid
     confusion (Closes: #430116)
+  * Add warning about new 2.2 config file syntax and point to upgrading
+    howto.
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 23 Jun 2007 10:18:12 +0200
 

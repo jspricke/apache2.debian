@@ -22,3 +22,19 @@ apache2 (2.2.3-4+etch1) unstable; urgency=low
   configuration is correct.
 
  -- Stefan Fritsch <sf@debian.org>  Wed, 13 Jun 2007 19:53:03 +0200
+
+apache2 (2.2.3-4) stable; urgency=low
+
+  Note to users upgrading from Debian 3.1 "sarge":
+  
+  Apache2 in Debian 4.0 "etch" is Apache 2.2.x, which has many changes from
+  version 2.0.x in sarge. You will need to adjust your configuration to the
+  new features and configuration syntax. In particular, there have been many
+  changes related to authentication and authorization.
+
+  See the upgrading information at
+
+    http://httpd.apache.org/docs/2.2/upgrading.html
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 08 Jul 2007 22:07:05 +0200
+
