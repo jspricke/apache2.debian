@@ -13,3 +13,5 @@
 042_htdigest_CAN-2005-1344
 043_ajp_connection_reuse
 099_config_guess_sub_update
+049_CVE-2007-1863.dpatch
+050-CVE-2006-5752.dpatch

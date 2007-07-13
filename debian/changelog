@@ -1,5 +1,8 @@
 apache2 (2.2.3-4+etch2) UNRELEASED; urgency=low
 
+  * Security fixes (less critical):
+    - CVE-2006-5752: XSS in mod_status
+    - CVE-2007-1863: DoS in mod_cache
   * Add /var/lock/apache2 owner fix to the init script, as /var/lock
     may not persist across reboots.  (Closes: #420101)
   * Fix regression breaking /etc/init.d/apache when /bin/sh is not bash
