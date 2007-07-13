@@ -30,7 +30,8 @@ apache2 (2.2.3-4) stable; urgency=low
   Apache2 in Debian 4.0 "etch" is Apache 2.2.x, which has many changes from
   version 2.0.x in sarge. You will need to adjust your configuration to the
   new features and configuration syntax. In particular, there have been many
-  changes related to authentication and authorization.
+  changes related to authentication and authorization. Also, you need to
+  recompile any self-compied modules.
 
   See the upgrading information at
 
