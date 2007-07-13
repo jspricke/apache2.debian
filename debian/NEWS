@@ -31,7 +31,7 @@ apache2 (2.2.3-4) stable; urgency=low
   version 2.0.x in sarge. You will need to adjust your configuration to the
   new features and configuration syntax. In particular, there have been many
   changes related to authentication and authorization. Also, you need to
-  recompile any self-compied modules.
+  recompile any self-compiled modules.
 
   See the upgrading information at
 
