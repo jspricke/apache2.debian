@@ -37,5 +37,9 @@ apache2 (2.2.3-4) stable; urgency=low
 
     http://httpd.apache.org/docs/2.2/upgrading.html
 
+  or, if you have apache2-doc installed and your apache is running, at
+
+    http://localhost/manual/upgrading.html
+
  -- Stefan Fritsch <sf@debian.org>  Sun, 08 Jul 2007 22:07:05 +0200
 

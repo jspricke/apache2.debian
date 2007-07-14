@@ -1,17 +1,19 @@
 apache2 (2.2.3-4+etch2) UNRELEASED; urgency=low
 
-  * Security fixes (less critical):
+  * Security fixes:
     - CVE-2006-5752: XSS in mod_status
     - CVE-2007-1863: DoS in mod_cache
   * Add /var/lock/apache2 owner fix to the init script, as /var/lock
     may not persist across reboots.  (Closes: #420101)
-  * Fix regression breaking /etc/init.d/apache when /bin/sh is not bash
+  * Fix regression breaking /etc/init.d/apache2 when /bin/sh is not bash
     (Closes: #430386)
   * Only allow group www-data to execute suexec (Closes: #431048)
   * Display warning when NO_START=1 even with VERBOSE=no, to avoid
     confusion (Closes: #430116)
-  * Add warning about new 2.2 config file syntax and point to upgrading
-    howto.
+  * Unbreak apache2-doc: Ship correct conf.d/apache2-doc and add note how
+    to read the docs in README.Debian (Closes: #285290)
+  * NEWS.Debian: Add warning about new 2.2 config file syntax and point to
+    upgrading howto.
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 23 Jun 2007 10:18:12 +0200
 

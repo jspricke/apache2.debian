@@ -9,6 +9,7 @@ Contents
 	
 	Using SSL keys with passwords /	Restarting Apache during logrotate
 
+	Documentation
 
 Apache2 Configuration under Debian GNU/Linux
 ============================================
@@ -119,3 +120,15 @@ stop.
 However, "/etc/init.d/apache2 restart" will not work if you use a SSL key file
 with password. In this case you need to change the "restart" in
 /etc/logrotate.d/apache2 to "reload".
+
+
+Documentation
+=============
+
+The full apache 2 documentation can be found on the web at
+
+http://httpd.apache.org/docs/2.2/
+
+or, if you have installed the apache2-doc package, at
+
+http://localhost/manual/
