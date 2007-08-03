@@ -14,6 +14,7 @@ apache2 (2.2.3-4+etch2) UNRELEASED; urgency=low
     to read the docs in README.Debian (Closes: #285290)
   * NEWS.Debian: Add warning about new 2.2 config file syntax and point to
     upgrading howto.
+  * Ship /usr/lib/cgi-bin (Closes: #415698)
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 23 Jun 2007 10:18:12 +0200
 
