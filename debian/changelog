@@ -1,4 +1,4 @@
-apache2 (2.2.3-4+etch2) UNRELEASED; urgency=low
+apache2 (2.2.3-4+etch2) stable; urgency=low
 
   * Security fixes:
     - CVE-2006-5752: XSS in mod_status
@@ -17,7 +17,7 @@ apache2 (2.2.3-4+etch2) UNRELEASED; urgency=low
     upgrading howto.
   * Ship /usr/lib/cgi-bin (Closes: #415698)
 
- -- Stefan Fritsch <sf@debian.org>  Sat, 23 Jun 2007 10:18:12 +0200
+ -- Stefan Fritsch <sf@debian.org>  Mon, 27 Aug 2007 22:45:02 +0200
 
 apache2 (2.2.3-4+etch1) stable; urgency=low
 
