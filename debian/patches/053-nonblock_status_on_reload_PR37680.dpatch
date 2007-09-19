@@ -1,0 +1,48 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 053-nonblock_status_on_reload_PR37680.dpatch
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Backport from 2.2.4 from 
+## DP: http://svn.apache.org/viewvc?view=rev&revision=488883
+## DP: Don't eat all memory after graceful restart when config
+## DP: has changed from many to one listening sockets
+## DP: bug #443196, #326174, PR 37680
+
+@DPATCH@
+--- etch-apache2/server/listen.c	(revision 488882)
++++ etch-apache2/server/listen.c	(revision 488883)
+@@ -361,6 +361,9 @@
+     int num_open;
+     const char *userdata_key = "ap_open_listeners";
+     void *data;
++#if AP_NONBLOCK_WHEN_MULTI_LISTEN
++    int use_nonblock;
++#endif
+ 
+     /* Don't allocate a default listener.  If we need to listen to a
+      * port, then the user needs to have a Listen directive in their
+@@ -476,16 +479,15 @@
+      * is already forgotten about by the time we call accept, we won't
+      * be hung until another connection arrives on that port
+      */
+-    if (ap_listeners && ap_listeners->next) {
+-        for (lr = ap_listeners; lr; lr = lr->next) {
+-            apr_status_t status;
++    use_nonblock = (ap_listeners && ap_listeners->next);
++    for (lr = ap_listeners; lr; lr = lr->next) {
++        apr_status_t status;
+ 
+-            status = apr_socket_opt_set(lr->sd, APR_SO_NONBLOCK, 1);
+-            if (status != APR_SUCCESS) {
+-                ap_log_perror(APLOG_MARK, APLOG_STARTUP|APLOG_ERR, status, pool,
+-                              "unable to make listening socket non-blocking");
+-                return -1;
+-            }
++        status = apr_socket_opt_set(lr->sd, APR_SO_NONBLOCK, use_nonblock);
++        if (status != APR_SUCCESS) {
++            ap_log_perror(APLOG_MARK, APLOG_STARTUP|APLOG_ERR, status, pool,
++                          "unable to control socket non-blocking status");
++            return -1;
+         }
+     }
+ #endif /* AP_NONBLOCK_WHEN_MULTI_LISTEN */

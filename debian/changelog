@@ -1,7 +1,9 @@
-apache2 (2.2.3-4+etch3) UNRELEASED; urgency=low
+apache2 (2.2.3-4+etch3) stable; urgency=low
 
   * fix CVE-2007-3847: DoS in mod_proxy (for threaded MPMs)
     (Closes: #441845)
+  * Don't eat all memory on graceful restart when config has changed
+    from many listening sockets to one (Closes: #443196)
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 15 Sep 2007 11:33:58 +0200
 
