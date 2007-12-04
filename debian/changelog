@@ -1,3 +1,17 @@
+apache2 (2.2.3-4+etch4) UNRELEASED; urgency=low
+
+  * Backport from 2.2.6 mod_autoindex: Add in Type and Charset options to
+    IndexOptions directive. This allows the admin to explicitly set the
+    content-type and charset of the generated page and is therefore a viable
+    workaround for buggy browsers affected by CVE-2007-4465. (Closes: #453783)
+
+    This means that apache now sends Charset and Content-Type by default for
+    directory indices even if AddDefaultCharset is commented out. In this
+    case, you might want to change the IndexOptions line in
+    /etc/apache2/apache2.conf to match the Charset you use for filenames.
+
+ -- Stefan Fritsch <sf@debian.org>  Tue, 04 Dec 2007 22:02:12 +0100
+
 apache2 (2.2.3-4+etch3) stable; urgency=low
 
   * fix CVE-2007-3847: DoS in mod_proxy (for threaded MPMs)
