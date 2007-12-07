@@ -19,3 +19,4 @@
 052-CVE-2007-3847.dpatch
 053-nonblock_status_on_reload_PR37680.dpatch
 054-CVE-2007-4465.dpatch
+056-CVE-2007-6203.dpatch

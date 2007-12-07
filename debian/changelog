@@ -9,8 +9,10 @@ apache2 (2.2.3-4+etch4) UNRELEASED; urgency=low
     directory indices even if AddDefaultCharset is commented out. In this
     case, you might want to change the IndexOptions line in
     /etc/apache2/apache2.conf to match the Charset you use for filenames.
+  * Escape the HTTP method in error messages to avoid potential cross site
+    scripting vulnerabilities (CVE-2007-6203).
 
- -- Stefan Fritsch <sf@debian.org>  Tue, 04 Dec 2007 22:02:12 +0100
+ -- Stefan Fritsch <sf@debian.org>  Fri, 07 Dec 2007 19:36:43 +0100
 
 apache2 (2.2.3-4+etch3) stable; urgency=low
 
