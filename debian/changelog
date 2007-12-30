@@ -12,6 +12,7 @@ apache2 (2.2.3-4+etch4) UNRELEASED; urgency=low
   * Fix cross site scripting vulnerability in mod_imagemap (CVE-2007-5000).
   * Escape the HTTP method in error messages to avoid potential cross site
     scripting vulnerabilities (CVE-2007-6203).
+  * Remove reference to 2.2.3-5 from README.Debian.
 
  -- Stefan Fritsch <sf@debian.org>  Sun, 23 Dec 2007 21:40:35 +0100
 
