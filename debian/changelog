@@ -9,6 +9,10 @@ apache2 (2.2.3-4+etch4) UNRELEASED; urgency=low
     directory indices even if AddDefaultCharset is commented out. In this
     case, you might want to change the IndexOptions line in
     /etc/apache2/apache2.conf to match the Charset you use for filenames.
+  * Reduce memory usage in chunk filter and ap_rwrite/ap_rflush
+    (Closes: #399776, #421557)
+  * Fix processes being stuck after graceful reload or stop. In Debian Etch,
+    this affects only amd64. (Closes: #445263)
   * Fix cross site scripting vulnerability in mod_imagemap (CVE-2007-5000).
   * Escape the HTTP method in error messages to avoid potential cross site
     scripting vulnerabilities (CVE-2007-6203).
