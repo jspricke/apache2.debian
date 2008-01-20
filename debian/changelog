@@ -9,7 +9,7 @@ apache2 (2.2.3-4+etch4) UNRELEASED; urgency=low
     directive. These allow to specify the character set that is sent with the
     generated directory indexes. (CVE-2007-4465, CVE-2008-0005,
     closes: #453783)
-  * Reduce memory usage in chunk filter and ap_rwrite/ap_rflush
+  * Reduce memory usage of chunk filter and ap_rwrite/ap_rflush
     (Closes: #399776, #421557)
   * Fix processes being stuck after graceful reload or stop. In Debian Etch,
     this affects only amd64. (Closes: #445263)
@@ -18,6 +18,7 @@ apache2 (2.2.3-4+etch4) UNRELEASED; urgency=low
     - XSS in mod_proxy_balancer's balancer manager (CVE-2007-6421)
     - XSS in HTTP method in error message (CVE-2007-6203)
     - possible crash in mod_proxy_balancer's balancer manager (CVE-2007-6422) 
+  * Fix mod_proxy_balancer configuration file parsing (closes: #453630).
   * Remove reference to 2.2.3-5 from README.Debian.
 
  -- Stefan Fritsch <sf@debian.org>  Sun, 23 Dec 2007 21:40:35 +0100

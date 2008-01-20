@@ -26,3 +26,4 @@
 059-CVE-2007-6421.dpatch
 060-CVE-2007-6422.dpatch
 061-CVE-2008-0005_various_modules_charset-ProxyFtpDirCharset.dpatch
+062-mod_proxy_balancer_parse_config.dpatch
