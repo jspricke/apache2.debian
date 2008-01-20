@@ -13,9 +13,11 @@ apache2 (2.2.3-4+etch4) UNRELEASED; urgency=low
     (Closes: #399776, #421557)
   * Fix processes being stuck after graceful reload or stop. In Debian Etch,
     this affects only amd64. (Closes: #445263)
-  * Fix cross site scripting vulnerability in mod_imagemap (CVE-2007-5000).
-  * Escape the HTTP method in error messages to avoid potential cross site
-    scripting vulnerabilities (CVE-2007-6203).
+  * Fix cross site scripting vulnerability in
+    - mod_imagemap (CVE-2007-5000)
+    - mod_proxy_balancer (CVE-2007-6421)
+    - HTTP method in error message (CVE-2007-6203)
+  * Fix possible crash in balancer manager (CVE-2007-6422) 
   * Remove reference to 2.2.3-5 from README.Debian.
 
  -- Stefan Fritsch <sf@debian.org>  Sun, 23 Dec 2007 21:40:35 +0100
