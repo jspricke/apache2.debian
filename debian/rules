@@ -220,7 +220,6 @@ binary-indep: install
 	ln -s ../apache2.2-common/README.Debian debian/apache2/usr/share/doc/apache2/
 	dh_installchangelogs -i CHANGES -Napache2
 	dh_installchangelogs -papache2
-	rm -f debian/apache2-utils/usr/share/doc/apache2-utils/NEWS.Debian
 	dh_compress -i
 	dh_fixperms -i -Xsuexec
 	dh_installdeb -i
@@ -235,6 +234,7 @@ binary-arch: install
 	dh_installdocs -a
 	dh_installman -a
 	dh_installchangelogs -a CHANGES
+	rm -f debian/apache2-utils/usr/share/doc/apache2-utils/NEWS.Debian
 	dh_installinit -a -r --init-script=apache2 debian/apache2.2-common.init.d -- start 91 09
 	dh_strip -a
 	dh_link -a
