@@ -220,6 +220,7 @@ binary-indep: install
 	ln -s ../apache2.2-common/README.Debian debian/apache2/usr/share/doc/apache2/
 	dh_installchangelogs -i CHANGES -Napache2
 	dh_installchangelogs -papache2
+	rm -f debian/apache2-utils/usr/share/doc/apache2-utils/NEWS.Debian
 	dh_compress -i
 	dh_fixperms -i -Xsuexec
 	dh_installdeb -i

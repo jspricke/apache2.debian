@@ -54,6 +54,9 @@ apache2 (2.2.3-4) stable; urgency=low
   * There have been many changes related to authentication and authorization.
   * The startssl option has been removed and SSL is no longer defined. You
     might need to change some <IfDefine SSL> to <IfModule mod_ssl.c>.
+  * The MSIE SSL workaround has been removed from
+    /etc/apache2/mods-available/ssl.conf and needs to be added inside your SSL
+    VirtualHost configuration section (see README.Debian).
 
   You also need to recompile any self-compiled modules.
 
