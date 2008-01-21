@@ -16,8 +16,8 @@ apache2 (2.2.3-4+etch4) UNRELEASED; urgency=low
   * More minor security fixes:
     - XSS in mod_imagemap (CVE-2007-5000)
     - XSS in mod_proxy_balancer's balancer manager (CVE-2007-6421)
-    - XSS in HTTP method in error message (CVE-2007-6203)
-    - possible crash in mod_proxy_balancer's balancer manager (CVE-2007-6422) 
+    - XSS in HTTP method in 413 error message (CVE-2007-6203)
+    - possible crash in mod_proxy_balancer's balancer manager (CVE-2007-6422)
   * Fix mod_proxy_balancer configuration file parsing (closes: #453630).
   * Don't ship NEWS.Debian with apache2-utils as it affects only the server.
     Remove bogus reference to 2.2.3-5 from README.Debian, and add note about

@@ -13,7 +13,7 @@ apache2 (2.2.3-4+etch4) stable; urgency=low
       you have upgraded from Apache 2.0).
 
   In this case you should adjust the IndexOptions directive in
-  /etc/apache2/apache2.conf and the ProxyFtpDirCharset line in
+  /etc/apache2/apache2.conf and/or the ProxyFtpDirCharset line in
   /etc/apache2/mods-available/proxy.conf to suit your needs
 
  -- Stefan Fritsch <sf@debian.org>  Tue, 04 Dec 2007 22:15:44 +0100
