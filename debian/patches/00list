@@ -22,7 +22,6 @@
 055-reduce_mem_usage.dpatch
 056-CVE-2007-6203.dpatch
 057-CVE-2007-5000.dpatch
-058-bad_file_descriptor_PR42829.dpatch
 059-CVE-2007-6421.dpatch
 060-CVE-2007-6422.dpatch
 061-CVE-2008-0005_various_modules_charset-ProxyFtpDirCharset.dpatch
