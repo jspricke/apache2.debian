@@ -3,20 +3,19 @@ apache2 (2.2.3-4+etch4) stable; urgency=low
   To avoid possible cross site scripting attacks with browsers that do not
   correctly derive the character set and content type according to RFC 2616,
   apache2 now explicitly sets these attributes for the directory indexes
-  created by mod_autoindex and mod_proxy_ftp.
+  created by mod_autoindex and mod_proxy_ftp. The default charset used is
+  iso-8559-1.
 
-  This means that the directory indexes might be displayed incorrectly, if
-      you use mod_autoindex or mod_proxy_ftp 
-  AND you use filenames that contain non-ASCII characters
-  AND you have NOT set "AddDefaultCharset UTF-8" in /etc/apache2/conf.d/charset.
-      ("AddDefaultCharset UTF-8" is the default in new installations, but not if
-      you have upgraded from Apache 2.0).
+  If you use mod_autoindex and use UTF-8 as charset for your filenames, you
+  should add Charset=UTF-8 to the IndexOptions directive in
+  /etc/apache2/apache2.conf .
 
-  In this case you should adjust the IndexOptions directive in
-  /etc/apache2/apache2.conf and/or the ProxyFtpDirCharset line in
-  /etc/apache2/mods-available/proxy.conf to suit your needs
+  If you use mod_proxy_ftp, you can adjust the default charset used for its
+  directory indexes with the ProxyFtpDirCharset directive in
+  /etc/apache2/mods-available/proxy.conf . You can also use ProxyFtpDirCharset
+  inside <Proxy ...> </Proxy> blocks to set the charset for specific servers.
 
- -- Stefan Fritsch <sf@debian.org>  Tue, 04 Dec 2007 22:15:44 +0100
+ -- Stefan Fritsch <sf@debian.org>  Sun, 27 Jan 2008 18:59:40 +0100
 
 apache2 (2.2.3-4+etch1) unstable; urgency=low
 
