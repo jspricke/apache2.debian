@@ -1,3 +1,10 @@
+apache2 (2.2.3-4+etch5) UNRELEASED; urgency=low
+
+  * Fix a regression introduced by the patch for CVE-2007-6421 which could
+    lead to a segfault when viewing the balancer manager page.
+
+ -- Stefan Fritsch <sf@debian.org>  Thu, 28 Feb 2008 21:12:47 +0100
+
 apache2 (2.2.3-4+etch4) stable; urgency=low
 
   * Fix various cross site scripting vulnerabilities with browsers that do not
