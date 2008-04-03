@@ -1,3 +1,9 @@
+apache2 (2.2.3-4+etch6) UNRELEASED; urgency=low
+
+  * Fix CVE-2007-6388: XSS in mod_status
+
+ -- Stefan Fritsch <sf@debian.org>  Thu, 03 Apr 2008 22:21:01 +0200
+
 apache2 (2.2.3-4+etch5) stable; urgency=low
 
   * Fix a regression introduced by the patch for CVE-2007-6421 which could
