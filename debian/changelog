@@ -1,3 +1,10 @@
+apache2 (2.2.8-4) unstable; urgency=high
+
+  * Urgency high for DoS vulnerability fix.
+  * Fix memory leak in mod_ssl with zlib compression.
+
+ -- Stefan Fritsch <sf@debian.org>  Tue, 13 May 2008 22:31:37 +0200
+
 apache2 (2.2.8-3) unstable; urgency=low
 
   * mod_cache: Handle If-Range correctly if the cached resource was stale

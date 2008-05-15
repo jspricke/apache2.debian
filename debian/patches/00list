@@ -21,3 +21,4 @@
 055_htpasswd_salt_generation.dpatch
 056_mod_cache_IfRange.dpatch
 057_disablemods.dpatch
+059_ssl_memleak_fix_PR44975.dpatch
