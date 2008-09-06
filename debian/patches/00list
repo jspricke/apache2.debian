@@ -29,3 +29,4 @@
 063-ssl_renegotiation_POST_data.dpatch
 064-CVE-2007-6388.dpatch
 065-mod_proxy_ftp_CVE-2008-2939.dpatch
+066-mod_proxy_http_CVE-2008-2364.dpatch
