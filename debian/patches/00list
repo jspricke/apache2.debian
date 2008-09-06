@@ -32,3 +32,4 @@
 066-mod_proxy_http_CVE-2008-2364.dpatch
 067-bad_file_descriptor_PR42829.dpatch
 068_htpasswd_salt.dpatch
+069_mod_cache_IfRange.dpatch
