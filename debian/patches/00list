@@ -31,3 +31,4 @@
 065-mod_proxy_ftp_CVE-2008-2939.dpatch
 066-mod_proxy_http_CVE-2008-2364.dpatch
 067-bad_file_descriptor_PR42829.dpatch
+068_htpasswd_salt.dpatch

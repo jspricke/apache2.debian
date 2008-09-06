@@ -3,6 +3,7 @@ apache2 (2.2.3-4+etch6) UNRELEASED; urgency=low
   * Fix CVE-2007-6388: XSS in mod_status
   * Fix CVE-2008-2939: XSS in mod_proxy_ftp
   * Fix CVE-2008-2364: DoS in mod_proxy_http
+  * Fix salt generation weakness in htpasswd (Closes: #489899)
   * Fix processes hanging on graceful restart or shutdown with prefork MPM.
 
  -- Stefan Fritsch <sf@debian.org>  Thu, 03 Apr 2008 22:21:01 +0200
