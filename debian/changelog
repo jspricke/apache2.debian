@@ -1,4 +1,4 @@
-apache2 (2.2.9-11) unstable; urgency=low
+apache2 (2.2.9-10+lenny1) UNRELEASED; urgency=low
 
   * Regression fix from upstream svn for mod_proxy:
     Prevent segmentation faults by correctly adjusting the lifetime of the
