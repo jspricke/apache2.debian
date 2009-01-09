@@ -1,3 +1,12 @@
+apache2 (2.2.9-10+lenny2) UNRELEASED; urgency=low
+
+  * Report an error instead instead of segfaulting when apr_pollset_create
+    fails (PR 46467). On Linux kernels since 2.6.27.8, the value in
+    /proc/sys/fs/epoll/max_user_instances needs to be larger than the
+    value of MaxClients in the Apache configuration.
+
+ -- Stefan Fritsch <sf@debian.org>  Fri, 09 Jan 2009 21:06:45 +0100
+
 apache2 (2.2.9-10+lenny1) testing-proposed-updates; urgency=low
 
   * Regression fix from upstream svn for mod_proxy:
