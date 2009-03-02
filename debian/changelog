@@ -1,3 +1,10 @@
+apache2 (2.2.9-10+lenny3) UNRELEASED; urgency=low
+
+  * Take care to not override existing index.shtml files when upgrading from
+    before 2.2.8-1 (closes: #517089).
+
+ -- Stefan Fritsch <sf@debian.org>  Mon, 02 Mar 2009 22:16:34 +0100
+
 apache2 (2.2.9-10+lenny2) testing-proposed-updates; urgency=low
 
   * Report an error instead instead of segfaulting when apr_pollset_create
