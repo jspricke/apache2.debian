@@ -1,0 +1,51 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 068_fix_deflate_etag_PR45023.dpatch by Stefan Fritsch <sf@debian.org>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: https://issues.apache.org/bugzilla/show_bug.cgi?id=45023
+
+@DPATCH@
+diff -urNad lenny-apache2~/modules/filters/mod_deflate.c lenny-apache2/modules/filters/mod_deflate.c
+--- lenny-apache2~/modules/filters/mod_deflate.c	2009-05-17 10:55:23.000000000 +0200
++++ lenny-apache2/modules/filters/mod_deflate.c	2009-05-17 10:59:52.191084777 +0200
+@@ -372,23 +372,7 @@
+         ctx->libz_end_func(&ctx->stream);
+     return APR_SUCCESS;
+ }
+-/* PR 39727: we're screwing up our clients if we leave a strong ETag
+- * header while transforming content.  Henrik Nordstrom suggests
+- * appending ";gzip".
+- *
+- * Pending a more thorough review of our Etag handling, let's just
+- * implement his suggestion.  It fixes the bug, or at least turns it
+- * from a showstopper to an inefficiency.  And it breaks nothing that
+- * wasn't already broken.
+- */
+-static void deflate_check_etag(request_rec *r, const char *transform)
+-{
+-    const char *etag = apr_table_get(r->headers_out, "ETag");
+-    if (etag && (((etag[0] != 'W') && (etag[0] !='w')) || (etag[1] != '/'))) {
+-        apr_table_set(r->headers_out, "ETag",
+-                      apr_pstrcat(r->pool, etag, "-", transform, NULL));
+-    }
+-}
++
+ static apr_status_t deflate_out_filter(ap_filter_t *f,
+                                        apr_bucket_brigade *bb)
+ {
+@@ -586,7 +570,6 @@
+         }
+         apr_table_unset(r->headers_out, "Content-Length");
+         apr_table_unset(r->headers_out, "Content-MD5");
+-        deflate_check_etag(r, "gzip");
+ 
+         /* initialize deflate output buffer */
+         ctx->stream.next_out = ctx->buffer;
+@@ -1079,7 +1062,6 @@
+         /* these are unlikely to be set anyway, but ... */
+         apr_table_unset(r->headers_out, "Content-Length");
+         apr_table_unset(r->headers_out, "Content-MD5");
+-        deflate_check_etag(r, "gunzip");
+ 
+         /* initialize inflate output buffer */
+         ctx->stream.next_out = ctx->buffer;

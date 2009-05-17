@@ -2,6 +2,9 @@ apache2 (2.2.9-10+lenny3) UNRELEASED; urgency=low
 
   * Take care to not override existing index.shtml files when upgrading from
     before 2.2.8-1 (closes: #517089).
+  * mod_deflate: Fix invalid etag to be emitted for on-the-fly gzip
+    content-encoding. This prevented apache from sending "304 NOT MODIFIED"
+    responses for compressed content.
 
  -- Stefan Fritsch <sf@debian.org>  Mon, 02 Mar 2009 22:16:34 +0100
 
