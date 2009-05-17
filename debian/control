@@ -96,7 +96,7 @@ Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}, apache2.2-common
 Conflicts: apache2-suexec, apache-common
-Replaces: apache2-suexec
+Replaces: apache2-suexec, apache2.2-common ( << 2.2.8-5~ )
 Description: Standard suexec program for Apache 2 mod_suexec
  Provides the standard suexec helper program for mod_suexec. This version is 
  compiled with document root /var/www and userdir suffix public_html. If you
@@ -109,7 +109,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, apache2.2-common
 Provides: apache2-suexec
 Conflicts: apache2-suexec, apache-common
-Replaces: apache2-suexec
+Replaces: apache2-suexec, apache2.2-common ( << 2.2.8-5~ )
 Description: Configurable suexec program for Apache 2 mod_suexec
  Provides a customizable version of the suexec helper program for mod_suexec.
  This is not the version from upstream, but can be configured with a
