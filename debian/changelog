@@ -5,6 +5,7 @@ apache2 (2.2.9-10+lenny3) UNRELEASED; urgency=low
   * mod_deflate: Fix invalid etag to be emitted for on-the-fly gzip
     content-encoding. This prevented apache from sending "304 NOT MODIFIED"
     responses for compressed content.
+  * mod_rewrite: Fix "B" flag breakage (closes: #524268)
   * Properly declare that apache2-suexec* replace files in old versions of
     apache2.2-common (closes: #528951).
 
