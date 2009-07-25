@@ -8,6 +8,7 @@ apache2 (2.2.9-10+lenny3) UNRELEASED; urgency=low
   * mod_rewrite: Fix "B" flag breakage (closes: #524268)
   * Properly declare that apache2-suexec* replace files in old versions of
     apache2.2-common (closes: #528951).
+  * Remove other_vhosts_access.log on package purge.
 
  -- Stefan Fritsch <sf@debian.org>  Mon, 02 Mar 2009 22:16:34 +0100
 
