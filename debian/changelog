@@ -1,4 +1,4 @@
-apache2 (2.2.9-10+lenny3) UNRELEASED; urgency=low
+apache2 (2.2.9-10+lenny5) UNRELEASED; urgency=low
 
   * Take care to not override existing index.shtml files when upgrading from
     before 2.2.8-1 (closes: #517089).
@@ -11,6 +11,24 @@ apache2 (2.2.9-10+lenny3) UNRELEASED; urgency=low
   * Remove other_vhosts_access.log on package purge.
 
  -- Stefan Fritsch <sf@debian.org>  Mon, 02 Mar 2009 22:16:34 +0100
+
+apache2 (2.2.9-10+lenny4) stable-security; urgency=high
+
+  * Security fixes:
+    - CVE-2009-1890: denial of service in mod_proxy (closes: #536718)
+    - CVE-2009-1891: denial of service in mod_deflate (closes: #534712)
+      Also prevent compressing the content for HEAD requests.
+
+ -- Stefan Fritsch <sf@debian.org>  Tue, 14 Jul 2009 21:53:01 +0200
+
+apache2 (2.2.9-10+lenny3) stable-security; urgency=high
+
+  * Security: CVE-2009-1195: In configurations using the AllowOverride
+    directive with certain Options= arguments, local users were not restricted
+    from executing commands from a Server-Side-Include script as intended
+    (closes: #530834).
+
+ -- Stefan Fritsch <sf@debian.org>  Sat, 30 May 2009 14:54:22 +0200
 
 apache2 (2.2.9-10+lenny2) testing-proposed-updates; urgency=low
 
