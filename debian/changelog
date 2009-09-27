@@ -1,5 +1,9 @@
 apache2 (2.2.9-10+lenny5) UNRELEASED; urgency=low
 
+  * Minor security fixes in mod_proxy_ftp (closes: #545951):
+    - DoS by malicious ftp server (CVE-2009-3094)
+    - missing input sanitization: a user could execute arbitrary ftp commands
+      on the backend ftp server (CVE-2009-3095)
   * Take care to not override existing index.shtml files when upgrading from
     before 2.2.8-1 (closes: #517089).
   * mod_deflate: Fix invalid etag to be emitted for on-the-fly gzip
