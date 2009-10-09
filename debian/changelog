@@ -1,4 +1,4 @@
-apache2 (2.2.9-10+lenny5) UNRELEASED; urgency=low
+apache2 (2.2.9-10+lenny5) stable; urgency=low
 
   * Minor security fixes in mod_proxy_ftp (closes: #545951):
     - DoS by malicious ftp server (CVE-2009-3094)
@@ -16,7 +16,7 @@ apache2 (2.2.9-10+lenny5) UNRELEASED; urgency=low
     apache2.2-common (closes: #528951).
   * Remove other_vhosts_access.log on package purge.
 
- -- Stefan Fritsch <sf@debian.org>  Mon, 02 Mar 2009 22:16:34 +0100
+ -- Stefan Fritsch <sf@debian.org>  Mon, 05 Oct 2009 19:07:08 +0200
 
 apache2 (2.2.9-10+lenny4) stable-security; urgency=high
 
