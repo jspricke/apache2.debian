@@ -1,5 +1,7 @@
 apache2 (2.2.9-10+lenny7) UNRELEASED; urgency=low
 
+  * Security: CVE-2010-0408: Fix denial of service vulnerability in
+    mod_proxy_ajp.
   * Add missing psmisc dependency for killall used in the init script.
     Closes: #568542
 
