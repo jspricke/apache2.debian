@@ -1,3 +1,13 @@
+apache2 (2.2.9-10+lenny6) stable-security; urgency=high
+
+  * Security:
+    - Reject any client-initiated SSL/TLS renegotiations. This is a partial fix
+      for the TLS renegotiation prefix injection attack (CVE-2009-3555).
+      Any configuration which requires renegotiation for per-directory/location
+      access control or uses "SSLVerifyClient optional" is still vulnerable.
+
+ -- Stefan Fritsch <sf@debian.org>  Sat, 14 Nov 2009 21:10:47 +0100
+
 apache2 (2.2.9-10+lenny5) stable; urgency=low
 
   * Minor security fixes in mod_proxy_ftp (closes: #545951):

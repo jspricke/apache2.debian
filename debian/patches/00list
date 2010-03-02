@@ -34,6 +34,7 @@
 073_no_deflate_for_HEAD.dpatch
 074_CVE-2009-3094.dpatch
 075_CVE-2009-3095.dpatch
+076_CVE-2009-3555.dpatch
 099_config_guess_sub_update
 200_cp_suexec.dpatch
 201_build_suexec-custom.dpatch
