@@ -1,3 +1,10 @@
+apache2 (2.2.9-10+lenny7) UNRELEASED; urgency=low
+
+  * Add missing psmisc dependency for killall used in the init script.
+    Closes: #568542
+
+ -- Stefan Fritsch <sf@debian.org>  Tue, 02 Mar 2010 21:32:45 +0100
+
 apache2 (2.2.9-10+lenny6) stable-security; urgency=high
 
   * Security:
