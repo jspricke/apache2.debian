@@ -1,3 +1,15 @@
+apache2 (2.2.9-10+lenny9) stable-security; urgency=low
+
+  * The latest openssl upgrade added support for SSL/TLS secure renegotiation
+    (RFC 5746) to fix the protocol vulnerability CVE-2009-3555 but disallows
+    renegotiation for clients that do not yet support this extension.  This
+    upgrade of apache2 adds the new SSLInsecureRenegotiation directive which
+    allows to revert to the old behaviour. If you need to support such
+    clients, uncomment the 'SSLInsecureRenegotiation on' line in
+    /etc/apache2/mods-available/ssl.conf
+
+ -- Stefan Fritsch <sf@debian.org>  Mon, 15 Nov 2010 22:53:03 +0100
+
 apache2 (2.2.9-3) unstable; urgency=low
 
   * The directive "NameVirtualHost *" has been changed to "NameVirtualHost

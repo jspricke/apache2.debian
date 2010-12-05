@@ -38,6 +38,7 @@
 077_CVE-2010-0408.dpatch
 078_CVE-2010-0434.dpatch
 079_avoid_brigade_destroy.dpatch
+080_CVE-2009-3555-rfc5746.dpatch
 099_config_guess_sub_update
 200_cp_suexec.dpatch
 201_build_suexec-custom.dpatch
