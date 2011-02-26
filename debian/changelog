@@ -1,3 +1,10 @@
+apache2 (2.2.16-6+squeeze1) UNRELEASED; urgency=low
+
+  * Add hint in README.Debian about 403 error with mod_dav PUT.
+    Closes: #613438
+
+ -- Stefan Fritsch <sf@debian.org>  Sat, 26 Feb 2011 15:06:38 +0100
+
 apache2 (2.2.16-6) unstable; urgency=low
 
   * Also add $named to the secondary-init-script example.
