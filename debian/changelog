@@ -3,6 +3,8 @@ apache2 (2.2.16-6+squeeze1) UNRELEASED; urgency=low
   * Make exit code of '/etc/init.d/apache2 status' more LSB compatible.
     Closes: #613969
   * Fix typo in init script. Closes: #615866
+  * For multiple instance setups, correctly determine the config dir in the
+    init script if it is called via a start/stop link. Closes: #627061
   * Add hint in README.Debian about 403 error with mod_dav PUT.
     Closes: #613438
   * Add hint in README.Debian about how to increase max number of open
