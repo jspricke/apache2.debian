@@ -108,7 +108,7 @@ Index: httpd-2.2.11/server/mpm/experimental/itk/itk.c
 +static void *itk_merge_dir_config(apr_pool_t *p, void *parent_ptr, void *child_ptr)
 +{
 +    itk_per_dir_conf *c = (itk_per_dir_conf *)
-+        apr_pcalloc(p, sizeof(itk_per_dir_conf));
++        itk_create_dir_config(p, NULL);
 +    itk_per_dir_conf *parent = (itk_per_dir_conf *) parent_ptr;
 +    itk_per_dir_conf *child = (itk_per_dir_conf *) child_ptr;
 +

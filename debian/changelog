@@ -1,4 +1,4 @@
-apache2 (2.2.16-6+squeeze1) UNRELEASED; urgency=low
+apache2 (2.2.16-6+squeeze2) UNRELEASED; urgency=low
 
   * Make exit code of '/etc/init.d/apache2 status' more LSB compatible.
     Closes: #613969
@@ -13,6 +13,14 @@ apache2 (2.2.16-6+squeeze1) UNRELEASED; urgency=low
     in the apache2.2-bin package.
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 26 Feb 2011 15:06:38 +0100
+
+apache2 (2.2.16-6+squeeze1) stable-security; urgency=high
+
+  * Fix CVE-2011-1176 in apache2-mpm-itk: If NiceValue was set, the default
+    with no AssignUserID was to run as root:root instead of the default Apache
+    user and group. Closes: #618857
+
+ -- Stefan Fritsch <sf@debian.org>  Tue, 22 Mar 2011 21:44:39 +0100
 
 apache2 (2.2.16-6) unstable; urgency=low
 
