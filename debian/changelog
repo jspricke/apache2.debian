@@ -1,10 +1,10 @@
-apache2 (2.2.9-10+lenny10) lenny-security; urgency=low
+apache2 (2.2.9-10+lenny10) lenny-security; urgency=high
 
   * Fix CVE-2011-3192: DoS by high memory usage for a large number of
     overlapping ranges.
   * Fix CVE-2010-1452: Crash in mod_dav.
 
- -- Stefan Fritsch <sf@debian.org>  Sat, 08 Jan 2011 00:35:11 +0100
+ -- Stefan Fritsch <sf@debian.org>  Mon, 29 Aug 2011 21:18:06 +0200
 
 apache2 (2.2.9-10+lenny9) stable-security; urgency=high
 
