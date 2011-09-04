@@ -41,6 +41,7 @@
 080_CVE-2009-3555-rfc5746.dpatch
 081_CVE-2010-1452.dpatch
 082_CVE-2011-3192.dpatch
+083_range_regressions.dpatch
 099_config_guess_sub_update
 200_cp_suexec.dpatch
 201_build_suexec-custom.dpatch

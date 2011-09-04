@@ -1,3 +1,10 @@
+apache2 (2.2.9-10+lenny11) lenny-security; urgency=high
+
+  * Fix regressions related to range requests introduced by 2.2.9-10+lenny10.
+    Closes: #639825
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 04 Sep 2011 22:09:38 +0200
+
 apache2 (2.2.9-10+lenny10) lenny-security; urgency=high
 
   * Fix CVE-2011-3192: DoS by high memory usage for a large number of
