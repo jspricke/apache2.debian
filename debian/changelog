@@ -1,4 +1,4 @@
-apache2 (2.2.16-6+squeeze2) UNRELEASED; urgency=low
+apache2 (2.2.16-6+squeeze4) UNRELEASED; urgency=low
 
   * Fix CVE-2011-3348: Possible denial of service in mod_proxy_ajp
     if combined with mod_proxy_balancer.
@@ -15,6 +15,20 @@ apache2 (2.2.16-6+squeeze2) UNRELEASED; urgency=low
     in the apache2.2-bin package.
 
  -- Stefan Fritsch <sf@debian.org>  Mon, 26 Sep 2011 00:01:15 +0200
+
+apache2 (2.2.16-6+squeeze3) squeeze-security; urgency=high
+
+  * Fix regressions related to range requests introduced by 2.2.16-6+squeeze2.
+    Closes: #639825
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 04 Sep 2011 22:24:42 +0200
+
+apache2 (2.2.16-6+squeeze2) squeeze-security; urgency=high
+
+  * Fix CVE-2011-3192: DoS by high memory usage for a large number of
+    overlapping ranges.
+
+ -- Stefan Fritsch <sf@debian.org>  Mon, 29 Aug 2011 20:23:01 +0200
 
 apache2 (2.2.16-6+squeeze1) stable-security; urgency=high
 
