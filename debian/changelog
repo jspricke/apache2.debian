@@ -13,6 +13,7 @@ apache2 (2.2.16-6+squeeze4) UNRELEASED; urgency=low
     files. Closes: #615632
   * Make it clear in README.multiple-instances that the MPMs are shipped
     in the apache2.2-bin package.
+  * Tweak patch header to fix "dpatch unapply" with unstable's patch/dpatch.
 
  -- Stefan Fritsch <sf@debian.org>  Mon, 26 Sep 2011 00:01:15 +0200
 
