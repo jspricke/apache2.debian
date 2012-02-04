@@ -5,6 +5,8 @@ apache2 (2.2.16-6+squeeze5) UNRELEASED; urgency=high
     CVE-2011-3368, CVE-2011-3639, CVE-2011-4317.
   * CVE-2011-3607: Fix integer overflow in ap_pregsub(), which allowed local
     privilege escalation.
+  * CVE-2012-0031: Fix client process being able to crash parent process
+    during shutdown.
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 03 Dec 2011 18:38:51 +0100
 

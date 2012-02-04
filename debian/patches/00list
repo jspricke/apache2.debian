@@ -34,6 +34,7 @@
 090_CVE-2011-4317.dpatch
 091_CVE-2011-3639.dpatch
 092_CVE-2011-3607.dpatch
+093_CVE-2012-0031.dpatch
 099_config_guess_sub_update
 200_cp_suexec.dpatch
 201_build_suexec-custom.dpatch
