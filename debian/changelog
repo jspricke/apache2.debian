@@ -7,6 +7,8 @@ apache2 (2.2.16-6+squeeze5) UNRELEASED; urgency=high
     privilege escalation.
   * CVE-2012-0031: Fix client process being able to crash parent process
     during shutdown.
+  * CVE-2012-0053: Fix an issue in code 400 error responses that could expose
+    "httpOnly" cookies.
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 03 Dec 2011 18:38:51 +0100
 
