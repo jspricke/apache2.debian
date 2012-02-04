@@ -3,6 +3,8 @@ apache2 (2.2.16-6+squeeze5) UNRELEASED; urgency=high
   * Prevent unintended pattern expansion in some reverse proxy
     configurations by strictly validating the request-URI. Fixes
     CVE-2011-3368, CVE-2011-3639, CVE-2011-4317.
+  * CVE-2011-3607: Fix integer overflow in ap_pregsub(), which allowed local
+    privilege escalation.
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 03 Dec 2011 18:38:51 +0100
 
