@@ -42,6 +42,12 @@
 081_CVE-2010-1452.dpatch
 082_CVE-2011-3192.dpatch
 083_range_regressions.dpatch
+089_CVE-2011-3368.dpatch
+090_CVE-2011-4317.dpatch
+091_CVE-2011-3639.dpatch
+092_CVE-2011-3607.dpatch
+093_CVE-2012-0031.dpatch
+094_CVE-2012-0053.dpatch
 099_config_guess_sub_update
 200_cp_suexec.dpatch
 201_build_suexec-custom.dpatch
