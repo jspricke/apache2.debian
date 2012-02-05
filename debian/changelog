@@ -1,3 +1,9 @@
+apache2 (2.2.16-6+squeeze6) squeeze-security; urgency=high
+
+  * Rebuild with distribution set to squeeze-security.
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 05 Feb 2012 21:58:00 +0100
+
 apache2 (2.2.16-6+squeeze5) squeeze; urgency=high
 
   * Prevent unintended pattern expansion in some reverse proxy
