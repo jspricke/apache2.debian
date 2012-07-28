@@ -1,0 +1,170 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: backport of upstream r1100200, debian bug #677086
+#
+#commit 590aa99baedb5ae15305e593384f98998ca883fe
+#Author: Eric Covener <covener@apache.org>
+#Date:   Fri May 6 13:14:27 2011 +0000
+#
+#    Merge r820760, r919323, r937858, r938265 from trunk:
+#    
+#    Reviewed By: sf, trawick, covener
+#    
+#        core: Treat timeout reading request as 408 error, not 400.
+#        Log 408 errors in access log as was done in Apache 1.3.x.
+#    
+#        PR: 39785
+#        Submitted by: Nobutaka Mantani, Stefan Fritsch
+#        Reviewed and added to by: Dan Poirier
+#    
+#    
+#        * Only log a 408 if it is no keepalive timeout.
+#    
+#        PR: 39785
+#        Submitted by: Mark Montague <markmont umich.edu>, rpluem
+#        Reviewed by: rpluem
+#    
+#    
+#        PR49167, unexpected 413 and double-errordoc during a timeout reading a
+#        chunk-size.
+#    
+#    
+#    
+#        Use the more specific 408 (timed out) instead of a generic 400 during a timeout
+#        reading a chunk-length.
+#    
+#    
+#    
+#    
+#    git-svn-id: https://svn.apache.org/repos/asf/httpd/httpd/branches/2.2.x@1100200 13f79535-47bb-0310-9956-ffa450edef68
+#
+#diff --git a/CHANGES b/CHANGES
+#index 9cc3ee3..1fe363f 100644
+#--- a/CHANGES
+#+++ b/CHANGES
+#@@ -1,6 +1,19 @@
+#                                                          -*- coding: utf-8 -*-
+# Changes with Apache 2.2.18
+# 
+#+  *) Log an error for failures to read a chunk-size, and return 408 instead
+#+     413 when this is due to a read timeout.  This change also fixes some cases 
+#+     of two error documents being sent in the response for the same scenario. 
+#+     [Eric Covener] PR49167
+#+
+#+  *) core: Only log a 408 if it is no keepalive timeout. PR 39785
+#+     [Ruediger Pluem,  Mark Montague <markmont umich.edu>]
+#+
+#+  *) core: Treat timeout reading request as 408 error, not 400.
+#+     Log 408 errors in access log as was done in Apache 1.3.x.
+#+     PR 39785 [Nobutaka Mantani <nobutaka nobutaka.org>, Stefan Fritsch,
+#+     Dan Poirier]
+#+
+#   *) Core HTTP: disable keepalive when the Client has sent
+#      Expect: 100-continue
+#      but we respond directly with a non-100 response.  Keepalive here led
+diff --git a/modules/http/http_filters.c b/modules/http/http_filters.c
+index b429989..1aed70b 100644
+--- a/modules/http/http_filters.c
++++ b/modules/http/http_filters.c
+@@ -384,8 +384,13 @@ apr_status_t ap_http_filter(ap_filter_t *f, apr_bucket_brigade *b,
+ 
+             /* Detect chunksize error (such as overflow) */
+             if (rv != APR_SUCCESS || ctx->remaining < 0) {
++                ap_log_rerror(APLOG_MARK, APLOG_ERR, rv, f->r, "Error reading first chunk %s ", 
++                              (ctx->remaining < 0) ? "(overflow)" : "");
+                 ctx->remaining = 0; /* Reset it in case we have to
+                                      * come back here later */
++                if (APR_STATUS_IS_TIMEUP(rv)) { 
++                    http_error = HTTP_REQUEST_TIME_OUT;
++                }
+                 return bail_out_on_error(ctx, f, http_error);
+             }
+ 
+@@ -485,10 +490,14 @@ apr_status_t ap_http_filter(ap_filter_t *f, apr_bucket_brigade *b,
+ 
+                 /* Detect chunksize error (such as overflow) */
+                 if (rv != APR_SUCCESS || ctx->remaining < 0) {
++                    ap_log_rerror(APLOG_MARK, APLOG_ERR, rv, f->r, "Error reading chunk %s ", 
++                                  (ctx->remaining < 0) ? "(overflow)" : "");
+                     ctx->remaining = 0; /* Reset it in case we have to
+                                          * come back here later */
+-                    bail_out_on_error(ctx, f, http_error);
+-                    return rv;
++                    if (APR_STATUS_IS_TIMEUP(rv)) { 
++                        http_error = HTTP_REQUEST_TIME_OUT;
++                    }
++                    return bail_out_on_error(ctx, f, http_error);
+                 }
+ 
+                 if (!ctx->remaining) {
+diff --git a/server/protocol.c b/server/protocol.c
+index 9851360..62d8baf 100644
+--- a/server/protocol.c
++++ b/server/protocol.c
+@@ -608,6 +608,9 @@ static int read_request_line(request_rec *r, apr_bucket_brigade *bb)
+                 r->proto_num = HTTP_VERSION(1,0);
+                 r->protocol  = apr_pstrdup(r->pool, "HTTP/1.0");
+             }
++            else if (rv == APR_TIMEUP) {
++                r->status = HTTP_REQUEST_TIME_OUT;
++            }
+             return 0;
+         }
+     } while ((len <= 0) && (++num_blank_lines < max_blank_lines));
+@@ -691,7 +694,12 @@ AP_DECLARE(void) ap_get_mime_headers_core(request_rec *r, apr_bucket_brigade *bb
+                          &len, r, 0, bb);
+ 
+         if (rv != APR_SUCCESS) {
+-            r->status = HTTP_BAD_REQUEST;
++            if (rv == APR_TIMEUP) {
++                r->status = HTTP_REQUEST_TIME_OUT;
++            }
++            else {
++                r->status = HTTP_BAD_REQUEST;
++            }
+ 
+             /* ap_rgetline returns APR_ENOSPC if it fills up the buffer before
+              * finding the end-of-line.  This is only going to happen if it
+@@ -877,7 +885,7 @@ request_rec *ap_read_request(conn_rec *conn)
+     r->read_length     = 0;
+     r->read_body       = REQUEST_NO_BODY;
+ 
+-    r->status          = HTTP_REQUEST_TIME_OUT;  /* Until we get a request */
++    r->status          = HTTP_OK;  /* Until further notice */
+     r->the_request     = NULL;
+ 
+     /* Begin by presuming any module can make its own path_info assumptions,
+@@ -898,6 +906,14 @@ request_rec *ap_read_request(conn_rec *conn)
+             apr_brigade_destroy(tmp_bb);
+             return r;
+         }
++        else if (r->status == HTTP_REQUEST_TIME_OUT) {
++            ap_update_child_status(conn->sbh, SERVER_BUSY_LOG, r);
++            if (!r->connection->keepalives) {
++                ap_run_log_transaction(r);
++            }
++            apr_brigade_destroy(tmp_bb);
++            return r;
++        }
+ 
+         apr_brigade_destroy(tmp_bb);
+         return NULL;
+@@ -916,7 +932,7 @@ request_rec *ap_read_request(conn_rec *conn)
+ 
+     if (!r->assbackwards) {
+         ap_get_mime_headers_core(r, tmp_bb);
+-        if (r->status != HTTP_REQUEST_TIME_OUT) {
++        if (r->status != HTTP_OK) {
+             ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, r,
+                           "request failed: error reading the headers");
+             ap_send_error_response(r, 0);
+@@ -957,8 +973,6 @@ request_rec *ap_read_request(conn_rec *conn)
+ 
+     apr_brigade_destroy(tmp_bb);
+ 
+-    r->status = HTTP_OK;                         /* Until further notice. */
+-
+     /* update what we think the virtual host is based on the headers we've
+      * now read. may update status.
+      */

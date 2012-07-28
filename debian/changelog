@@ -1,3 +1,10 @@
+apache2 (2.2.16-6+squeeze8) UNRELEASED; urgency=low
+
+  * Send 408 status instead of 400 if reading of a request fails with a
+    timeout. This allows browsers to retry. Closes: #677086
+
+ -- Stefan Fritsch <sf@debian.org>  Sat, 28 Jul 2012 20:53:03 +0200
+
 apache2 (2.2.16-6+squeeze7) squeeze-security; urgency=high
 
   * CVE-2012-0216: Remove "Alias /doc /usr/share/doc" from the default virtual
