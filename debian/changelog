@@ -2,6 +2,8 @@ apache2 (2.2.16-6+squeeze8) UNRELEASED; urgency=low
 
   * Send 408 status instead of 400 if reading of a request fails with a
     timeout. This allows browsers to retry. Closes: #677086
+  * mod_cache: Prevent Partial Content responses from being cached and served
+    as normal response. Closes: #671204
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 28 Jul 2012 20:53:03 +0200
 

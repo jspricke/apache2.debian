@@ -37,6 +37,7 @@
 093_CVE-2012-0031.dpatch
 094_CVE-2012-0053.dpatch
 095_send_408_status.dpatch
+096_mod_cache_partial_content-2.2.x.dpatch
 099_config_guess_sub_update
 200_cp_suexec.dpatch
 201_build_suexec-custom.dpatch
