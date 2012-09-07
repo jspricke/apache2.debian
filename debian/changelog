@@ -1,5 +1,8 @@
 apache2 (2.2.16-6+squeeze8) UNRELEASED; urgency=low
 
+  * CVE-2012-2687: mod_negotiation: Escape filenames in variant list to
+    prevent a possible XSS vulnerability for a site where untrusted users
+    can upload files to a location with MultiViews enabled.
   * Send 408 status instead of 400 if reading of a request fails with a
     timeout. This allows browsers to retry. Closes: #677086
   * mod_cache: Prevent Partial Content responses from being cached and served
