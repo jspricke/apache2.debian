@@ -7,6 +7,8 @@ apache2 (2.2.16-6+squeeze8) UNRELEASED; urgency=low
     timeout. This allows browsers to retry. Closes: #677086
   * mod_cache: Prevent Partial Content responses from being cached and served
     as normal response. Closes: #671204
+  * mpm_itk: Fix an issue where users can sometimes get spurious 403s on
+    persistent connections. Closes: #672333
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 28 Jul 2012 20:53:03 +0200
 
