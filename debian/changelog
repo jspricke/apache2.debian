@@ -1,3 +1,14 @@
+apache2 (2.2.16-6+squeeze9) squeeze; urgency=low
+
+  * Team upload
+  * Backport disable-ssl-compression.patch from Wheezy. This patch disabled
+    SSL compression upon request by introducing a "Compression on|off"
+    directive to mod_ssl. This is to mitigate impact of CRIME attacks to SSL -
+    which is a browser issue, however.
+    See also Debian bug #674142 and #689936.
+
+ -- Arno Töll <arno@debian.org>  Sat, 20 Oct 2012 01:55:59 +0200
+
 apache2 (2.2.16-6+squeeze8) squeeze; urgency=low
 
   * CVE-2012-2687: mod_negotiation: Escape filenames in variant list to
