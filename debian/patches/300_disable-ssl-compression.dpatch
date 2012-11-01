@@ -1,5 +1,5 @@
 #! /bin/sh /usr/share/dpatch/dpatch-run
-## 203_disable-ssl-compression.dpatch by Arno Töll <arno@debian.org>
+## 300_disable-ssl-compression.dpatch by Arno Töll <arno@debian.org>
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
 ## DP: No description.
