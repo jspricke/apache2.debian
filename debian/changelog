@@ -1,4 +1,4 @@
-apache2 (2.2.16-6+squeeze9) squeeze-security; urgency=low
+apache2 (2.2.16-6+squeeze10) squeeze-security; urgency=low
 
   [ Arno Töll ]
   * Backport disable-ssl-compression.patch from Wheezy. This patch disabled
@@ -11,7 +11,7 @@ apache2 (2.2.16-6+squeeze9) squeeze-security; urgency=low
   * CVE-2012-4557: mod_proxy_ajp: Remote denial of service (temporary, until
     mod_proxy_ajp's retry timeout expired).
 
- -- Stefan Fritsch <sf@debian.org>  Wed, 28 Nov 2012 20:49:37 +0100
+ -- Stefan Fritsch <sf@debian.org>  Fri, 30 Nov 2012 09:26:36 +0100
 
 apache2 (2.2.16-6+squeeze8) squeeze; urgency=low
 
