@@ -6,8 +6,8 @@
 
 @DPATCH@
 diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' '--exclude=.hg' '--exclude=_darcs' '--exclude=.bzr' apache2~/modules/ssl/mod_ssl.c apache2/modules/ssl/mod_ssl.c
---- apache2~/modules/ssl/mod_ssl.c	2012-10-25 01:43:54.000000000 +0200
-+++ apache2/modules/ssl/mod_ssl.c	2012-10-25 01:53:30.301024823 +0200
+--- apache2~/modules/ssl/mod_ssl.c	2012-11-30 09:23:46.000000000 +0100
++++ apache2/modules/ssl/mod_ssl.c	2012-11-30 09:24:04.000000000 +0100
 @@ -146,6 +146,9 @@
                  "(`[+-][SSLv2|SSLv3|TLSv1] ...' - see manual)")
      SSL_CMD_SRV(HonorCipherOrder, FLAG,
@@ -19,8 +19,8 @@ diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' 
                  "Enable support for insecure renegotiation")
      SSL_CMD_ALL(UserName, TAKE1,
 diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' '--exclude=.hg' '--exclude=_darcs' '--exclude=.bzr' apache2~/modules/ssl/ssl_engine_config.c apache2/modules/ssl/ssl_engine_config.c
---- apache2~/modules/ssl/ssl_engine_config.c	2012-10-25 01:44:07.000000000 +0200
-+++ apache2/modules/ssl/ssl_engine_config.c	2012-10-25 01:53:30.305024318 +0200
+--- apache2~/modules/ssl/ssl_engine_config.c	2012-11-30 09:23:46.000000000 +0100
++++ apache2/modules/ssl/ssl_engine_config.c	2012-11-30 09:24:04.000000000 +0100
 @@ -178,6 +178,9 @@
  #ifdef HAVE_FIPS
      sc->fips                   = UNSET;
@@ -66,8 +66,8 @@ diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' 
  {
  #ifdef SSL_OP_CIPHER_SERVER_PREFERENCE
 diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' '--exclude=.hg' '--exclude=_darcs' '--exclude=.bzr' apache2~/modules/ssl/ssl_engine_init.c apache2/modules/ssl/ssl_engine_init.c
---- apache2~/modules/ssl/ssl_engine_init.c	2012-10-25 01:44:07.000000000 +0200
-+++ apache2/modules/ssl/ssl_engine_init.c	2012-10-25 01:53:30.309023803 +0200
+--- apache2~/modules/ssl/ssl_engine_init.c	2012-11-30 09:23:46.000000000 +0100
++++ apache2/modules/ssl/ssl_engine_init.c	2012-11-30 09:24:04.000000000 +0100
 @@ -500,6 +500,18 @@
      }
  #endif
@@ -88,20 +88,20 @@ diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' 
      if (sc->insecure_reneg == TRUE) {
          SSL_CTX_set_options(ctx, SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION);
 diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' '--exclude=.hg' '--exclude=_darcs' '--exclude=.bzr' apache2~/modules/ssl/ssl_private.h apache2/modules/ssl/ssl_private.h
---- apache2~/modules/ssl/ssl_private.h	2012-10-25 01:44:07.000000000 +0200
-+++ apache2/modules/ssl/ssl_private.h	2012-10-25 01:54:48.440021908 +0200
-@@ -56,6 +56,11 @@
- 
- #define MOD_SSL_VERSION AP_SERVER_BASEREVISION
+--- apache2~/modules/ssl/ssl_private.h	2012-11-30 09:23:46.000000000 +0100
++++ apache2/modules/ssl/ssl_private.h	2012-11-30 09:24:56.419725147 +0100
+@@ -71,6 +71,11 @@
+ #include <unistd.h> /** needed for STDIN_FILENO et.al., at least on FreeBSD */
+ #endif
  
 +#if !defined(OPENSSL_NO_COMP) && !defined(SSL_OP_NO_COMPRESSION) \
 +    && OPENSSL_VERSION_NUMBER < 0x00908000L
 +#define OPENSSL_NO_COMP
 +#endif
 +
- /** mod_ssl headers */
- #include "ssl_toolkit_compat.h"
- #include "ssl_expr.h"
+ /**
+  * Provide reasonable default for some defines
+  */
 @@ -482,6 +487,9 @@
  #ifdef HAVE_FIPS
      BOOL             fips;
