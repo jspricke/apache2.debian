@@ -1,3 +1,9 @@
+apache2 (2.2.16-6+squeeze11) UNRELEASED; urgency=high
+
+  * CVE-2012-3499, CVE-2012-4558: Fix XSS flaws in various modules.
+
+ -- Stefan Fritsch <sf@debian.org>  Sat, 23 Feb 2013 12:52:40 +0100
+
 apache2 (2.2.16-6+squeeze10) squeeze-security; urgency=low
 
   [ Arno Töll ]
