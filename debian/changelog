@@ -1,9 +1,9 @@
-apache2 (2.2.16-6+squeeze11) UNRELEASED; urgency=high
+apache2 (2.2.16-6+squeeze11) squeeze-security; urgency=high
 
   * CVE-2013-1048: Fix symlink vulnerability when creating /var/lock/apache2
   * CVE-2012-3499, CVE-2012-4558: Fix XSS flaws in various modules.
 
- -- Stefan Fritsch <sf@debian.org>  Sat, 23 Feb 2013 12:52:40 +0100
+ -- Stefan Fritsch <sf@debian.org>  Sun, 03 Mar 2013 12:25:22 +0100
 
 apache2 (2.2.16-6+squeeze10) squeeze-security; urgency=low
 
