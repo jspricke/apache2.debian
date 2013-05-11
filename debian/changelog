@@ -1,4 +1,4 @@
-apache2 (2.2.22-14) UNRELEASED; urgency=low
+apache2 (2.2.22-13+wheezy1) UNRELEASED; urgency=low
 
   * Adjust paragraph in README.Debian about MaxMemFree not working properly.
     The issue has been fixed with apr 1.4.5-1.
