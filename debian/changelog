@@ -1,3 +1,12 @@
+apache2 (2.2.16-6+squeeze12) squeeze; urgency=medium
+
+  Low impact security issues:
+  * CVE-2013-1862: mod_rewrite: Ensure that client data written to the
+    RewriteLog is escaped to prevent terminal escape sequences from entering
+    the log file. Closes: #722333
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 03 Mar 2013 12:25:22 +0100
+
 apache2 (2.2.16-6+squeeze11) squeeze-security; urgency=high
 
   * CVE-2013-1048: Fix symlink vulnerability when creating /var/lock/apache2

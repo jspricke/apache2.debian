@@ -46,3 +46,4 @@
 300_disable-ssl-compression.dpatch
 301_CVE-2012-4557_proxy_ajp.dpatch
 302_CVE-2012-3499_CVE-2012-4558_XSS.dpatch
+303_mod_rewrite-CVE-2013-1862.dpatch
