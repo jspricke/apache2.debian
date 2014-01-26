@@ -36,3 +36,4 @@ disable-ssl-compression.patch
 CVE-2012-3499_CVE-2012-4558_XSS.patch
 mod_log_forensic_693292.patch
 mod_rewrite-CVE-2013-1862.patch
+CVE-2013-1896.patch
