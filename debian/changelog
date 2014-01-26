@@ -1,5 +1,8 @@
 apache2 (2.2.22-13+wheezy1) UNRELEASED; urgency=low
 
+  * CVE-2013-1862: mod_rewrite: Ensure that client data written to the
+    RewriteLog is escaped to prevent terminal escape sequences from entering
+    the log file. Closes: #722333
   * Make apache2ctl create the necessary directories even if started with
     special options for apache2. Closes: #731531
   * Adjust paragraph in README.Debian about MaxMemFree not working properly.
