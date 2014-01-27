@@ -1,13 +1,14 @@
 apache2 (2.2.16-6+squeeze12) squeeze; urgency=medium
 
-  Low impact security fixes:
-  * CVE-2013-1862: mod_rewrite: Ensure that client data written to the
-    RewriteLog is escaped to prevent terminal escape sequences from entering
-    the log file. Closes: #722333
-  * CVE-2013-1896: mod_dav: denial of service via MERGE request.
+  * Security: CVE-2013-1862: mod_rewrite: Ensure that client data written to
+    the RewriteLog is escaped to prevent terminal escape sequences from
+    entering the log file. Closes: #722333
+  * Security: CVE-2013-1896: mod_dav: denial of service via MERGE request.
     Closes: #717272
+  * mod_dav: Fix segfaults in certain error conditions.
+    https://issues.apache.org/bugzilla/show_bug.cgi?id=52559
 
- -- Stefan Fritsch <sf@debian.org>  Sun, 03 Mar 2013 12:25:22 +0100
+ -- Stefan Fritsch <sf@debian.org>  Mon, 27 Jan 2014 22:53:07 +0100
 
 apache2 (2.2.16-6+squeeze11) squeeze-security; urgency=high
 
