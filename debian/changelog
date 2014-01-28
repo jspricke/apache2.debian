@@ -8,7 +8,7 @@ apache2 (2.2.16-6+squeeze12) squeeze; urgency=medium
   * mod_dav: Fix segfaults in certain error conditions.
     https://issues.apache.org/bugzilla/show_bug.cgi?id=52559
 
- -- Stefan Fritsch <sf@debian.org>  Mon, 27 Jan 2014 22:53:07 +0100
+ -- Stefan Fritsch <sf@debian.org>  Tue, 28 Jan 2014 22:48:05 +0100
 
 apache2 (2.2.16-6+squeeze11) squeeze-security; urgency=high
 
