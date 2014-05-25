@@ -1,4 +1,4 @@
-apache2 (2.2.22-13+deb7u2) UNRELEASED; urgency=medium
+apache2 (2.2.22-13+deb7u2) wheezy; urgency=medium
 
   * Backport support for SSL ECC keys and ECDH ciphers.
 
@@ -18,7 +18,7 @@ apache2 (2.2.22-13+deb7u2) UNRELEASED; urgency=medium
   * mod_proxy: Fix crashes under high load with threaded mpms.
     https://issues.apache.org/bugzilla/show_bug.cgi?id=50335
 
- -- Stefan Fritsch <sf@debian.org>  Sun, 30 Mar 2014 10:40:41 +0200
+ -- Stefan Fritsch <sf@debian.org>  Sun, 25 May 2014 17:35:34 +0200
 
 apache2 (2.2.22-13+deb7u1) wheezy; urgency=medium
 
