@@ -13,7 +13,10 @@ apache2 (2.2.22-13+deb7u2) UNRELEASED; urgency=medium
 
   * mod_log_config: Fix a bug that cookies whose values contain '=' would
     only be logged partially. This is related to CVE-2014-0098, but Apache
-    2.2.22 is not vulnerable to that issue.
+    2.2.22 is not vulnerable to this issue.
+
+  * mod_proxy: Fix crashes under high load with threaded mpms.
+    https://issues.apache.org/bugzilla/show_bug.cgi?id=50335
 
  -- Stefan Fritsch <sf@debian.org>  Sun, 30 Mar 2014 10:40:41 +0200
 
