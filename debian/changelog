@@ -1,5 +1,13 @@
 apache2 (2.2.22-13+deb7u2) UNRELEASED; urgency=medium
 
+  * Backport support for SSL ECC keys and ECDH ciphers.
+
+    Bump build-dependency for libssl-dev to 1.0.1e-2+deb7u8 to get the
+    compatibility fix for older Safari browsers. Apache2 will still
+    run with older libssl-1.0.0 but without the compatibility fix.
+
+    In case of problems, see README.Debian.
+
   * CVE-2013-6438: mod_dav: Fix potential denial of service from
     specifically crafted DAV WRITE requests.
 

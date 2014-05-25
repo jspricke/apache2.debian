@@ -234,6 +234,18 @@ disabled even for non-SSL connections):
 The default SSL virtual host in /etc/apache2/sites-available/default-ssl
 already contains this workaround.
 
+ECC keys and ECDH ciphers
+-------------------------
+
+The package in Debian has support for ECC keys and ECDH ciphers backported
+from Apache 2.2.26.
+
+If these ciphers causes any problems, they may be disabled by adding ":!ECDH"
+to the SSLCipherSuite directive in /etc/apache2/mods-enabled/ssl.conf .
+
+A special compatibility fix for older Safari browsers is enabled if using an
+up-to-date libssl-1.0.0 (version 1.0.1e-2+deb7u8 or newer).
+
 
 Suexec
 ======

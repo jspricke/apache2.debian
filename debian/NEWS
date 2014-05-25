@@ -1,3 +1,12 @@
+apache2 (2.2.22-13+deb7u2) stable; urgency=medium
+
+  * This release adds support for SSL/TLS ECC keys and ECDH ciphers.
+
+    If this change causes problems with some older clients, see
+    /usr/share/doc/apache2/README.Debian.gz for a work-around.
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 25 May 2014 13:05:40 +0200
+
 apache2 (2.2.15-4) unstable; urgency=low
 
   * Note to people using mod_proxy as forward proxy, i.e. with
