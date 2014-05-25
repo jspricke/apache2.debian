@@ -3,6 +3,10 @@ apache2 (2.2.22-13+deb7u2) UNRELEASED; urgency=medium
   * CVE-2013-6438: mod_dav: Fix potential denial of service from
     specifically crafted DAV WRITE requests.
 
+  * mod_log_config: Fix a bug that cookies whose values contain '=' would
+    only be logged partially. This is related to CVE-2014-0098, but Apache
+    2.2.22 is not vulnerable to that issue.
+
  -- Stefan Fritsch <sf@debian.org>  Sun, 30 Mar 2014 10:40:41 +0200
 
 apache2 (2.2.22-13+deb7u1) wheezy; urgency=medium
