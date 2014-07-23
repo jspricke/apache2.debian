@@ -42,3 +42,4 @@ mod_dav-CVE-2013-6438.patch
 cookie-logging-CVE-2014-0098.diff
 SSL-ECC.patch
 mod_proxy-crash-PR_50335.patch
+CVE-2014-0226_scoreboard.patch
