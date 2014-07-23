@@ -8,6 +8,12 @@ apache2 (2.2.22-13+deb7u3) UNRELEASED; urgency=medium
     By default, the client I/O timeout (Timeout directive) now applies to
     communication with scripts.  The CGIDScriptTimeout directive can be
     used to set a different timeout for communication with scripts.
+  * CVE-2014-0118: mod_deflate: The DEFLATE input filter (inflates request
+    bodies) now limits the length and compression ratio of inflated request
+    bodies to avoid denial of sevice via highly compressed bodies.
+    By default, LimitRequestBody is applied after decompression. Fine-tuning
+    is possible with the new directives DeflateInflateLimitRequestBody,
+    DeflateInflateRatioLimit, and DeflateInflateRatioBurst.
 
  -- Stefan Fritsch <sf@debian.org>  Wed, 23 Jul 2014 23:13:37 +0200
 

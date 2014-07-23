@@ -44,3 +44,4 @@ SSL-ECC.patch
 mod_proxy-crash-PR_50335.patch
 CVE-2014-0226_scoreboard.patch
 CVE-2014-0231_mod_cgid-DoS.patch
+CVE-2014-0118_mod_deflate-DoS.patch
