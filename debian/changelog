@@ -1,4 +1,4 @@
-apache2 (2.2.22-13+deb7u3) UNRELEASED; urgency=medium
+apache2 (2.2.22-13+deb7u3) wheezy-security; urgency=high
 
   * CVE-2014-0226: Fix a race condition in scoreboard handling,
     which could lead to a heap buffer overflow.
@@ -15,7 +15,7 @@ apache2 (2.2.22-13+deb7u3) UNRELEASED; urgency=medium
     is possible with the new directives DeflateInflateLimitRequestBody,
     DeflateInflateRatioLimit, and DeflateInflateRatioBurst.
 
- -- Stefan Fritsch <sf@debian.org>  Wed, 23 Jul 2014 23:13:37 +0200
+ -- Stefan Fritsch <sf@debian.org>  Wed, 23 Jul 2014 23:53:24 +0200
 
 apache2 (2.2.22-13+deb7u2) wheezy; urgency=medium
 
