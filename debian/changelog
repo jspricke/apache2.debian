@@ -10,6 +10,8 @@ apache2 (2.2.22-13+deb7u4) UNRELEASED; urgency=high
   * Fix hostname comparison with SNI to be case insensitive. Closes: #771199
   * Fix valule of SSL_CLIENT_S_DN_UID in mod_ssl (broken in 2.2.15).
     Closes: #773841
+  * Add paragraph about session ticket key life-time and forward secrecy to
+    README.Debian. Closes: #762619
 
  -- Stefan Fritsch <sf@debian.org>  Sun, 09 Nov 2014 14:38:26 +0100
 

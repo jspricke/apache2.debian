@@ -11,6 +11,8 @@ Contents
 		Enabling SSL
 		Creating self-signed certificates
 		SSL workaround for MSIE
+		ECC keys and ECDH ciphers
+		Session ticket key life-time and forward secrecy
 
 	Suexec
 	
@@ -245,6 +247,19 @@ to the SSLCipherSuite directive in /etc/apache2/mods-enabled/ssl.conf .
 
 A special compatibility fix for older Safari browsers is enabled if using an
 up-to-date libssl-1.0.0 (version 1.0.1e-2+deb7u8 or newer).
+
+Session ticket key life-time and forward secrecy
+------------------------------------------------
+
+Apache uses TLS session tickets to improve handshake performance. By default, a
+new session key key is (re-)generated at startup and at every graceful restart.
+This means that an attacker that somehow gets access to the memory of the
+running apache process may decrypt past connections that have used the current
+session ticket key. This breaks forward secrecy even if the used cipher would
+have provided forward secrecy. There is currently no way to change Apache's
+behavior. If you want to mitigate this kind of attack, you should consider
+increasing the frequency of graceful restarts by changing the log rotation in
+/etc/logrotate.d/apache2 from weekly to daily.
 
 
 Suexec
