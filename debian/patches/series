@@ -47,3 +47,4 @@ CVE-2014-0231_mod_cgid-DoS.patch
 CVE-2014-0118_mod_deflate-DoS.patch
 CVE-2013-5704_trailers.patch
 SNI_case_insensitve.diff
+mod_ssl_SSL_CLIENT_S_DN_UID.diff
