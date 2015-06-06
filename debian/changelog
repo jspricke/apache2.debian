@@ -1,3 +1,16 @@
+apache2 (2.2.22-13+deb7u5) UNRELEASED; urgency=medium
+
+  * Don't limit default DH parameters to 1024 bits. Closes: #780398
+    This may cause problems with some Java based clients. A work-around is to
+    configure these client not to use DHE key exchange but use ECDHE or RSA
+    instead.
+    A server-side work-around that limits the DH parameters to 1024 bits for
+    all clients is described at
+    http://httpd.apache.org/docs/trunk/ssl/ssl_faq.html#javadh .
+  * Backport support for adding DH parameters to the SSLCertificateFile.
+
+ -- Stefan Fritsch <sf@debian.org>  Sat, 06 Jun 2015 23:45:12 +0200
+
 apache2 (2.2.22-13+deb7u4) wheezy; urgency=medium
 
   * CVE-2013-5704: Fix handling of chunk trailers. A remote attacker could
