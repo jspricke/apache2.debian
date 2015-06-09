@@ -1,3 +1,9 @@
+apache2 (2.4.10-10+deb8u1) UNRELEASED; urgency=medium
+
+  * CVE-2015-3183: Fix chunk header parsing defect.
+
+ -- Stefan Fritsch <sf@debian.org>  Tue, 09 Jun 2015 23:26:23 +0200
+
 apache2 (2.4.10-10) unstable; urgency=medium
 
   * CVE-2015-0228: mod_lua: Fix denial of service vulnerability in
