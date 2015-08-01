@@ -1,4 +1,4 @@
-apache2 (2.2.22-13+deb7u5) UNRELEASED; urgency=medium
+apache2 (2.2.22-13+deb7u5) wheezy-security; urgency=medium
 
   * CVE-2015-3183: Fix request smuggling via chunked transfer encoding.
     Backported by Marc Deslauriers.
@@ -11,7 +11,7 @@ apache2 (2.2.22-13+deb7u5) UNRELEASED; urgency=medium
     http://httpd.apache.org/docs/trunk/ssl/ssl_faq.html#javadh .
   * Backport support for adding DH parameters to the SSLCertificateFile.
 
- -- Stefan Fritsch <sf@debian.org>  Sat, 06 Jun 2015 23:45:12 +0200
+ -- Stefan Fritsch <sf@debian.org>  Sat, 01 Aug 2015 22:08:57 +0200
 
 apache2 (2.2.22-13+deb7u4) wheezy; urgency=medium
 
