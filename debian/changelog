@@ -1,5 +1,7 @@
 apache2 (2.2.22-13+deb7u5) UNRELEASED; urgency=medium
 
+  * CVE-2015-3183: Fix request smuggling via chunked transfer encoding.
+    Backported by Marc Deslauriers.
   * Don't limit default DH parameters to 1024 bits. Closes: #780398
     This may cause problems with some Java based clients. A work-around is to
     configure these client not to use DHE key exchange but use ECDHE or RSA
