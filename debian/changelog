@@ -1,11 +1,11 @@
-apache2 (2.4.10-10+deb8u1) UNRELEASED; urgency=medium
+apache2 (2.4.10-10+deb8u1) jessie-security; urgency=medium
 
   * CVE-2015-3183: Fix chunk header parsing defect.
   * CVE-2015-3185: ap_some_auth_required() broken in apache 2.4 in an
     unfixable way. Add a new replacement API ap_some_authn_required()
     and ap_force_authn hook.
 
- -- Stefan Fritsch <sf@debian.org>  Tue, 09 Jun 2015 23:26:23 +0200
+ -- Stefan Fritsch <sf@debian.org>  Sat, 01 Aug 2015 22:42:35 +0200
 
 apache2 (2.4.10-10) unstable; urgency=medium
 
