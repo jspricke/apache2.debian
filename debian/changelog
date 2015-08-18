@@ -1,3 +1,10 @@
+apache2 (2.2.22-13+deb7u6) UNRELEASED; urgency=medium
+
+  * Fix regression causing spurious errors when loading certificate chain.
+    Closes: #794383
+
+ -- Stefan Fritsch <sf@debian.org>  Tue, 18 Aug 2015 09:52:20 +0200
+
 apache2 (2.2.22-13+deb7u5) wheezy-security; urgency=medium
 
   * CVE-2015-3183: Fix request smuggling via chunked transfer encoding.
