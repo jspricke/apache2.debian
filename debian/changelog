@@ -1,9 +1,9 @@
-apache2 (2.2.22-13+deb7u6) UNRELEASED; urgency=medium
+apache2 (2.2.22-13+deb7u6) wheezy-security; urgency=medium
 
   * Fix regression causing spurious errors when loading certificate chain.
     Closes: #794383
 
- -- Stefan Fritsch <sf@debian.org>  Tue, 18 Aug 2015 09:52:20 +0200
+ -- Stefan Fritsch <sf@debian.org>  Tue, 18 Aug 2015 11:41:11 +0200
 
 apache2 (2.2.22-13+deb7u5) wheezy-security; urgency=medium
 
