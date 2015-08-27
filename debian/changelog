@@ -1,4 +1,4 @@
-apache2 (2.4.10-10+deb8u2) UNRELEASED; urgency=medium
+apache2 (2.4.10-10+deb8u2) jessie; urgency=medium
 
   [ Stefan Fritsch ]
   * Fix upgrade logic: When upgrading from wheezy with apache2.2-common
@@ -14,7 +14,7 @@ apache2 (2.4.10-10+deb8u2) UNRELEASED; urgency=medium
   [ Jean-Michel Vourgère ]
   * apache2.postinst: Fixed tests on deferred mpm switch. Closes: #789914
 
- -- Stefan Fritsch <sf@debian.org>  Sat, 08 Aug 2015 22:02:39 +0200
+ -- Stefan Fritsch <sf@debian.org>  Thu, 27 Aug 2015 19:52:37 +0200
 
 apache2 (2.4.10-10+deb8u1) jessie-security; urgency=medium
 
