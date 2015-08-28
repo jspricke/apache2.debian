@@ -1,3 +1,10 @@
+apache2 (2.4.10-10+deb8u3) UNRELEASED; urgency=medium
+
+  * Revert fix for deferred mpm switch for now, because it is at least not
+    complete or maybe causes regressions (see #791902). Re-opens #789914
+
+ -- Stefan Fritsch <sf@debian.org>  Fri, 28 Aug 2015 18:12:51 +0200
+
 apache2 (2.4.10-10+deb8u2) jessie; urgency=medium
 
   [ Stefan Fritsch ]
