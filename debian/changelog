@@ -6,6 +6,8 @@ apache2 (2.4.10-10+deb8u4) UNRELEASED; urgency=medium
   * Fix tests on deferred mpm switch. Add special casing for mpm_itk,
     which is not an mpm anymore, despite the name. Closes: #789914
     Closes: #791902
+  * Fix secondary-init-script to not source the main init script with 'set -e'.
+    Closes: #803177
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 28 Nov 2015 13:48:49 +0100
 
