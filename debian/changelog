@@ -1,4 +1,4 @@
-apache2 (2.4.10-10+deb8u4) UNRELEASED; urgency=medium
+apache2 (2.4.10-10+deb8u4) jessie; urgency=medium
 
   * Add versioned replaces/breaks for libapache2-mod-macro to apache2,
     for the config files in /etc. Closes: #806326
@@ -9,7 +9,7 @@ apache2 (2.4.10-10+deb8u4) UNRELEASED; urgency=medium
   * Fix secondary-init-script to not source the main init script with 'set -e'.
     Closes: #803177
 
- -- Stefan Fritsch <sf@debian.org>  Sat, 28 Nov 2015 13:48:49 +0100
+ -- Stefan Fritsch <sf@debian.org>  Sat, 28 Nov 2015 15:02:23 +0100
 
 apache2 (2.4.10-10+deb8u3) jessie; urgency=medium
 
