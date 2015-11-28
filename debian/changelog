@@ -2,6 +2,7 @@ apache2 (2.4.10-10+deb8u4) UNRELEASED; urgency=medium
 
   * Add versioned replaces/breaks for libapache2-mod-macro to apache2,
     for the config files in /etc. Closes: #806326
+  * Fix split-logfile to work with current perl. Closes: #803472
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 28 Nov 2015 13:48:49 +0100
 
