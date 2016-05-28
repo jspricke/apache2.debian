@@ -2,6 +2,8 @@ apache2 (2.4.10-10+deb8u5) UNRELEASED; urgency=medium
 
   * Fix race condition and logical error in init script. Thanks to Thomas
     Stangner for the patch. Closes: #822144
+  * Remove links to manpages.debian.org in default index.html to avoid
+    broken robots doing a DoS on the site. Closes: #821313
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 28 May 2016 11:23:21 +0200
 
