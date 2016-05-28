@@ -1,3 +1,10 @@
+apache2 (2.4.10-10+deb8u5) UNRELEASED; urgency=medium
+
+  * Fix race condition and logical error in init script. Thanks to Thomas
+    Stangner for the patch. Closes: #822144
+
+ -- Stefan Fritsch <sf@debian.org>  Sat, 28 May 2016 11:23:21 +0200
+
 apache2 (2.4.10-10+deb8u4) jessie; urgency=medium
 
   * Add versioned replaces/breaks for libapache2-mod-macro to apache2,
