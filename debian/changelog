@@ -10,6 +10,10 @@ apache2 (2.4.10-10+deb8u5) UNRELEASED; urgency=medium
   * Correct systemd-sysv-generator behavior by customizing some parameters.
     This fixes 'systemctl status' returning incorrect results.
     Closes: #827444
+  * mod_proxy_html: Add missing config file mods-available/proxy_html.conf.
+    This is intentionally not enabled during upgrade, to make it less
+    likely to break existing setups. It will be enabled by a a2dismod/a2enmod
+    cycle, though. Closes: #827258
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 28 May 2016 11:23:21 +0200
 
