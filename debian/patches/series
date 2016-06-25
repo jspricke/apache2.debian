@@ -19,3 +19,4 @@ mpm_event_graceful_restart_deadlock.diff
 mpm_event_crash.diff
 split_logfile-strict.patch
 mod_socache_memcache_idle_timeout.patch
+mod_proxy_fcgi_304_body.patch
