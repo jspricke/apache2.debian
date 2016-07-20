@@ -1,3 +1,12 @@
+apache2 (2.4.10-10+deb8u5) jessie-security; urgency=high
+
+  * Non-maintainer upload by the Security Team.
+  * CVE-2016-5387: Sets environmental variable based on user supplied Proxy
+    request header.
+    Don't pass through HTTP_PROXY in server/util_script.c
+
+ -- Salvatore Bonaccorso <carnil@debian.org>  Wed, 20 Jul 2016 06:50:37 +0200
+
 apache2 (2.4.10-10+deb8u4) jessie; urgency=medium
 
   * Add versioned replaces/breaks for libapache2-mod-macro to apache2,

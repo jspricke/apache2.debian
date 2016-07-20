@@ -18,3 +18,4 @@ define_restarts.diff
 mpm_event_graceful_restart_deadlock.diff
 mpm_event_crash.diff
 split_logfile-strict.patch
+CVE-2016-5387.patch
