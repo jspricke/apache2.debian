@@ -18,5 +18,6 @@ define_restarts.diff
 mpm_event_graceful_restart_deadlock.diff
 mpm_event_crash.diff
 split_logfile-strict.patch
+CVE-2016-5387.patch
 mod_socache_memcache_idle_timeout.patch
 mod_proxy_fcgi_304_body.patch

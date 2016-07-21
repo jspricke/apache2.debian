@@ -1,4 +1,4 @@
-apache2 (2.4.10-10+deb8u5) UNRELEASED; urgency=medium
+apache2 (2.4.10-10+deb8u6) UNRELEASED; urgency=medium
 
   * Fix race condition and logical error in init script. Thanks to Thomas
     Stangner for the patch. Closes: #822144
@@ -16,6 +16,15 @@ apache2 (2.4.10-10+deb8u5) UNRELEASED; urgency=medium
     cycle, though. Closes: #827258
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 28 May 2016 11:23:21 +0200
+
+apache2 (2.4.10-10+deb8u5) jessie-security; urgency=high
+
+  * Non-maintainer upload by the Security Team.
+  * CVE-2016-5387: Sets environmental variable based on user supplied Proxy
+    request header.
+    Don't pass through HTTP_PROXY in server/util_script.c
+
+ -- Salvatore Bonaccorso <carnil@debian.org>  Wed, 20 Jul 2016 06:50:37 +0200
 
 apache2 (2.4.10-10+deb8u4) jessie; urgency=medium
 
