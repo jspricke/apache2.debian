@@ -1,4 +1,4 @@
-apache2 (2.4.10-10+deb8u6) UNRELEASED; urgency=medium
+apache2 (2.4.10-10+deb8u6) jessie; urgency=medium
 
   * Fix race condition and logical error in init script. Thanks to Thomas
     Stangner for the patch. Closes: #822144
@@ -15,7 +15,7 @@ apache2 (2.4.10-10+deb8u6) UNRELEASED; urgency=medium
     likely to break existing setups. It will be enabled by a a2dismod/a2enmod
     cycle, though. Closes: #827258
 
- -- Stefan Fritsch <sf@debian.org>  Sat, 28 May 2016 11:23:21 +0200
+ -- Stefan Fritsch <sf@debian.org>  Sun, 07 Aug 2016 12:58:11 +0200
 
 apache2 (2.4.10-10+deb8u5) jessie-security; urgency=high
 
