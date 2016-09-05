@@ -1,3 +1,10 @@
+apache2 (2.4.10-10+deb8u8) UNRELEASED; urgency=medium
+
+  * Don't run 2.2 to 2.4 upgrade logic again when upgrading from
+    2.4.10-10+deb8u*. Closes: #836818
+
+ -- Stefan Fritsch <sf@debian.org>  Fri, 30 Dec 2016 09:58:13 +0100
+
 apache2 (2.4.10-10+deb8u7) jessie; urgency=medium
 
   * Fix installation of /lib/systemd/system/apache2.service.d/forking.conf.
