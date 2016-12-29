@@ -205,7 +205,7 @@ enable_default_modules()
 				alias dir autoindex \
 				env mime negotiation setenvif \
 				filter deflate \
-				status ; do
+				status reqtimeout ; do
 			a2enmod -m -q $module
 		done
 	elif we_are_upgrading_from_wheezy $@; then
@@ -222,6 +222,14 @@ enable_default_modules()
 				a2enmod -m -q $module
 			fi
 		done
+	fi
+	if [ -z "$2" ] ; then
+		return 0
+	fi
+	# mod_reqtimeout activation was missed since jessie
+	if dpkg --compare-versions "$2" lt "2.4.10-10+deb8u8"
+	then
+			a2enmod -m -q reqtimeout
 	fi
 }
 

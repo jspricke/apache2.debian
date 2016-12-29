@@ -1,5 +1,9 @@
 apache2 (2.4.10-10+deb8u8) UNRELEASED; urgency=medium
 
+  * Activate mod_reqtimeout in new installs and during updates from
+    before 2.4.10-10+deb8u8. It was wrongly not activated in new installs
+    since jessie. This made the default installation vulnerable to some
+    DoS attacks.
   * Don't run 2.2 to 2.4 upgrade logic again when upgrading from
     2.4.10-10+deb8u*. Closes: #836818
 
