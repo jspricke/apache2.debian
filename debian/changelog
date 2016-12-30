@@ -1,3 +1,9 @@
+apache2 (2.4.10-10+deb8u7) jessie; urgency=medium
+
+  * Fix installation of /lib/systemd/system/apache2.service.d/forking.conf.
+
+ -- Julien Cristau <jcristau@debian.org>  Thu, 15 Sep 2016 22:42:19 +0200
+
 apache2 (2.4.10-10+deb8u6) jessie; urgency=medium
 
   * Fix race condition and logical error in init script. Thanks to Thomas
