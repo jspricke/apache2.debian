@@ -1,5 +1,7 @@
 apache2 (2.4.10-10+deb8u8) UNRELEASED; urgency=medium
 
+  * CVE-2016-2161: mod_auth_digest: Prevent segfaults when the shared memory
+    space is exhausted.
   * Activate mod_reqtimeout in new installs and during updates from
     before 2.4.10-10+deb8u8. It was wrongly not activated in new installs
     since jessie. This made the default installation vulnerable to some
