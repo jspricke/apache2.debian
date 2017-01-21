@@ -1,5 +1,6 @@
 apache2 (2.4.10-10+deb8u8) UNRELEASED; urgency=medium
 
+  * CVE-2016-0736: mod_session_crypto: Prevent padding oracle attack.
   * CVE-2016-2161: mod_auth_digest: Prevent segfaults when the shared memory
     space is exhausted.
   * Activate mod_reqtimeout in new installs and during updates from
