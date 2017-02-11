@@ -23,3 +23,5 @@ mod_socache_memcache_idle_timeout.patch
 mod_proxy_fcgi_304_body.patch
 CVE-2016-2161-mod_auth_digest_segfault.diff
 CVE-2016-0736-mod_session_crypto-padding-oracle.diff
+CVE-2016-8743-enforce_http.diff
+hostnames_with_underscores.diff
