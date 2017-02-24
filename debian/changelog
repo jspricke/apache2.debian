@@ -1,4 +1,4 @@
-apache2 (2.4.10-10+deb8u8) UNRELEASED; urgency=medium
+apache2 (2.4.10-10+deb8u8) jessie-security; urgency=medium
 
   * CVE-2016-8743: Enforce more HTTP conformance for request lines and
     request headers, to prevent response splitting and cache pollution
@@ -22,7 +22,7 @@ apache2 (2.4.10-10+deb8u8) UNRELEASED; urgency=medium
   * Don't run 2.2 to 2.4 upgrade logic again when upgrading from
     2.4.10-10+deb8u*. Closes: #836818
 
- -- Stefan Fritsch <sf@debian.org>  Fri, 30 Dec 2016 09:58:13 +0100
+ -- Stefan Fritsch <sf@debian.org>  Fri, 24 Feb 2017 19:36:41 +0100
 
 apache2 (2.4.10-10+deb8u7) jessie; urgency=medium
 
