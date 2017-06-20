@@ -1,11 +1,11 @@
-apache2 (2.4.10-10+deb8u9) UNRELEASED; urgency=medium
+apache2 (2.4.10-10+deb8u9) jessie-security; urgency=medium
 
   * CVE-2017-3167: Authentication bypass with ap_get_basic_auth_pw()
   * CVE-2017-3169: mod_ssl NULL pointer dereference
   * CVE-2017-7668: Buffer overrun in ap_find_token()
   * CVE-2017-7679: mod_mime buffer overread
 
- -- Stefan Fritsch <sf@debian.org>  Tue, 20 Jun 2017 20:42:01 +0200
+ -- Stefan Fritsch <sf@debian.org>  Tue, 20 Jun 2017 21:02:39 +0200
 
 apache2 (2.4.10-10+deb8u8) jessie-security; urgency=medium
 
