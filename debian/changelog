@@ -1,4 +1,4 @@
-apache2 (2.4.25-4) UNRELEASED; urgency=high
+apache2 (2.4.25-3+deb9u1) stretch-security; urgency=high
 
   * Backport security fixes from 2.4.26:
   * CVE-2017-3167: Authentication bypass with ap_get_basic_auth_pw()
