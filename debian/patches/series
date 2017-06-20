@@ -25,3 +25,4 @@ CVE-2016-2161-mod_auth_digest_segfault.diff
 CVE-2016-0736-mod_session_crypto-padding-oracle.diff
 CVE-2016-8743-enforce_http.diff
 hostnames_with_underscores.diff
+CVE-2017-3167.diff
