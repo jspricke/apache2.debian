@@ -1,3 +1,9 @@
+apache2 (2.4.25-3+deb9u2) stretch-security; urgency=medium
+
+  * CVE-2017-9788: mod_auth_digest: Fix leak of uninitialized memory
+
+ -- Stefan Fritsch <sf@debian.org>  Tue, 18 Jul 2017 20:37:33 +0200
+
 apache2 (2.4.25-3+deb9u1) stretch-security; urgency=high
 
   * Backport security fixes from 2.4.26:
