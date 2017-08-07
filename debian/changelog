@@ -8,6 +8,8 @@ apache2 (2.4.25-3+deb9u5) UNRELEASED; urgency=medium
       (Closes: #850947)
   * mod_http2: Avoid high memory usage with large files, causing crashes on
     32bit archs. Closes: #897218
+  * Make the apache-htcacheclean init script actually look into
+    /etc/default/apache-htcacheclean for its config. Closes: #898563
 
  -- Stefan Fritsch <sf@debian.org>  Sun, 13 May 2018 17:28:35 +0200
 
