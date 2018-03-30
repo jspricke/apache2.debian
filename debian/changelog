@@ -11,6 +11,7 @@ apache2 (2.4.10-10+deb8u12) UNRELEASED; urgency=medium
   * CVE-2018-1283: Tampering of mod_session data for CGI applications.
   * CVE-2018-1301: Possible out of bound access after failure in reading the
     HTTP request
+  * CVE-2018-1303: Possible out of bound read in mod_cache_socache
 
  -- Stefan Fritsch <sf@debian.org>  Sat, 31 Mar 2018 11:24:46 +0200
 

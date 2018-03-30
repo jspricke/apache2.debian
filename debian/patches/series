@@ -36,3 +36,4 @@ CVE-2017-15710-mod_authnz_ldap.diff
 CVE-2017-15715-regex-line-endings.diff
 CVE-2018-1283-mod_session.diff
 CVE-2018-1301-HTTP-request-read-out-of-bounds.diff
+CVE-2018-1303-mod_cache_socache-oob.diff
