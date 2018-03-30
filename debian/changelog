@@ -8,6 +8,7 @@ apache2 (2.4.25-3+deb9u4) UNRELEASED; urgency=medium
     the input string only, excluding matching the end of any embedded
     newline characters. Behavior can be changed with new directive
     'RegexDefaultOptions'.
+  * CVE-2018-1283: Tampering of mod_session data for CGI applications.
 
  -- Stefan Fritsch <sf@debian.org>  Fri, 30 Mar 2018 16:01:25 +0200
 
