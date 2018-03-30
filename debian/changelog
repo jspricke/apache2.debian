@@ -1,3 +1,14 @@
+apache2 (2.4.25-3+deb9u5) UNRELEASED; urgency=medium
+
+  * Upgrade mod_http and mod_proxy_http2 to the versions from 2.4.33. This
+    fixes
+    - CVE-2018-1302: mod_http2: Potential crash w/ mod_http2
+    - Segfaults in mod_http2 (Closes: #873945)
+    - mod_http2 issue with option "Indexes" and directive "HeaderName"
+      (Closes: #850947)
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 13 May 2018 17:28:35 +0200
+
 apache2 (2.4.25-3+deb9u4) stretch-security; urgency=medium
 
   * CVE-2017-15710: mod_authnz_ldap: Out of bound write in mod_authnz_ldap

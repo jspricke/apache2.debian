@@ -13,7 +13,6 @@ mpm_event_restart_segfault_PR60487.patch
 
 CVE-2017-3167.diff
 CVE-2017-3169.diff
-CVE-2017-7659.diff
 CVE-2017-7668.diff
 CVE-2017-7679.diff
 CVE-2017-9788-mod_auth_digest.diff
@@ -25,3 +24,5 @@ CVE-2018-1283-mod_session.diff
 CVE-2018-1301-HTTP-request-read-out-of-bounds.diff
 CVE-2018-1303-mod_cache_socache-oob.diff
 CVE-2018-1312-mod_auth_digest-nonce.diff
+mod_http2-upgrade-to-2.4.33.diff
+mod_http2-revert-new-proxy-features.diff
