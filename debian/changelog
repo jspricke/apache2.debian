@@ -1,3 +1,10 @@
+apache2 (2.4.25-3+deb9u4) UNRELEASED; urgency=medium
+
+  * CVE-2017-15710: mod_authnz_ldap: Out of bound write in mod_authnz_ldap
+    when using too small Accept-Language values.
+
+ -- Stefan Fritsch <sf@debian.org>  Fri, 30 Mar 2018 16:01:25 +0200
+
 apache2 (2.4.25-3+deb9u3) stretch-security; urgency=high
 
   * Non-maintainer upload by the Security Team.
