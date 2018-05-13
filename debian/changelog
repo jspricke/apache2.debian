@@ -6,6 +6,8 @@ apache2 (2.4.25-3+deb9u5) UNRELEASED; urgency=medium
     - Segfaults in mod_http2 (Closes: #873945)
     - mod_http2 issue with option "Indexes" and directive "HeaderName"
       (Closes: #850947)
+  * mod_http2: Avoid high memory usage with large files, causing crashes on
+    32bit archs. Closes: #897218
 
  -- Stefan Fritsch <sf@debian.org>  Sun, 13 May 2018 17:28:35 +0200
 
