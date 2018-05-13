@@ -14531,3 +14531,406 @@
   * Unless required by applicable law or agreed to in writing, software
   * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+--- apache2.orig/modules/http2/h2_bucket_eoc.c
++++ /dev/null
+@@ -1,110 +0,0 @@
+-/* Licensed to the Apache Software Foundation (ASF) under one or more
+- * contributor license agreements.  See the NOTICE file distributed with
+- * this work for additional information regarding copyright ownership.
+- * The ASF licenses this file to You under the Apache License, Version 2.0
+- * (the "License"); you may not use this file except in compliance with
+- * the License.  You may obtain a copy of the License at
+- *
+- *     http://www.apache.org/licenses/LICENSE-2.0
+- *
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-
+-#include <assert.h>
+-#include <stddef.h>
+-
+-#include <httpd.h>
+-#include <http_core.h>
+-#include <http_connection.h>
+-#include <http_log.h>
+-
+-#include "h2_private.h"
+-#include "h2.h"
+-#include "h2_mplx.h"
+-#include "h2_session.h"
+-#include "h2_bucket_eoc.h"
+-
+-typedef struct {
+-    apr_bucket_refcount refcount;
+-    h2_session *session;
+-} h2_bucket_eoc;
+-
+-static apr_status_t bucket_cleanup(void *data)
+-{
+-    h2_session **psession = data;
+-
+-    if (*psession) {
+-        /*
+-         * If bucket_destroy is called after us, this prevents
+-         * bucket_destroy from trying to destroy the pool again.
+-         */
+-        *psession = NULL;
+-    }
+-    return APR_SUCCESS;
+-}
+-
+-static apr_status_t bucket_read(apr_bucket *b, const char **str,
+-                                apr_size_t *len, apr_read_type_e block)
+-{
+-    (void)b;
+-    (void)block;
+-    *str = NULL;
+-    *len = 0;
+-    return APR_SUCCESS;
+-}
+-
+-apr_bucket * h2_bucket_eoc_make(apr_bucket *b, h2_session *session)
+-{
+-    h2_bucket_eoc *h;
+-
+-    h = apr_bucket_alloc(sizeof(*h), b->list);
+-    h->session = session;
+-
+-    b = apr_bucket_shared_make(b, h, 0, 0);
+-    b->type = &h2_bucket_type_eoc;
+-    
+-    return b;
+-}
+-
+-apr_bucket * h2_bucket_eoc_create(apr_bucket_alloc_t *list, h2_session *session)
+-{
+-    apr_bucket *b = apr_bucket_alloc(sizeof(*b), list);
+-
+-    APR_BUCKET_INIT(b);
+-    b->free = apr_bucket_free;
+-    b->list = list;
+-    b = h2_bucket_eoc_make(b, session);
+-    if (session) {
+-        h2_bucket_eoc *h = b->data;
+-        apr_pool_pre_cleanup_register(session->pool, &h->session, bucket_cleanup);
+-    }
+-    return b;
+-}
+-
+-static void bucket_destroy(void *data)
+-{
+-    h2_bucket_eoc *h = data;
+-
+-    if (apr_bucket_shared_destroy(h)) {
+-        h2_session *session = h->session;
+-        apr_bucket_free(h);
+-        if (session) {
+-            h2_session_eoc_callback(session);
+-            /* all is gone now */
+-        }
+-    }
+-}
+-
+-const apr_bucket_type_t h2_bucket_type_eoc = {
+-    "H2EOC", 5, APR_BUCKET_METADATA,
+-    bucket_destroy,
+-    bucket_read,
+-    apr_bucket_setaside_noop,
+-    apr_bucket_split_notimpl,
+-    apr_bucket_shared_copy
+-};
+-
+--- apache2.orig/modules/http2/h2_bucket_eoc.h
++++ /dev/null
+@@ -1,32 +0,0 @@
+-/* Copyright 2015 greenbytes GmbH (https://www.greenbytes.de)
+- *
+- * Licensed under the Apache License, Version 2.0 (the "License");
+- * you may not use this file except in compliance with the License.
+- * You may obtain a copy of the License at
+- *
+- * http://www.apache.org/licenses/LICENSE-2.0
+- 
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-
+-#ifndef mod_http2_h2_bucket_eoc_h
+-#define mod_http2_h2_bucket_eoc_h
+-
+-struct h2_session;
+-
+-/** End Of HTTP/2 SESSION (H2EOC) bucket */
+-extern const apr_bucket_type_t h2_bucket_type_eoc;
+-
+-#define H2_BUCKET_IS_H2EOC(e)     (e->type == &h2_bucket_type_eoc)
+-
+-apr_bucket * h2_bucket_eoc_make(apr_bucket *b, 
+-                                struct h2_session *session);
+-
+-apr_bucket * h2_bucket_eoc_create(apr_bucket_alloc_t *list,
+-                                  struct h2_session *session);
+-
+-#endif /* mod_http2_h2_bucket_eoc_h */
+--- apache2.orig/modules/http2/h2_worker.c
++++ /dev/null
+@@ -1,103 +0,0 @@
+-/* Copyright 2015 greenbytes GmbH (https://www.greenbytes.de)
+- *
+- * Licensed under the Apache License, Version 2.0 (the "License");
+- * you may not use this file except in compliance with the License.
+- * You may obtain a copy of the License at
+- *
+- * http://www.apache.org/licenses/LICENSE-2.0
+- 
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-
+-#include <assert.h>
+-
+-#include <apr_thread_cond.h>
+-
+-#include <mpm_common.h>
+-#include <httpd.h>
+-#include <http_core.h>
+-#include <http_log.h>
+-
+-#include "h2.h"
+-#include "h2_private.h"
+-#include "h2_conn.h"
+-#include "h2_ctx.h"
+-#include "h2_h2.h"
+-#include "h2_mplx.h"
+-#include "h2_task.h"
+-#include "h2_worker.h"
+-
+-static void* APR_THREAD_FUNC execute(apr_thread_t *thread, void *wctx)
+-{
+-    h2_worker *worker = (h2_worker *)wctx;
+-    int sticky;
+-    
+-    while (!worker->aborted) {
+-        h2_task *task;
+-        
+-        /* Get a h2_task from the main workers queue. */
+-        worker->get_next(worker, worker->ctx, &task, &sticky);
+-        while (task) {
+-        
+-            h2_task_do(task, thread, worker->id);
+-            /* report the task done and maybe get another one from the same
+-             * mplx (= master connection), if we can be sticky. 
+-             */
+-            if (sticky && !worker->aborted) {
+-                h2_mplx_task_done(task->mplx, task, &task);
+-            }
+-            else {
+-                h2_mplx_task_done(task->mplx, task, NULL);
+-                task = NULL;
+-            }
+-        }
+-    }
+-
+-    worker->worker_done(worker, worker->ctx);
+-    return NULL;
+-}
+-
+-h2_worker *h2_worker_create(int id,
+-                            apr_pool_t *pool,
+-                            apr_threadattr_t *attr,
+-                            h2_worker_mplx_next_fn *get_next,
+-                            h2_worker_done_fn *worker_done,
+-                            void *ctx)
+-{
+-    h2_worker *w = apr_pcalloc(pool, sizeof(h2_worker));
+-    if (w) {
+-        w->id = id;
+-        APR_RING_ELEM_INIT(w, link);
+-        w->get_next = get_next;
+-        w->worker_done = worker_done;
+-        w->ctx = ctx;
+-        apr_thread_create(&w->thread, attr, execute, w, pool);
+-    }
+-    return w;
+-}
+-
+-apr_status_t h2_worker_destroy(h2_worker *worker)
+-{
+-    if (worker->thread) {
+-        apr_status_t status;
+-        apr_thread_join(&status, worker->thread);
+-        worker->thread = NULL;
+-    }
+-    return APR_SUCCESS;
+-}
+-
+-void h2_worker_abort(h2_worker *worker)
+-{
+-    worker->aborted = 1;
+-}
+-
+-int h2_worker_is_aborted(h2_worker *worker)
+-{
+-    return worker->aborted;
+-}
+-
+-
+--- apache2.orig/modules/http2/h2_worker.h
++++ /dev/null
+@@ -1,135 +0,0 @@
+-/* Copyright 2015 greenbytes GmbH (https://www.greenbytes.de)
+- *
+- * Licensed under the Apache License, Version 2.0 (the "License");
+- * you may not use this file except in compliance with the License.
+- * You may obtain a copy of the License at
+- *
+- * http://www.apache.org/licenses/LICENSE-2.0
+- 
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-
+-#ifndef __mod_h2__h2_worker__
+-#define __mod_h2__h2_worker__
+-
+-struct h2_mplx;
+-struct h2_request;
+-struct h2_task;
+-
+-/* h2_worker is a basically a apr_thread_t that reads fromt he h2_workers
+- * task queue and runs h2_tasks it is given.
+- */
+-typedef struct h2_worker h2_worker;
+-
+-/* Invoked when the worker wants a new task to process. Will block
+- * until a h2_mplx becomes available or the worker itself
+- * gets aborted (idle timeout, for example). */
+-typedef apr_status_t h2_worker_mplx_next_fn(h2_worker *worker,
+-                                            void *ctx,
+-                                            struct h2_task **ptask,
+-                                            int *psticky);
+-
+-/* Invoked just before the worker thread exits. */
+-typedef void h2_worker_done_fn(h2_worker *worker, void *ctx);
+-
+-
+-struct h2_worker {
+-    int id;
+-    /** Links to the rest of the workers */
+-    APR_RING_ENTRY(h2_worker) link;
+-    apr_thread_t *thread;
+-    h2_worker_mplx_next_fn *get_next;
+-    h2_worker_done_fn *worker_done;
+-    void *ctx;
+-    int aborted;
+-};
+-
+-/**
+- * The magic pointer value that indicates the head of a h2_worker list
+- * @param  b The worker list
+- * @return The magic pointer value
+- */
+-#define H2_WORKER_LIST_SENTINEL(b)	APR_RING_SENTINEL((b), h2_worker, link)
+-
+-/**
+- * Determine if the worker list is empty
+- * @param b The list to check
+- * @return true or false
+- */
+-#define H2_WORKER_LIST_EMPTY(b)	APR_RING_EMPTY((b), h2_worker, link)
+-
+-/**
+- * Return the first worker in a list
+- * @param b The list to query
+- * @return The first worker in the list
+- */
+-#define H2_WORKER_LIST_FIRST(b)	APR_RING_FIRST(b)
+-
+-/**
+- * Return the last worker in a list
+- * @param b The list to query
+- * @return The last worker int he list
+- */
+-#define H2_WORKER_LIST_LAST(b)	APR_RING_LAST(b)
+-
+-/**
+- * Insert a single worker at the front of a list
+- * @param b The list to add to
+- * @param e The worker to insert
+- */
+-#define H2_WORKER_LIST_INSERT_HEAD(b, e) do {				\
+-	h2_worker *ap__b = (e);                                        \
+-	APR_RING_INSERT_HEAD((b), ap__b, h2_worker, link);	\
+-    } while (0)
+-
+-/**
+- * Insert a single worker at the end of a list
+- * @param b The list to add to
+- * @param e The worker to insert
+- */
+-#define H2_WORKER_LIST_INSERT_TAIL(b, e) do {				\
+-	h2_worker *ap__b = (e);					\
+-	APR_RING_INSERT_TAIL((b), ap__b, h2_worker, link);	\
+-    } while (0)
+-
+-/**
+- * Get the next worker in the list
+- * @param e The current worker
+- * @return The next worker
+- */
+-#define H2_WORKER_NEXT(e)	APR_RING_NEXT((e), link)
+-/**
+- * Get the previous worker in the list
+- * @param e The current worker
+- * @return The previous worker
+- */
+-#define H2_WORKER_PREV(e)	APR_RING_PREV((e), link)
+-
+-/**
+- * Remove a worker from its list
+- * @param e The worker to remove
+- */
+-#define H2_WORKER_REMOVE(e)	APR_RING_REMOVE((e), link)
+-
+-
+-/* Create a new worker with given id, pool and attributes, callbacks
+- * callback parameter.
+- */
+-h2_worker *h2_worker_create(int id,
+-                            apr_pool_t *pool,
+-                            apr_threadattr_t *attr,
+-                            h2_worker_mplx_next_fn *get_next,
+-                            h2_worker_done_fn *worker_done,
+-                            void *ctx);
+-
+-apr_status_t h2_worker_destroy(h2_worker *worker);
+-
+-void h2_worker_abort(h2_worker *worker);
+-
+-int h2_worker_is_aborted(h2_worker *worker);
+-
+-#endif /* defined(__mod_h2__h2_worker__) */
+--- apache2.orig/configure
++++ apache2/configure
+@@ -28187,7 +28187,7 @@ esac
+   > $modpath_current/modules.mk
+ 
+ 
+-http2_objs="mod_http2.lo h2_alt_svc.lo h2_bucket_beam.lo h2_bucket_eoc.lo h2_bucket_eos.lo h2_config.lo h2_conn.lo h2_conn_io.lo h2_ctx.lo h2_filter.lo h2_from_h1.lo h2_h2.lo h2_headers.lo h2_mplx.lo h2_ngn_shed.lo h2_push.lo h2_request.lo h2_session.lo h2_stream.lo h2_switch.lo h2_task.lo h2_util.lo h2_worker.lo h2_workers.lo "
++http2_objs="mod_http2.lo h2_alt_svc.lo h2_bucket_beam.lo h2_bucket_eos.lo h2_config.lo h2_conn.lo h2_conn_io.lo h2_ctx.lo h2_filter.lo h2_from_h1.lo h2_h2.lo h2_headers.lo h2_mplx.lo h2_ngn_shed.lo h2_push.lo h2_request.lo h2_session.lo h2_stream.lo h2_switch.lo h2_task.lo h2_util.lo h2_workers.lo "
+ 
+ 
+ 
