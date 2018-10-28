@@ -1,3 +1,9 @@
+apache2 (2.4.25-3+deb9u6) UNRELEASED; urgency=medium
+
+  * mod_proxy_fcgi: Fix segfault. Closes: #902906
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 28 Oct 2018 13:12:36 +0100
+
 apache2 (2.4.25-3+deb9u5) stretch; urgency=medium
 
   * Upgrade mod_http and mod_proxy_http2 to the versions from 2.4.33. This
