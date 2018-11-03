@@ -29,3 +29,4 @@ mod_http2-revert-new-proxy-features.diff
 mod_http2_mem_usage_32bit.diff
 fcgi_crash.diff
 CVE-2018-1333-mod_http2_DoS.diff
+CVE-2018-11763-mod_http2_DoS-SETTINGS.diff
