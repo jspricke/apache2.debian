@@ -1,5 +1,6 @@
 apache2 (2.4.25-3+deb9u6) UNRELEASED; urgency=medium
 
+  * CVE-2018-1333: mod_http2: Fix DoS by worker exhaustion. Closes: #904106
   * mod_proxy_fcgi: Fix segfault. Closes: #902906
 
  -- Stefan Fritsch <sf@debian.org>  Sun, 28 Oct 2018 13:12:36 +0100
