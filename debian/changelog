@@ -1,7 +1,12 @@
 apache2 (2.4.25-3+deb9u7) UNRELEASED; urgency=medium
 
+  [ Xavier Guimard ]
   * CVE-2018-17199: mode_session: Fix missing check for session expiry time.
     Closes: #920303
+
+  [ Stefan Fritsch ]
+  * mod_http2: Fix keepalive timeout behavior. This fixes a regression with
+    Safari web browsers, introduced in 2.4.25-3+deb9u6. Closes: #915103
 
  -- Xavier Guimard <yadd@debian.org>  Fri, 01 Feb 2019 14:27:43 +0100
 
