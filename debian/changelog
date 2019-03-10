@@ -9,6 +9,8 @@ apache2 (2.4.25-3+deb9u7) UNRELEASED; urgency=medium
     Safari web browsers, introduced in 2.4.25-3+deb9u6. Closes: #915103
   * Fix typo in apache2_switch_mpm() in apache2-maintscript-helper.
     Closes: #904150
+  * CVE-2018-17189: mod_http2: Fix DoS via slow, unneeded request bodies.
+    Closes: #920302
 
  -- Xavier Guimard <yadd@debian.org>  Fri, 01 Feb 2019 14:27:43 +0100
 
