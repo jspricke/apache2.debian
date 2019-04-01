@@ -33,3 +33,4 @@ CVE-2018-11763-mod_http2_DoS-SETTINGS.diff
 CVE-2018-17199-mod-session-ignore-timeout.diff
 mod_http2-keepalive-timeout.diff
 CVE-2018-17189-mod_http2_DoS.diff
+CVE-2019-0196-h2-raf.diff
