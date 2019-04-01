@@ -35,3 +35,4 @@ mod_http2-keepalive-timeout.diff
 CVE-2018-17189-mod_http2_DoS.diff
 CVE-2019-0196-h2-raf.diff
 CVE-2019-0211-privilege-escalation.diff
+CVE-2019-0217-digest-collusion-in-mod_auth_digest.diff

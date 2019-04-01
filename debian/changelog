@@ -13,6 +13,7 @@ apache2 (2.4.25-3+deb9u7) UNRELEASED; urgency=medium
     Closes: #920302
   * CVE-2019-0196: mod_http2: Fix read after free
   * CVE-2019-0211: All MPMs: privilege escalation from www-data user to root.
+  * CVE-2019-0217: mod_auth_digest: Access control bypass
 
  -- Xavier Guimard <yadd@debian.org>  Fri, 01 Feb 2019 14:27:43 +0100
 
