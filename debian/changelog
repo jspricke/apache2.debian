@@ -1,3 +1,9 @@
+apache2 (2.4.41-1~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Xavier Guimard <yadd@debian.org>  Fri, 16 Aug 2019 21:44:16 +0200
+
 apache2 (2.4.41-1) unstable; urgency=medium
 
   * New upstream version 2.4.41
