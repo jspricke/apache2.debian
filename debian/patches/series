@@ -39,3 +39,4 @@ CVE-2019-0217-digest-collusion-in-mod_auth_digest.diff
 CVE-2019-0220-merge-slashes.diff
 CVE-2019-10092.patch
 import-h2-modules-from-2.4.41.patch
+CVE-2019-10098.patch
