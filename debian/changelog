@@ -1,4 +1,4 @@
-apache2 (2.4.25-3+deb9u8) UNRELEASED; urgency=high
+apache2 (2.4.25-3+deb9u8) stretch; urgency=high
 
   [ Xavier Guimard ]
   * Add patch to limit cross-site scripting in mod_proxy (Closes: CVE-2019-10092)
@@ -9,7 +9,7 @@ apache2 (2.4.25-3+deb9u8) UNRELEASED; urgency=high
   * Add -Werror=implicit-function-declaration to compile options to catch
     problems with backports.
 
- -- Xavier Guimard <yadd@debian.org>  Sun, 18 Aug 2019 15:37:52 +0200
+ -- Stefan Fritsch <sf@debian.org>  Mon, 19 Aug 2019 20:52:58 +0200
 
 apache2 (2.4.25-3+deb9u7) stretch-security; urgency=medium
 
