@@ -1,3 +1,11 @@
+apache2 (2.4.25-3+deb9u9) stretch-security; urgency=medium
+
+  [ Xavier Guimard ]
+  * Use correct patch for CVE-2019-10092. This fixes a regression in
+    mod_proxy_balancer (Closes: #941202)
+
+ -- Stefan Fritsch <sf@debian.org>  Sun, 13 Oct 2019 17:43:54 +0200
+
 apache2 (2.4.25-3+deb9u8) stretch-security; urgency=high
 
   [ Xavier Guimard ]
