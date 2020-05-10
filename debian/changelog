@@ -1,3 +1,9 @@
+apache2 (2.4.43-1~bpo10+1) buster-backports; urgency=medium
+
+  * Rebuild for buster-backports.
+
+ -- Xavier Guimard <yadd@debian.org>  Sun, 10 May 2020 21:30:48 +0200
+
 apache2 (2.4.43-1) unstable; urgency=medium
 
   [ Timo Aaltonen ]
