@@ -1,3 +1,9 @@
+apache2 (2.4.46-1~bpo9+1) stretch-backports-sloppy; urgency=medium
+
+  * Rebuild for stretch-backports-sloppy
+
+ -- Xavier Guimard <yadd@debian.org>  Mon, 31 Aug 2020 09:46:37 +0200
+
 apache2 (2.4.46-1) unstable; urgency=medium
 
   [ Xavier Guimard ]
