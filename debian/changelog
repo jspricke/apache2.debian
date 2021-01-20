@@ -1,3 +1,41 @@
+apache2 (2.4.46-4) unstable; urgency=medium
+
+  * Ignore other random another test failures (Closes: #979664)
+
+ -- Xavier Guimard <yadd@debian.org>  Mon, 11 Jan 2021 11:58:23 +0100
+
+apache2 (2.4.46-3) unstable; urgency=medium
+
+  * Remove postinst/preinst hooks concerning old versions
+  * Clean include-binaries
+  * Enable verbose test output during autopkgtest
+  * Declare compliance with policy 4.5.1
+  * Add debian/gbp.conf
+  * Disable temporary 3 subtests (Closes: #979664)
+
+ -- Xavier Guimard <yadd@debian.org>  Sun, 10 Jan 2021 22:43:21 +0100
+
+apache2 (2.4.46-2) unstable; urgency=medium
+
+  [ Jean-Michel Vourgère ]
+  * Man: Add missing options and see also in a2en*(8)
+
+  [ Xavier Guimard ]
+  * Bump debhelper compatibility level to 13
+    + Set debhelper-compat version in Build-Depends.
+  * Use dh_installsystemd rather than deprecated dh_systemd_enable
+  * Add extension .da for danish language in mime.conf (Closes: #972398)
+  * Automatically deflate application/wasm files (Closes: #972400)
+  * Use "graceful-stop" in systemd ExecStop (Closes: #974665)
+  * Re-export upstream signing key without extra signatures.
+  * Ignore lintian's national-encoding tag in test framework
+  * Add ${misc:Pre-Depends} in apache2 package
+  * Update lintian overrides
+  * Refresh patches
+  * Fix little spelling errors
+
+ -- Xavier Guimard <yadd@debian.org>  Fri, 13 Nov 2020 16:59:01 +0100
+
 apache2 (2.4.46-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -3814,7 +3852,7 @@ apache2 (2.0.39+cvs.1027964860-1) unstable; urgency=low
   * David Kimdon
     - add build depends on zlib1g-dev (Closes: #151286)
 
- -- Thom May <thom@debian.org>  Fri, 29 Jul 2002 19:12:56 +0100
+ -- Thom May <thom@debian.org>  Mon, 29 Jul 2002 19:12:56 +0100
 
 apache2 (2.0.39-1) unstable; urgency=low
 
