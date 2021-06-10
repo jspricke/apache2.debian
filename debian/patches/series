@@ -24,3 +24,4 @@ import-http2-module-from-2.4.46.patch
 CVE-2020-11984.patch
 CVE-2020-1927.patch
 CVE-2020-1934.patch
+CVE-2021-31618.patch
