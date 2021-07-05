@@ -1,3 +1,59 @@
+apache2 (2.4.48-3) unstable; urgency=medium
+
+  * Fix debian/changelog
+
+ -- Yadd <yadd@debian.org>  Sun, 20 Jun 2021 16:39:33 +0200
+
+apache2 (2.4.48-2) unstable; urgency=medium
+
+  * Back to unstable: Apache2 will follow upstream changes for Bullseye
+
+  [ Christian Ehrhardt ]
+  * d/t/control, d/t/check-http2: basic test for http2 (Closes: #884068)
+
+ -- Yadd <yadd@debian.org>  Sat, 19 Jun 2021 17:50:29 +0200
+
+apache2 (2.4.48-1) experimental; urgency=medium
+
+  [ Daniel Lewart ]
+  * Update apache2.logrotate (Closes: #979813)
+
+  [ Andreas Hasenack ]
+  * Avoid test suite failure (Closes: #985012)
+
+  [ Yadd ]
+  * Update lintian overrides
+  * Re-export upstream signing key without extra signatures.
+
+  [ Ondřej Surý ]
+  * New upstream version 2.4.48 (Closes: CVE-2019-17567, CVE-2020-13938,
+    CVE-2020-13950, CVE-2020-35452, CVE-2021-26690, CVE-2021-26691,
+    CVE-2021-30641, CVE-2021-31618)
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 08 Jun 2021 08:29:35 +0200
+
+apache2 (2.4.47-1) experimental; urgency=medium
+
+  * Update upstream keys file
+  * New upstream version 2.4.47
+  * Refresh patches
+
+ -- Yadd <yadd@debian.org>  Thu, 29 Apr 2021 08:03:33 +0200
+
+apache2 (2.4.46-6) unstable; urgency=medium
+
+  * Fix various low security issues (Closes: CVE-2020-13950, CVE-2020-35452,
+    CVE-2021-26690, CVE-2021-26691, CVE-2021-30641)
+
+ -- Yadd <yadd@debian.org>  Thu, 10 Jun 2021 13:40:11 +0200
+
+apache2 (2.4.46-5) unstable; urgency=medium
+
+  * Fix "NULL pointer dereference on specially crafted HTTP/2 request"
+    (Closes: #989562, CVE-2021-31618)
+
+ -- Yadd <yadd@debian.org>  Thu, 10 Jun 2021 11:57:38 +0200
+
 apache2 (2.4.46-4~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
@@ -80,7 +136,7 @@ apache2 (2.4.43-1) unstable; urgency=medium
   * Fix logrotate script for multi-instance (Closes: #914606)
 
   [ Xavier Guimard ]
-  * New upstream version 2.4.43
+  * New upstream version 2.4.43 (Closes: CVE-2020-1927, CVE-2020-1934)
   * Refresh patches
 
  -- Xavier Guimard <yadd@debian.org>  Tue, 31 Mar 2020 08:02:12 +0200
@@ -129,7 +185,8 @@ apache2 (2.4.41-1~bpo10+1) buster-backports; urgency=medium
 
 apache2 (2.4.41-1) unstable; urgency=medium
 
-  * New upstream version 2.4.41
+  * New upstream version 2.4.41 (Closes: CVE-2019-9517, CVE-2019-10081,
+    CVE-2019-10082, CVE-2019-10092, CVE-2019-10098)
   * Update lintian overrides
   * Remove README in usr/share/apache2
   * Move httxt2dbm manpage in section 8
@@ -149,7 +206,8 @@ apache2 (2.4.39-1) unstable; urgency=medium
   * Do not install /usr/share/apache2/build/config.nice (Closes: #929510)
 
   [ Xavier Guimard ]
-  * New upstream version 2.4.39
+  * New upstream version 2.4.39 (Closes: CVE-2019-0196, CVE-2019-0197,
+    CVE-2019-0211, CVE-2019-0215, CVE-2019-0217, CVE-2019-0220)
   * Refresh patches
   * Remove patches now included in upstream
   * Replace duplicate doc files by links using jdupes
@@ -238,7 +296,8 @@ apache2 (2.4.38-1) unstable; urgency=medium
     LogFormat directives.
 
   [ Xavier Guimard ]
-  * New upstream version 2.4.38 (Closes: #920220, #920302, #920303)
+  * New upstream version 2.4.38 (Closes: #920220, #920302, #920303,
+    CVE-2018-17189, CVE-2018-17199, CVE-2019-0190)
   * Refresh patches
   * Remove setenvifexpr.diff patch now included in upstream
   * Replace libapache2-mod-proxy-uwsgi.{post*,prerm} by a maintscript
