@@ -1,3 +1,9 @@
+apache2 (2.4.48-4) unstable; urgency=medium
+
+  * Fix mod_proxy HTTP2 request line injection (Closes: CVE-2021-33193)
+
+ -- Yadd <yadd@debian.org>  Thu, 12 Aug 2021 11:37:43 +0200
+
 apache2 (2.4.48-3.1) unstable; urgency=medium
 
   * Non-maintainer upload.
