@@ -1,10 +1,10 @@
-apache2 (2.4.49-1) UNRELEASED; urgency=medium
+apache2 (2.4.49-1) unstable; urgency=medium
 
   * Update upstream GPG keys
   * New upstream version 2.4.49
   * Refresh patches
 
- -- Yadd <yadd@debian.org>  Thu, 16 Sep 2021 05:54:22 +0200
+ -- Yadd <yadd@debian.org>  Thu, 16 Sep 2021 06:11:03 +0200
 
 apache2 (2.4.48-4) unstable; urgency=medium
 
