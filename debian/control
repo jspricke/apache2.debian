@@ -11,13 +11,13 @@ Build-Depends: debhelper-compat (= 13),
                bison,
                gawk | awk,
                jdupes,
-               libapr1-dev (>= 1.6.0),
-               libaprutil1-dev (>= 1.6.0),
+               libapr1-dev,
+               libaprutil1-dev,
                libbrotli-dev,
                liblua5.3-dev,
                libnghttp2-dev,
                libpcre3-dev,
-               libssl-dev (>= 1.1.1),
+               libssl-dev,
                libxml2-dev,
                lsb-release,
                perl,
@@ -25,7 +25,7 @@ Build-Depends: debhelper-compat (= 13),
                libcurl4-openssl-dev | libcurl4-dev,
                libjansson-dev
 Build-Conflicts: autoconf2.13
-Standards-Version: 4.5.1
+Standards-Version: 4.6.0
 Vcs-Browser: https://salsa.debian.org/apache-team/apache2
 Vcs-Git: https://salsa.debian.org/apache-team/apache2.git
 Homepage: https://httpd.apache.org/
@@ -45,16 +45,13 @@ Recommends: ssl-cert
 Suggests: apache2-doc,
           apache2-suexec-pristine | apache2-suexec-custom,
           www-browser
-Pre-Depends: dpkg (>= 1.17.14),
-             ${misc:Pre-Depends}
-Breaks: libapache2-mod-proxy-uwsgi (<< 2.4.33)
+Pre-Depends: ${misc:Pre-Depends}
 Conflicts: apache2.2-bin,
            apache2.2-common
 Provides: httpd,
           httpd-cgi
 Replaces: apache2.2-bin,
-          apache2.2-common,
-          libapache2-mod-proxy-uwsgi (<< 2.4.33)
+          apache2.2-common
 Description: Apache HTTP Server
  The Apache HTTP Server Project's goal is to build a secure, efficient and
  extensible HTTP server as standards-compliant open source software. The
@@ -83,11 +80,7 @@ Depends: ${misc:Depends},
 Suggests: apache2-doc,
           apache2-suexec-pristine | apache2-suexec-custom,
           www-browser
-Breaks: gridsite (<< 3.0.0~20170225gitd51b2fd-1~),
-        libapache2-mod-dacs (<= 1.4.38a-2),
-        libapache2-mod-proxy-uwsgi (<< 2.4.33)
 Provides: ${apache2:API}
-Replaces: libapache2-mod-proxy-uwsgi (<< 2.4.33)
 Description: Apache HTTP Server (modules and other binary files)
  The Apache HTTP Server Project's goal is to build a secure, efficient and
  extensible HTTP server as standards-compliant open source software. The
@@ -185,10 +178,10 @@ Description: Apache HTTP Server (development headers)
 
 Package: apache2-ssl-dev
 Architecture: any
-Depends: apache2-dev (= ${binary:Version}),
-         libssl-dev (>= 1.1),
-         ${misc:Depends}
 Multi-Arch: same
+Depends: apache2-dev (= ${binary:Version}),
+         libssl-dev,
+         ${misc:Depends}
 Description: Apache HTTP Server (mod_ssl development headers)
  The Apache HTTP Server Project's goal is to build a secure, efficient and
  extensible HTTP server as standards-compliant open source software. The
@@ -199,10 +192,10 @@ Description: Apache HTTP Server (mod_ssl development headers)
 
 Package: libapache2-mod-md
 Architecture: any
+Multi-Arch: same
 Section: oldlibs
 Depends: ${misc:Depends},
          apache2 (= ${binary:Version})
-Multi-Arch: same
 Description: transitional package
  This is a transitional package to apache2 for users of libapache2-mod-md.
  It can be safely removed after the installation is complete.
