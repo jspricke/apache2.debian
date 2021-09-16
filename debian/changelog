@@ -4,7 +4,7 @@ apache2 (2.4.49-1) unstable; urgency=medium
   * New upstream version 2.4.49
   * Refresh patches
 
- -- Yadd <yadd@debian.org>  Thu, 16 Sep 2021 06:11:03 +0200
+ -- Yadd <yadd@debian.org>  Thu, 16 Sep 2021 06:22:23 +0200
 
 apache2 (2.4.48-4) unstable; urgency=medium
 
