@@ -1,3 +1,13 @@
+apache2 (2.4.38-3+deb10u6) UNRELEASED; urgency=medium
+
+  * Initialize the request fields on read failure to avoid NULLs
+    (Closes: CVE-2021-34798)
+  * mod_proxy_uwsgi: Fix PATH_INFO setting for generic worker
+    (Closes: CVE-2021-36160)
+  * Fix ap_escape_quotes with pre-escaped quotes (Closes: CVE-2021-39275)
+
+ -- Yadd <yadd@debian.org>  Tue, 21 Sep 2021 15:34:07 +0200
+
 apache2 (2.4.38-3+deb10u5) buster-security; urgency=medium
 
   * Fix "NULL pointer dereference on specially crafted HTTP/2 request"
