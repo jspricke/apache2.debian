@@ -75,7 +75,7 @@ fi
 # the following APACHE_* variables should be set in /etc/apache2/envvars
 #
 # the path to your httpd binary, including options if necessary
-HTTPD=${APACHE_HTTPD:-/usr/sbin/apache2}
+HTTPD=${APACHE_HTTPD:-/usr/sbin/apache2$SUFFIX}
 #
 # a command that outputs a formatted text version of the HTML at the
 # url given on the command line.  Designed for lynx, however other
