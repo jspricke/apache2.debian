@@ -1,3 +1,9 @@
+apache2 (2.4.49-1~bpo10+1) buster-backports-sloppy; urgency=medium
+
+  * Rebuild for buster-backports-sloppy
+
+ -- Yadd <yadd@debian.org>  Thu, 23 Sep 2021 14:46:21 +0200
+
 apache2 (2.4.49-1) unstable; urgency=medium
 
   * Update upstream GPG keys
