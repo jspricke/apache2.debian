@@ -1,3 +1,13 @@
+apache2 (2.4.49-2) unstable; urgency=medium
+
+  [ Michiel Hazelhof ]
+  * Fix multi instance issue (Closes: #868861)
+
+  [ Philippe Ombredanne ]
+  * Fix GPL version typo in copyright file
+
+ -- Yadd <yadd@debian.org>  Thu, 23 Sep 2021 13:55:55 +0200
+
 apache2 (2.4.49-1) unstable; urgency=medium
 
   * Update upstream GPG keys
