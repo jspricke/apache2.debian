@@ -1,0 +1,47 @@
+From 6d476a66956a6a81ac8e1f7f419ef0697b9a0b76 Mon Sep 17 00:00:00 2001
+From: Yann Ylavic <ylavic@apache.org>
+Date: Wed, 22 Sep 2021 18:47:09 +0000
+Subject: [PATCH] mod_proxy: Handle UDS URIs with empty hostname as if they had
+ no hostname.
+
+It was reported to me (privately) that r1893101 broke existing settings like:
+  SetHandler "proxy:unix:///path/to/uds.sock|fcgi://localhost/"
+
+RFC 3986 (section 3.2.2) says that:
+   If the URI scheme defines a default for host, then that default
+   applies when the host subcomponent is undefined or when the
+   registered name is empty (zero length).  For example, the "file" URI
+   scheme is defined so that no authority, an empty host, and
+   "localhost" all mean the end-user's machine, whereas the "http"
+   scheme considers a missing authority or empty host invalid.
+
+Let's consider that the "unix" scheme is closer to the "file" scheme than
+the "http" one, and accept "unix:///path/to/uds.sock" as a valid URI.
+
+
+
+git-svn-id: https://svn.apache.org/repos/asf/httpd/httpd/trunk@1893519 13f79535-47bb-0310-9956-ffa450edef68
+---
+ changes-entries/uds_empty_hostname.txt | 2 ++
+ modules/proxy/proxy_util.c             | 3 ++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+ create mode 100644 changes-entries/uds_empty_hostname.txt
+
+--- /dev/null
++++ b/changes-entries/uds_empty_hostname.txt
+@@ -0,0 +1,2 @@
++  *) mod_proxy: Handle UDS URIs with empty hostname ("unix:///...") as if they
++     had no hostname ("unix:/...").  [Yann Ylavic]
+\ No newline at end of file
+--- a/modules/proxy/proxy_util.c
++++ b/modules/proxy/proxy_util.c
+@@ -2291,7 +2291,8 @@
+         rv = apr_uri_parse(r->pool, uds_url, &urisock);
+         *origin_url++ = '|';
+ 
+-        if (rv == APR_SUCCESS && urisock.path && !urisock.hostname) {
++        if (rv == APR_SUCCESS && urisock.path && (!urisock.hostname
++                                                  || !urisock.hostname[0])) {
+             uds_path = ap_runtime_dir_relative(r->pool, urisock.path);
+         }
+         if (!uds_path) {

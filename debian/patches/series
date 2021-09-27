@@ -11,3 +11,5 @@ spelling-errors.diff
 
 # This patch is applied manually
 #suexec-custom.patch
+mod_rewrite-Fix-UDS-scheme-for-P-rules.patch
+uds_empty_hostname.patch

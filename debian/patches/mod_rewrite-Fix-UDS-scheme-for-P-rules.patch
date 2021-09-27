@@ -1,0 +1,47 @@
+From 6d76cbb9100bf34250ffba0bded08e075380be88 Mon Sep 17 00:00:00 2001
+From: Yann Ylavic <ylavic@apache.org>
+Date: Wed, 22 Sep 2021 18:16:38 +0000
+Subject: [PATCH] mod_rewrite: Fix UDS ("unix:") scheme for [P] rules.  PR
+ 57691 + 65590.
+
+Handle the unix: scheme as an obsolute URI or a rule like:
+  RewriteRule ^/(.*) unix:/path/to/uds.sock|fcgi://localhost/$1 [P]
+sets r->filename for /index.html as:
+  proxy:http://www.example.com/unix:/path/to/uds.sock|http://localhost/index.html
+instead of the expected:
+  proxy:unix:/path/to/uds.sock|http://localhost/index.html
+
+Submitted by: Janne Peltonen <janne.peltonen sange.fi>
+Reviewed by: ylavic
+
+
+
+git-svn-id: https://svn.apache.org/repos/asf/httpd/httpd/trunk@1893516 13f79535-47bb-0310-9956-ffa450edef68
+---
+ changes-entries/rewrite_uds.txt | 2 ++
+ modules/mappers/mod_rewrite.c   | 7 +++++++
+ 2 files changed, 9 insertions(+)
+ create mode 100644 changes-entries/rewrite_uds.txt
+
+--- /dev/null
++++ b/changes-entries/rewrite_uds.txt
+@@ -0,0 +1,2 @@
++  *) mod_rewrite: Fix UDS ("unix:") scheme for [P] rules.  PR 57691 + 65590.
++     [Janne Peltonen <janne.peltonen sange.fi>]
+\ No newline at end of file
+--- a/modules/mappers/mod_rewrite.c
++++ b/modules/mappers/mod_rewrite.c
+@@ -617,6 +617,13 @@
+             return 6;
+         }
+         break;
++
++    case 'u':
++    case 'U':
++        if (!ap_cstr_casecmpn(uri, "nix:", 4)) {        /* unix:     */
++            *sqs = 1;
++            return (uri[4] == '/' && uri[5] == '/') ? 7 : 5;
++        }
+     }
+ 
+     return 0;
