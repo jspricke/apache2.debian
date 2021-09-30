@@ -1,4 +1,4 @@
-apache2 (2.4.38-3+deb10u6) buster; urgency=medium
+apache2 (2.4.38-3+deb10u6) buster-security; urgency=high
 
   [ Yadd, Moritz Muehlenhoff ]
   * Initialize the request fields on read failure to avoid NULLs
