@@ -1,9 +1,13 @@
-apache2 (2.4.49-3) UNRELEASED; urgency=medium
+apache2 (2.4.49-3) unstable; urgency=medium
 
+  [ Yadd ]
   * Re-export upstream signing key without extra signatures.
   * Drop transition for old debug package migration.
 
- -- Yadd <yadd@debian.org>  Fri, 24 Sep 2021 15:41:02 +0200
+  [ Moritz Muehlenhoff ]
+  * Fix CVE-2021-40438 regression
+
+ -- Yadd <yadd@debian.org>  Thu, 30 Sep 2021 06:00:06 +0200
 
 apache2 (2.4.49-2) unstable; urgency=medium
 
