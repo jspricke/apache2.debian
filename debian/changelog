@@ -1,3 +1,10 @@
+apache2 (2.4.49-4) unstable; urgency=medium
+
+  [ Ondřej Surý ]
+  * Add upstream patch to fix crash in 2.4.49
+
+ -- Yadd <yadd@debian.org>  Fri, 01 Oct 2021 11:34:24 +0200
+
 apache2 (2.4.49-3) unstable; urgency=medium
 
   [ Yadd ]
