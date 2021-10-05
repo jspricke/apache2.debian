@@ -1,3 +1,10 @@
+apache2 (2.4.50-1) unstable; urgency=high
+
+  * New upstream version 2.4.50 (Closes: CVE-2021-41773, CVE-2021-41524)
+  * Remove patches already merged upstream
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 05 Oct 2021 13:25:23 +0200
+
 apache2 (2.4.49-4) unstable; urgency=medium
 
   [ Ondřej Surý ]
