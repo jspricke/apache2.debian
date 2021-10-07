@@ -1,8 +1,9 @@
-apache2 (2.4.51-1) UNRELEASED; urgency=medium
+apache2 (2.4.51-1) unstable; urgency=medium
 
-  * New upstream version 2.4.51
+  * New upstream version 2.4.51 (Closes: CVE-2021-41773, CVE-2021-42013)
+  * Fix apache2ctl (see https://github.com/oerdnj/deb.sury.org/issues/1659)
 
- -- Yadd <yadd@debian.org>  Thu, 07 Oct 2021 19:52:54 +0200
+ -- Yadd <yadd@debian.org>  Thu, 07 Oct 2021 20:35:33 +0200
 
 apache2 (2.4.50-1) unstable; urgency=high
 
