@@ -1,3 +1,9 @@
+apache2 (2.4.51-1) UNRELEASED; urgency=medium
+
+  * New upstream version 2.4.51
+
+ -- Yadd <yadd@debian.org>  Thu, 07 Oct 2021 19:52:54 +0200
+
 apache2 (2.4.50-1) unstable; urgency=high
 
   * New upstream version 2.4.50 (Closes: CVE-2021-41773, CVE-2021-41524)
