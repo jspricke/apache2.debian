@@ -502,7 +502,8 @@ static char x2c(const char *what);
 AP_DECLARE(int) ap_normalize_path(char *path, unsigned int flags)
 {
     int ret = 1;
-    apr_size_t l = 1, w = 1;
+    apr_size_t l = 1, w = 1, n;
+    int decode_unreserved = (flags & AP_NORMALIZE_DECODE_UNRESERVED) != 0;
 
     if (!IS_SLASH(path[0])) {
         /* Besides "OPTIONS *", a request-target should start with '/'
@@ -529,23 +530,20 @@ AP_DECLARE(int) ap_normalize_path(char *path, unsigned int flags)
          *  be decoded to their corresponding unreserved characters by
          *  URI normalizers.
          */
-        if ((flags & AP_NORMALIZE_DECODE_UNRESERVED)
-                && path[l] == '%' && apr_isxdigit(path[l + 1])
-                                  && apr_isxdigit(path[l + 2])) {
-            const char c = x2c(&path[l + 1]);
-            if (apr_isalnum(c) || (c && strchr("-._~", c))) {
-                /* Replace last char and fall through as the current
-                 * read position */
-                l += 2;
-                path[l] = c;
+        if (decode_unreserved && path[l] == '%') {
+            if (apr_isxdigit(path[l + 1]) && apr_isxdigit(path[l + 2])) {
+                const char c = x2c(&path[l + 1]);
+                if (TEST_CHAR(c, T_URI_UNRESERVED)) {
+                    /* Replace last char and fall through as the current
+                     * read position */
+                    l += 2;
+                    path[l] = c;
+                }
             }
-        }
-
-        if ((flags & AP_NORMALIZE_DROP_PARAMETERS) && path[l] == ';') {
-            do {
-                l++;
-            } while (!IS_SLASH_OR_NUL(path[l]));
-            continue;
+            else {
+                /* Invalid encoding */
+                ret = 0;
+            }
         }
 
         if (w == 0 || IS_SLASH(path[w - 1])) {
@@ -567,8 +565,17 @@ AP_DECLARE(int) ap_normalize_path(char *path, unsigned int flags)
                     continue;
                 }
 
-                /* Remove /xx/../ segments */
-                if (path[l + 1] == '.' && IS_SLASH_OR_NUL(path[l + 2])) {
+                /* Remove /xx/../ segments (or /xx/.%2e/ when
+                 * AP_NORMALIZE_DECODE_UNRESERVED is set since we
+                 * decoded only the first dot above).
+                 */
+                n = l + 1;
+                if ((path[n] == '.' || (decode_unreserved
+                                        && path[n] == '%'
+                                        && path[++n] == '2'
+                                        && (path[++n] == 'e'
+                                            || path[n] == 'E')))
+                        && IS_SLASH_OR_NUL(path[n + 1])) {
                     /* Wind w back to remove the previous segment */
                     if (w > 1) {
                         do {
@@ -585,7 +592,7 @@ AP_DECLARE(int) ap_normalize_path(char *path, unsigned int flags)
                     }
 
                     /* Move l forward to the next segment */
-                    l += 2;
+                    l = n + 1;
                     if (path[l]) {
                         l++;
                     }
@@ -1879,8 +1886,12 @@ static char x2c(const char *what)
  *   decoding %00 or a forbidden character returns HTTP_NOT_FOUND
  */
 
-static int unescape_url(char *url, const char *forbid, const char *reserved)
+static int unescape_url(char *url, const char *forbid, const char *reserved,
+                        unsigned int flags)
 {
+    const int keep_slashes = (flags & AP_UNESCAPE_URL_KEEP_SLASHES) != 0,
+              forbid_slashes = (flags & AP_UNESCAPE_URL_FORBID_SLASHES) != 0,
+              keep_unreserved = (flags & AP_UNESCAPE_URL_KEEP_UNRESERVED) != 0;
     int badesc, badpath;
     char *x, *y;
 
@@ -1905,12 +1916,16 @@ static int unescape_url(char *url, const char *forbid, const char *reserved)
                 char decoded;
                 decoded = x2c(y + 1);
                 if ((decoded == '\0')
+                    || (forbid_slashes && IS_SLASH(decoded))
                     || (forbid && ap_strchr_c(forbid, decoded))) {
                     badpath = 1;
                     *x = decoded;
                     y += 2;
                 }
-                else if (reserved && ap_strchr_c(reserved, decoded)) {
+                else if ((keep_unreserved && TEST_CHAR(decoded,
+                                                       T_URI_UNRESERVED))
+                         || (keep_slashes && IS_SLASH(decoded))
+                         || (reserved && ap_strchr_c(reserved, decoded))) {
                     *x++ = *y++;
                     *x++ = *y++;
                     *x = *y;
@@ -1936,19 +1951,24 @@ static int unescape_url(char *url, const char *forbid, const char *reserved)
 AP_DECLARE(int) ap_unescape_url(char *url)
 {
     /* Traditional */
-    return unescape_url(url, SLASHES, NULL);
+    return unescape_url(url, SLASHES, NULL, 0);
 }
 AP_DECLARE(int) ap_unescape_url_keep2f(char *url, int decode_slashes)
 {
     /* AllowEncodedSlashes (corrected) */
     if (decode_slashes) {
         /* no chars reserved */
-        return unescape_url(url, NULL, NULL);
+        return unescape_url(url, NULL, NULL, 0);
     } else {
         /* reserve (do not decode) encoded slashes */
-        return unescape_url(url, NULL, SLASHES);
+        return unescape_url(url, NULL, SLASHES, 0);
     }
 }
+AP_DECLARE(int) ap_unescape_url_ex(char *url, unsigned int flags)
+{
+    return unescape_url(url, NULL, NULL, flags);
+}
+
 #ifdef NEW_APIS
 /* IFDEF these out until they've been thought through.
  * Just a germ of an API extension for now
@@ -1958,7 +1978,7 @@ AP_DECLARE(int) ap_unescape_url_proxy(char *url)
     /* leave RFC1738 reserved characters intact, * so proxied URLs
      * don't get mangled.  Where does that leave encoded '&' ?
      */
-    return unescape_url(url, NULL, "/;?");
+    return unescape_url(url, NULL, "/;?", 0);
 }
 AP_DECLARE(int) ap_unescape_url_reserved(char *url, const char *reserved)
 {
@@ -1980,7 +2000,7 @@ AP_DECLARE(int) ap_unescape_urlencoded(char *query)
     }
 
     /* unescape everything else */
-    return unescape_url(query, NULL, NULL);
+    return unescape_url(query, NULL, NULL, 0);
 }
 
 AP_DECLARE(char *) ap_construct_server(apr_pool_t *p, const char *hostname,
@@ -1996,7 +2016,7 @@ AP_DECLARE(char *) ap_construct_server(apr_pool_t *p, const char *hostname,
 
 AP_DECLARE(int) ap_unescape_all(char *url)
 {
-    return unescape_url(url, NULL, NULL);
+    return unescape_url(url, NULL, NULL, 0);
 }
 
 /* c2x takes an unsigned, and expects the caller has guaranteed that
