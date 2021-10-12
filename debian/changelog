@@ -1,3 +1,9 @@
+apache2 (2.4.51-1~bpo10+1) buster-backports-sloppy; urgency=medium
+
+  * Rebuild for buster-backports-sloppy
+
+ -- Yadd <yadd@debian.org>  Tue, 12 Oct 2021 17:03:41 +0200
+
 apache2 (2.4.51-1) unstable; urgency=medium
 
   * New upstream version 2.4.51 (Closes: CVE-2021-41773, CVE-2021-42013)
