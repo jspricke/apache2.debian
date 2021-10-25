@@ -10,5 +10,8 @@ national-encoding debian/perl-framework/t/php/strings3.t
 national-encoding debian/perl-framework/t/php/strings4.t
 # Ignore this
 national-encoding debian/upstream/signing-key.asc
+# False positives
+very-long-line-length-in-source-file docs/*
+very-long-line-length-in-source-file test/modules/http2/htdocs/test1/*
 # Uninstalled files
 missing-notice-file-for-apache-license NOTICE debian/perl-framework/NOTICE
