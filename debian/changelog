@@ -1,8 +1,8 @@
-apache2 (2.4.51-1~bpo10+1) buster-backports-sloppy; urgency=medium
+apache2 (2.4.51-1~bpo10+2) buster-backports; urgency=medium
 
-  * Rebuild for buster-backports-sloppy
+  * Rebuild for buster-backports
 
- -- Yadd <yadd@debian.org>  Tue, 12 Oct 2021 17:03:41 +0200
+ -- Yadd <yadd@debian.org>  Mon, 25 Oct 2021 18:03:29 +0200
 
 apache2 (2.4.51-1) unstable; urgency=medium
 
