@@ -1,3 +1,9 @@
+apache2 (2.4.51-2) unstable; urgency=medium
+
+  * Add patch to have new macro_ignore_empty and macro_ignore_bad_nesting parameters
+
+ -- Yadd <yadd@debian.org>  Mon, 25 Oct 2021 18:37:03 +0200
+
 apache2 (2.4.51-1) unstable; urgency=medium
 
   * New upstream version 2.4.51 (Closes: CVE-2021-41773, CVE-2021-42013)
