@@ -1,3 +1,13 @@
+apache2 (2.4.52-1) unstable; urgency=medium
+
+  * Refresh suexec-custom.patch
+  * Update lintian overrides
+  * Wrap long lines in changelog entries: 2.4.51-2.
+  * New upstream version 2.4.52 (Closes: CVE-2021-44224, CVE-2021-44790)
+  * Refresh patches
+
+ -- Yadd <yadd@debian.org>  Mon, 20 Dec 2021 18:42:09 +0100
+
 apache2 (2.4.51-2) unstable; urgency=medium
 
   * Add patch to have new macro_ignore_empty and macro_ignore_bad_nesting
