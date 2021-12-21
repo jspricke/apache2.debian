@@ -1,3 +1,13 @@
+apache2 (2.4.38-3+deb10u7) buster-security; urgency=medium
+
+  * Fix possible NULL dereference or SSRF in forward proxy configurations
+    (CVE-2021-44224)
+  * lua: improve error handling (Closes: CVE-2021-44790)
+  * mod_proxy_uwsgi: Remove duplicate slashes at the beginning of PATH_INFO
+    (relaxes the behaviour introduced by the CVE-2021-36160 fix)
+
+ -- Yadd <yadd@debian.org>  Tue, 21 Dec 2021 17:50:43 +0100
+
 apache2 (2.4.38-3+deb10u6) buster-security; urgency=high
 
   [ Yadd, Moritz Muehlenhoff ]
