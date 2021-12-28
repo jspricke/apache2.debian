@@ -1,3 +1,9 @@
+apache2 (2.4.52-2) experimental; urgency=medium
+
+  * Build with pcre2 (Closes: #1000114)
+
+ -- Yadd <yadd@debian.org>  Tue, 28 Dec 2021 20:01:43 +0100
+
 apache2 (2.4.52-1) unstable; urgency=medium
 
   * Refresh suexec-custom.patch
