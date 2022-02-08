@@ -1,4 +1,4 @@
-apache2 (2.4.52-1~bpo11+1) buster-backports; urgency=medium
+apache2 (2.4.52-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.
 
