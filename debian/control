@@ -46,12 +46,8 @@ Suggests: apache2-doc,
           apache2-suexec-pristine | apache2-suexec-custom,
           www-browser
 Pre-Depends: ${misc:Pre-Depends}
-Conflicts: apache2.2-bin,
-           apache2.2-common
 Provides: httpd,
           httpd-cgi
-Replaces: apache2.2-bin,
-          apache2.2-common
 Description: Apache HTTP Server
  The Apache HTTP Server Project's goal is to build a secure, efficient and
  extensible HTTP server as standards-compliant open source software. The
