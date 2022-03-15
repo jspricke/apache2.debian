@@ -1,3 +1,10 @@
+apache2 (2.4.53-2) unstable; urgency=medium
+
+  * Clean useless Conflicts/Replace
+  * apache2-dev: add missing dependency on libpcre2-dev (Closes: #1007254)
+
+ -- Yadd <yadd@debian.org>  Tue, 15 Mar 2022 15:27:39 +0100
+
 apache2 (2.4.53-1) unstable; urgency=medium
 
   * New upstream version 2.4.53 (Closes: CVE-2022-22719,
