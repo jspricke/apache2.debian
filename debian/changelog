@@ -1,3 +1,38 @@
+apache2 (2.4.53-2) unstable; urgency=medium
+
+  * Clean useless Conflicts/Replace
+  * apache2-dev: add missing dependency on libpcre2-dev (Closes: #1007254)
+
+ -- Yadd <yadd@debian.org>  Tue, 15 Mar 2022 15:27:39 +0100
+
+apache2 (2.4.53-1) unstable; urgency=medium
+
+  * New upstream version 2.4.53 (Closes: CVE-2022-22719,
+    CVE-2022-22720, CVE-2022-22721, CVE-2022-23943)
+  * Update copyright
+  * Patches:
+    + Drop fix-2.4.52-regression.patch, now included in upstream
+    + Refresh fhs_compliance.patch
+    + Update and disable child_processes_fail_to_start.patch
+  * Update test framework
+  * Back to unstable
+
+ -- Yadd <yadd@debian.org>  Mon, 14 Mar 2022 17:10:39 +0100
+
+apache2 (2.4.52-3) experimental; urgency=medium
+
+  * Fix autopkgtest with libpcre2 (autopkgtest still fails due to an SSL
+    error)
+  * Set hardening=+all instead of hardening=+bindnow
+
+ -- Yadd <yadd@debian.org>  Tue, 28 Dec 2021 21:20:05 +0100
+
+apache2 (2.4.52-2) experimental; urgency=medium
+
+  * Build with pcre2 (Closes: #1000114)
+
+ -- Yadd <yadd@debian.org>  Tue, 28 Dec 2021 20:01:43 +0100
+
 apache2 (2.4.52-1~bpo10+1) buster-backports; urgency=medium
 
   * Rebuild for buster-backports.

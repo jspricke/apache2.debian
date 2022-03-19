@@ -6,7 +6,7 @@ DEB_BUILD_ARCH_OS    ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH_OS)
 # Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
-export DEB_BUILD_MAINT_OPTIONS=hardening=+bindnow
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all
 include /usr/share/dpkg/buildflags.mk
 include /usr/share/dpkg/architecture.mk
 include /usr/share/dpkg/pkg-info.mk
@@ -17,7 +17,7 @@ MODULE_DIR := /usr/lib/apache2/modules/
 API := $(shell perl -ne 'print $$1 if m/define\s+MODULE_MAGIC_NUMBER_MAJOR\s+?(.*)$$/' < include/ap_mmn.h)
 OPENSSL := openssl1.1
 AP2_CFLAGS = -pipe $(CFLAGS)
-AP2_LDFLAGS = -Wl,--as-needed $(LDFLAGS)
+AP2_LDFLAGS = -Wl,--as-needed $(LDFLAGS) -lpcre2-8 -L/usr/lib/x86_64-linux-gnu/libpcre2-8.so.0
 AP2_CPPFLAGS = -DPLATFORM='\"$(LSB_RELEASE)\"' -DBUILD_DATETIME='\"$(BUILD_DATETIME)\"' $(CPPFLAGS)
 AP2_LTFLAGS = --no-silent
 
@@ -111,7 +111,7 @@ configure-stamp: prebuild-checks-stamp support/suexec-custom.c
 		--with-suexec-userdir=public_html --with-suexec-logfile=/var/log/apache2/suexec.log \
 		--with-suexec-uidmin=100 --enable-suexec=shared --enable-log-config=static \
 		--with-apr=/usr/bin/apr-1-config --with-apr-util=/usr/bin/apu-1-config \
-		--with-pcre=yes \
+		--with-pcre=/usr/bin/pcre2-config \
 		--enable-pie \
 		--enable-mpms-shared=all \
 		--enable-mods-shared="all brotli cgi ident authnz_fcgi imagemap cern_meta proxy_fdpass proxy_http2 bucketeer case_filter case_filter_in" \

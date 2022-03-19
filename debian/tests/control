@@ -5,18 +5,14 @@ Depends: build-essential, apache2, apache2-dev,
          libwww-perl, libnet-ssleay-perl, libanyevent-perl, libdatetime-perl,
          libhtml-parser-perl, libtime-hires-perl, libcrypt-ssleay-perl,
          libhttp-dav-perl, libprotocol-http2-perl, libfcgi-perl,
-         perl-doc
+         libpcre2-dev, perl-doc
 
-Tests: duplicate-module-load
+Tests: duplicate-module-load, default-mods
 Restrictions: allow-stderr, needs-root
 Depends: apache2
 
 Tests: htcacheclean
 Restrictions: allow-stderr, needs-root, skippable
-Depends: apache2
-
-Tests: default-mods
-Restrictions: allow-stderr, needs-root
 Depends: apache2
 
 Tests: ssl-passphrase

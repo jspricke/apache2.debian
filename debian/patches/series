@@ -8,6 +8,8 @@ reproducible_builds.diff
 #buffer-http-request-bodies-for-tlsv13.diff
 #tlsv13-add-logno.diff
 fix-macro.patch
+#pcre2.patch
+#child_processes_fail_to_start.patch
 
 # This patch is applied manually
 #suexec-custom.patch
