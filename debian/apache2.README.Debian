@@ -190,7 +190,7 @@ Using mod_cache_disk
 To ensure that the disk cache does not grow indefinitely, htcacheclean is
 started when mod_cache_disk is enabled. Both daemon and cron (daily) mode
 are supported. The configuration (run mode, cache size, etc.) is in
-'/etc/default/apache2'.
+'/etc/default/apache-htcacheclean'.
 
 Normally, htcacheclean is automatically started and stopped by
 '/etc/init.d/apache2'. However, if you change the state of mod_cache_disk or
