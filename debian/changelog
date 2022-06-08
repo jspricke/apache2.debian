@@ -1,10 +1,15 @@
-apache2 (2.4.53-3) UNRELEASED; urgency=medium
+apache2 (2.4.54-1) unstable; urgency=medium
 
   [ Simon Deziel ]
   * Escape literal "." for BrowserMatch directives in setenvif.conf
   * Use non-capturing regex with FilesMatch directive in default-ssl.conf
 
- -- Simon Deziel <simon@sdeziel.info>  Mon, 14 Mar 2022 13:13:28 -0400
+  [ Ondřej Surý ]
+  * New upstream version 2.4.54 (Closes: CVE-2022-31813, CVE-2022-26377,
+    CVE-2022-28614, CVE-2022-28615, CVE-2022-29404, CVE-2022-30522,
+    CVE-2022-30556)
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 08 Jun 2022 17:57:35 +0200
 
 apache2 (2.4.53-2) unstable; urgency=medium
 
