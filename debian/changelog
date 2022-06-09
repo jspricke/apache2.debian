@@ -1,10 +1,3 @@
-apache2 (2.4.54-2) UNRELEASED; urgency=medium
-
-  * Fix htcacheclean doc (Closes: #1010455)
-  * New upstream version 2.4.54
-
- -- Yadd <yadd@debian.org>  Thu, 09 Jun 2022 06:25:09 +0200
-
 apache2 (2.4.54-1) unstable; urgency=medium
 
   [ Simon Deziel ]
@@ -12,11 +5,15 @@ apache2 (2.4.54-1) unstable; urgency=medium
   * Use non-capturing regex with FilesMatch directive in default-ssl.conf
 
   [ Ondřej Surý ]
-  * New upstream version 2.4.54 (Closes: CVE-2022-31813, CVE-2022-26377,
-    CVE-2022-28614, CVE-2022-28615, CVE-2022-29404, CVE-2022-30522,
-    CVE-2022-30556)
+  * New upstream version 2.4.54 (Closes: #1012513, CVE-2022-31813,
+    CVE-2022-26377, CVE-2022-28614, CVE-2022-28615, CVE-2022-29404,
+    CVE-2022-30522, CVE-2022-30556, CVE-2022-28330)
 
- -- Ondřej Surý <ondrej@debian.org>  Wed, 08 Jun 2022 17:57:35 +0200
+  [ Yadd ]
+  * Fix htcacheclean doc (Closes: #1010455)
+  * New upstream version 2.4.54
+
+ -- Yadd <yadd@debian.org>  Thu, 09 Jun 2022 06:33:53 +0200
 
 apache2 (2.4.53-2) unstable; urgency=medium
 
