@@ -1,3 +1,15 @@
+apache2 (2.4.54-1~deb11u1) bullseye; urgency=medium
+
+  [ Yadd ]
+  * Fix htcacheclean doc (Closes: #1010455)
+
+  [ Yadd ]
+  * New upstream version 2.4.54 (closes: #1012513, CVE-2022-31813,
+    CVE-2022-26377, CVE-2022-28614, CVE-2022-28615, CVE-2022-29404,
+    CVE-2022-30522, CVE-2022-30556, CVE-2022-28330)
+
+ -- Yadd <yadd@debian.org>  Thu, 09 Jun 2022 06:26:43 +0200
+
 apache2 (2.4.53-1~deb11u1) bullseye; urgency=medium
 
   * New upstream version 2.4.53 (Closes: CVE-2022-22719,
