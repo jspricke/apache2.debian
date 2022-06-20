@@ -1,4 +1,4 @@
-apache2 (2.4.38-3+deb10u8) UNRELEASED; urgency=medium
+apache2 (2.4.38-3+deb10u8) buster; urgency=medium
 
   * Non-maintainer upload.
   * CVE-2022-22719: denial of service in mod_lua via crafted request body.
