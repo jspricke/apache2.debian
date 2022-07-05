@@ -6,5 +6,3 @@ national-encoding debian/upstream/signing-key.asc
 source-is-missing *.html*
 very-long-line-length-in-source-file *docs/*
 very-long-line-length-in-source-file test/modules/http2/htdocs/test1/*
-# Uninstalled files
-missing-notice-file-for-apache-license *NOTICE*
