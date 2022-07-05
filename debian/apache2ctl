@@ -145,6 +145,7 @@ mkdir_chown () {
 
 
 [ ! -d ${APACHE_RUN_DIR:-/var/run/apache2} ] && mkdir -p ${APACHE_RUN_DIR:-/var/run/apache2}
+[ ! -d ${APACHE_RUN_DIR:-/var/run/apache2}/socks ] && mkdir_chown ${APACHE_RUN_USER:-www-data} ${APACHE_RUN_DIR:-/var/run/apache2}/socks
 [ ! -d ${APACHE_LOCK_DIR:-/var/lock/apache2} ] && mkdir_chown ${APACHE_RUN_USER:-www-data} ${APACHE_LOCK_DIR:-/var/lock/apache2}
 
 case "$ARGV" in
