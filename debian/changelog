@@ -1,4 +1,4 @@
-apache2 (2.4.54-3) unstable; urgency=medium
+apache2 (2.4.54-2) unstable; urgency=medium
 
   * Move cgid socket into a writeable directory (Closes: #1014056)
   * Update lintian overrides
@@ -6,12 +6,6 @@ apache2 (2.4.54-3) unstable; urgency=medium
   * Install NOTICE in each package
 
  -- Yadd <yadd@debian.org>  Tue, 05 Jul 2022 15:49:58 +0200
-
-apache2 (2.4.54-2) unstable; urgency=medium
-
-  * Move cgid socket into a writeable directory (Closes: #1014056)
-
- -- Yadd <yadd@debian.org>  Tue, 05 Jul 2022 11:00:34 +0200
 
 apache2 (2.4.54-1) unstable; urgency=medium
 
