@@ -1,3 +1,11 @@
+apache2 (2.4.54-3) unstable; urgency=medium
+
+  [ Hendrik Jäger ]
+  * Do not enable global alias /manual
+  * mention not enabling /manual for the docs in the NEWS
+
+ -- Yadd <yadd@debian.org>  Wed, 12 Oct 2022 09:20:52 +0200
+
 apache2 (2.4.54-2) unstable; urgency=medium
 
   * Move cgid socket into a writeable directory (Closes: #1014056)
