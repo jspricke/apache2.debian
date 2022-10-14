@@ -10,12 +10,12 @@ Contents
 	1. Overview
 
 	2. Packaging Modules
-                2.1 '.load' and '.conf' files
-                2.2 Maintainer scripts
+		2.1 '.load' and '.conf' files
+		2.2 Maintainer scripts
 
 	3. Packaging Sites and Configurations for Web Applications
-                3.1 Web application module dependencies
-                3.2 Package dependencies
+		3.1 Web application module dependencies
+		3.2 Package dependencies
 
 	4. Maintainer Scripts
 		4.1 Enabling Configurations
@@ -26,8 +26,8 @@ Contents
 		5.2 apache2-maintscript-helper
 		5.3 dh_apache2
 
-        6. Version
-                6.1 Changes
+	6. Version
+		6.1 Changes
 
 
 1 Overview
@@ -148,7 +148,7 @@ anything in maintainer scripts which makes use of Debian-specific enhancements
 like apache2-maintscript-helper, a2enmod, or a2query unconditionally. It is
 recommended to invoke it like this:
 
-        if [ -e /usr/share/apache2/apache2-maintscript-helper ] ; then
+	if [ -e /usr/share/apache2/apache2-maintscript-helper ] ; then
 		. /usr/share/apache2/apache2-maintscript-helper
 		apache2_invoke enmod foo
 	fi
@@ -211,11 +211,11 @@ configuration can be enhanced by mod_rewrite rules, but does not necessarily
 need to use them, you could do something like:
 
 	<Directory /usr/share/packagename>
-	  ...
-	  <IfModule mod_rewrite.c>
-	   RewriteEngine on
-	   RewriteRule ...
-	  </IfModule>
+		...
+		<IfModule mod_rewrite.c>
+			 on
+			RewriteRule ...
+		</IfModule>
 	</Directory>
 
 (Note that some common uses of mod_rewrite for web applications can be replaced
@@ -269,7 +269,7 @@ special care should be taken not to use Apache2 Debian helper scripts like
 a2query and a2enmod unconditionally. You can use the apache2-maintscript-helper
 tools provided by the apache2 package for common tasks this way:
 
-        if [ -e /usr/share/apache2/apache2-maintscript-helper ] ; then
+	if [ -e /usr/share/apache2/apache2-maintscript-helper ] ; then
 		. /usr/share/apache2/apache2-maintscript-helper
 		apache2_invoke enconf foo
 	fi
@@ -378,7 +378,7 @@ unconditionally, as for both modules and web applications there are use cases
 when this package is not added as a dependency. Thus, use it in a protected
 conditional like this only:
 
-        if [ -e /usr/share/apache2/apache2-maintscript-helper ] ; then
+	if [ -e /usr/share/apache2/apache2-maintscript-helper ] ; then
 		. /usr/share/apache2/apache2-maintscript-helper
 		<call apache2-maintscript-helper specific functions>
 	fi
@@ -431,12 +431,12 @@ even on incomplete or broken configurations.
 For example, you can use a2query to retrieve the MPM enabled on the local site
 and make actions dependent on the result like this:
 
-        [ -x /usr/sbin/a2query ] || exit $?
-        CUR_MPM=$(a2query -M) || exit $?
+	[ -x /usr/sbin/a2query ] || exit $?
+	CUR_MPM=$(a2query -M) || exit $?
 	case "$CUR_MPM" in
 		worker)
 		;;
-	...
+		...
 	esac
 
 Refer to the a2query(1) man page for the full documentation. Please note that
@@ -456,4 +456,4 @@ here as well.
 -----------
 
 1.0:
-        * first version of this document which is versioned.
+	* first version of this document which is versioned.

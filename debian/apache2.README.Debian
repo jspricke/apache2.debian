@@ -80,7 +80,7 @@ conf-available/
 	this line in apache2.conf:
 
 	# Include generic snippets of statements
-        IncludeOptional conf-enabled/*.conf
+		IncludeOptional conf-enabled/*.conf
 
 	This is a good place to add additional configuration
 	directives. All configuration snippets need a '.conf' suffix to be
@@ -363,20 +363,20 @@ name in the Host: header of the request actually match one of the virtual
 hosts.
 
 4) Message "Couldn't create pollset in child; check user or system limits" in
-  error log
+error log
 
 On Linux kernels since 2.6.27.8, the value in
 
-    /proc/sys/fs/epoll/max_user_instances
+	/proc/sys/fs/epoll/max_user_instances
 
 needs to be larger than
 
-    for prefork/itk  MPM: 2 * MaxClients
-    for worker/event MPM: MaxClients + MaxClients/ThreadsPerChild
+	for prefork/itk  MPM: 2 * MaxClients
+	for worker/event MPM: MaxClients + MaxClients/ThreadsPerChild
 
 It can be set on boot by adding a line like
 
-        fs.epoll.max_user_instances=1024
+	fs.epoll.max_user_instances=1024
 
 to '/etc/sysctl.conf'.
 
@@ -388,7 +388,7 @@ fs.epoll.max_user_watches. On most systems, max_user_watches should be high
 enough by default.
 
 5) Message "Server should be SSL-aware but has no certificate configured" in
-   error log
+error log
 
 Since 2.2.12, Apache is stricter about certain misconfigurations concerning
 name based SSL virtual hosts. See NEWS.Debian.gz for more details.
@@ -406,17 +406,17 @@ you can use mod_rewrite:
 In general, if you use mod_dav_fs, you need to disable multiviews and script
 execution for that directory. For example:
 
-    <Directory /var/www/dav>
-        Dav on
-        Options -MultiViews -ExecCGI
-        SetHandler none
-        <IfModule mod_php5.c>
-            php_admin_value engine Off
-        </IfModule>
-    </Directory>
+	<Directory /var/www/dav>
+		Dav on
+		Options -MultiViews -ExecCGI
+		SetHandler none
+		<IfModule mod_php5.c>
+			php_admin_value engine Off
+		</IfModule>
+	</Directory>
 
 8) Message "apache2: bad user name ${APACHE_RUN_USER}" when starting apache2
-   directly
+directly
 
 Use apache2ctl (it accepts all the same options as apache2).
 
@@ -427,7 +427,7 @@ Apache also needs write permission to the directory containing the file, in
 order to replace it atomically.
 
 10) When starting/reloading Apache, there is the error message
-    "ulimit: open files: cannot modify limit: Operation not permitted"
+"ulimit: open files: cannot modify limit: Operation not permitted"
 
 If you are running Apache in a vserver environment, the start script may not
 be allowed to set the maximum number of open files. You should adjust
