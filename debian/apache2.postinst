@@ -245,7 +245,7 @@ list_fixup_conffiles () {
 	cat <<- EOF
 		/etc/bash_completion.d/apache2
 		/etc/apache2/sites-available/000-default.conf
-		/etc/apache2/sites-available/default-ssl.conf
+		/etc/apache2/sites-available/000-default-ssl.conf
 		/etc/apache2/conf-available/charset.conf
 		/etc/apache2/conf-available/localized-error-pages.conf
 		/etc/apache2/conf-available/other-vhosts-access-log.conf

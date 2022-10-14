@@ -10,7 +10,7 @@ cd /etc/ssl/private
 [ -f ssl-cert-snakeoil.key.nopassphrase ] || mv ssl-cert-snakeoil.key ssl-cert-snakeoil.key.nopassphrase
 openssl rsa -des3 -in ssl-cert-snakeoil.key.nopassphrase -out ssl-cert-snakeoil.key -passout pass:test
 a2enmod ssl
-a2ensite default-ssl
+a2ensite 000-default-ssl
 
 # respond to systemd-ask-passphrase
 password_responder() {

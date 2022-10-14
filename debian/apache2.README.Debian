@@ -209,12 +209,12 @@ Enabling SSL
 
 To enable SSL, type (as user root):
 
-	a2ensite default-ssl
+	a2ensite 000-default-ssl
 	a2enmod ssl
 
 If you want to use self-signed certificates, you should install the ssl-cert
 package (see below). Otherwise, just adjust the SSLCertificateKeyFile and
-SSLCertificateFile directives in '/etc/apache2/sites-available/default-ssl.conf'
+SSLCertificateFile directives in '/etc/apache2/sites-available/000-default-ssl.conf'
 to point to your SSL certificate. Then restart apache:
 
 	service apache2 restart
@@ -257,7 +257,7 @@ disabled even for non-SSL connections):
 		downgrade-1.0 force-response-1.0
 	BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
 
-The default SSL virtual host in '/etc/apache2/sites-available/default-ssl.conf'
+The default SSL virtual host in '/etc/apache2/sites-available/000-default-ssl.conf'
 already contains this workaround.
 
 
