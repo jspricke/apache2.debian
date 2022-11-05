@@ -37,7 +37,7 @@ Depends: apache2-bin (= ${binary:Version}),
          apache2-data (= ${source:Version}),
          apache2-utils (= ${binary:Version}),
          lsb-base,
-         mime-support,
+         media-types,
          ${perl:Depends},
          procps [!hurd-i386],
          ${misc:Depends}
