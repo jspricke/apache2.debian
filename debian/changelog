@@ -1,3 +1,18 @@
+apache2 (2.4.54-4) unstable; urgency=medium
+
+  [ Charles Plessy ]
+  * Replace mime-support transition package with media-types (Closes: #980275)
+
+  [ Hendrik Jäger ]
+  * fix mislead safety precautions: don't hide errors when enabling a module.
+    MR !20
+  * fix trailing spaces and indentation inconsistencies. MR !19 !21 !22
+  * Fix confusing and impractical naming: rename default-ssl.conf into
+    000-default-ssl.conf. MR !23
+  * Fix confusing keyword: replace _default_ by *. MR !24
+
+ -- Yadd <yadd@debian.org>  Thu, 24 Nov 2022 10:45:00 +0100
+
 apache2 (2.4.54-3) unstable; urgency=medium
 
   [ Hendrik Jäger ]
