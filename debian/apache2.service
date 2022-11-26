@@ -12,6 +12,7 @@ ExecReload=/usr/sbin/apachectl graceful
 KillMode=mixed
 PrivateTmp=true
 Restart=on-abort
+OOMPolicy=continue
 
 [Install]
 WantedBy=multi-user.target
