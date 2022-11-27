@@ -578,5 +578,3 @@ foreach my $package ((@{$dh{DOPACKAGES}}))
 		}
 	}
 }
-
-# vim: syntax=perl sw=8 sts=8 sr noet

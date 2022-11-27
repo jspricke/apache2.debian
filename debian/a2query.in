@@ -422,5 +422,3 @@ if (exists $opts{'h'} or $help == 1)
 	}
 	exit $E_OK;
 }
-
-# vim: syntax=perl sw=8 sts=8 sr noet

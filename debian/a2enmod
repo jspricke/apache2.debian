@@ -613,5 +613,3 @@ sub is_systemd
     my $init = readlink("/proc/1/exe") || "";
     return scalar $init =~ /systemd/;
 }
-
-# vim: syntax=perl sw=4 sts=4 sr et

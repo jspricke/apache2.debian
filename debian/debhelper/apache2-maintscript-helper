@@ -502,5 +502,3 @@ apache2_reload()
 	fi
 	rm -f "$tmpfile"
 }
-
-# vim: syntax=sh sw=8 sts=8 sr noet
