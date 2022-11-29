@@ -1,3 +1,17 @@
+apache2 (2.4.54-5) unstable; urgency=medium
+
+  [ Hendrik Jäger ]
+  * fix: one oom-killed thread should not take down the whole service
+  * fix: remove modelines
+  * fix: update clickjacking protection example
+  * fix: use tab for indentation, even in commented examples
+
+  [ Yadd ]
+  * Revert "Fix: confusing and impractical naming" (unbreak squid and haproxy
+    tests)
+
+ -- Yadd <yadd@debian.org>  Tue, 29 Nov 2022 15:56:10 +0100
+
 apache2 (2.4.54-4) unstable; urgency=medium
 
   [ Charles Plessy ]
