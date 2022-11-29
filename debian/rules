@@ -47,7 +47,7 @@ prebuild-checks-stamp:
 
 debian/fixup_conffiles.tgz: \
     debian/config-dir/sites-available/000-default.conf \
-    debian/config-dir/sites-available/000-default-ssl.conf \
+    debian/config-dir/sites-available/default-ssl.conf \
     debian/config-dir/conf-available/charset.conf \
     debian/config-dir/conf-available/localized-error-pages.conf \
     debian/config-dir/conf-available/other-vhosts-access-log.conf \

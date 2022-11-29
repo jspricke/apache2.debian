@@ -6,7 +6,7 @@ set -uxe
 
 a2enmod http2
 a2enmod ssl
-a2ensite 000-default-ssl
+a2ensite default-ssl
 # Enable globally
 echo "Protocols h2c h2 http/1.1" >> /etc/apache2/apache2.conf
 service apache2 restart
