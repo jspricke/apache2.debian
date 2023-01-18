@@ -1,3 +1,26 @@
+apache2 (2.4.55-1) UNRELEASED; urgency=medium
+
+  [ Hendrik Jäger ]
+  * disable ssl session tickets
+  * redundant example as already enabled in the default config
+  * logrotate indentation
+  * Update example how to prevent access to VCS directories
+
+  [ lintian-brush ]
+  * Update lintian override info to new format:
+    + debian/source/lintian-overrides: line 2, 4-5, 8
+    + debian/apache2-data.lintian-overrides: line 2-5
+    + debian/apache2-bin.lintian-overrides: line 3
+    + debian/apache2-doc.lintian-overrides: line 2
+    + debian/apache2.lintian-overrides: line 6
+  * Set upstream metadata fields: Repository-Browse.
+  * Update standards version to 4.6.2, no changes needed.
+
+  [ Yadd ]
+  * New upstream version (Closes: CVE-2006-20001, CVE-2022-36760, CVE-2022-37436)
+
+ -- Yadd <yadd@debian.org>  Wed, 18 Jan 2023 06:39:12 +0400
+
 apache2 (2.4.54-5) unstable; urgency=medium
 
   [ Hendrik Jäger ]
