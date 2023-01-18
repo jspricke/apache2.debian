@@ -1,4 +1,4 @@
-apache2 (2.4.55-1) UNRELEASED; urgency=medium
+apache2 (2.4.55-1) unstable; urgency=medium
 
   [ Hendrik Jäger ]
   * disable ssl session tickets
@@ -19,7 +19,7 @@ apache2 (2.4.55-1) UNRELEASED; urgency=medium
   [ Yadd ]
   * New upstream version (Closes: CVE-2006-20001, CVE-2022-36760, CVE-2022-37436)
 
- -- Yadd <yadd@debian.org>  Wed, 18 Jan 2023 06:39:12 +0400
+ -- Yadd <yadd@debian.org>  Wed, 18 Jan 2023 07:41:55 +0400
 
 apache2 (2.4.54-5) unstable; urgency=medium
 
