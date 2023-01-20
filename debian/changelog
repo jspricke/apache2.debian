@@ -1,9 +1,10 @@
-apache2 (2.4.55-1~deb11u1) UNRELEASED; urgency=medium
+apache2 (2.4.55-1~deb11u1) bullseye; urgency=medium
 
   * New upstream version (Closes: CVE-2006-20001, CVE-2022-36760,
     CVE-2022-37436)
+  * Refresh patches
 
- -- Yadd <yadd@debian.org>  Wed, 18 Jan 2023 06:43:14 +0400
+ -- Yadd <yadd@debian.org>  Wed, 18 Jan 2023 11:18:07 +0400
 
 apache2 (2.4.54-1~deb11u1) bullseye; urgency=medium
 
