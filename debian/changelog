@@ -1,3 +1,16 @@
+apache2 (2.4.38-3+deb10u9) buster-security; urgency=medium
+
+  * Non-maintainer upload by the LTS Team.
+  * CVE-2006-20001: Fix error path for "Not" prefix parsing.
+  * CVE-2022-36760: HTTP Requests vulnerability in mod_proxy_ajp
+  * CVE-2022-37436: Early truncation of response headers
+  * CVE-2021-33193: mod_proxy HTTP/2 validation bypass
+  * Add tests from master branch for CVE-2019-0215, CVE-2020-1927
+  * Update debian/gbp.conf to use the branch "debian/buster"
+  * Add debian/.gitlab-ci.yml
+
+ -- Lee Garrett <debian@rocketjump.eu>  Thu, 02 Mar 2023 15:26:27 +0100
+
 apache2 (2.4.38-3+deb10u8) buster; urgency=medium
 
   * Non-maintainer upload.
