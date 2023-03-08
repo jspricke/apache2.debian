@@ -17,7 +17,8 @@ apache2 (2.4.55-1) unstable; urgency=medium
   * Update standards version to 4.6.2, no changes needed.
 
   [ Yadd ]
-  * New upstream version (Closes: CVE-2006-20001, CVE-2022-36760, CVE-2022-37436)
+  * New upstream version (Closes: CVE-2006-20001, CVE-2022-36760,
+    CVE-2022-37436)
 
  -- Yadd <yadd@debian.org>  Wed, 18 Jan 2023 07:41:55 +0400
 
