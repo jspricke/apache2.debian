@@ -1,3 +1,9 @@
+apache2 (2.4.56-1~deb11u1) bullseye-security; urgency=medium
+
+  * New upstream version (Closes: #1032476, CVE-2023-27522, CVE-2023-25690)
+
+ -- Yadd <yadd@debian.org>  Wed, 08 Mar 2023 07:05:04 +0400
+
 apache2 (2.4.55-1~deb11u1) bullseye; urgency=medium
 
   * New upstream version (Closes: CVE-2006-20001, CVE-2022-36760,
