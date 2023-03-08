@@ -1,3 +1,9 @@
+apache2 (2.4.56-1) unstable; urgency=medium
+
+  * New upstream version (Closes: #1032476, CVE-2023-27522, CVE-2023-25690)
+
+ -- Yadd <yadd@debian.org>  Wed, 08 Mar 2023 06:44:05 +0400
+
 apache2 (2.4.55-1) unstable; urgency=medium
 
   [ Hendrik Jäger ]
