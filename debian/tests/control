@@ -27,3 +27,7 @@ Tests: chroot
 Features: no-build-needed
 Restrictions: needs-root allow-stderr breaks-testbed
 Depends: apache2, wget, dpkg-dev
+
+Tests: uwsgi
+Restrictions: allow-stderr, needs-root
+Depends: apache2, libapache2-mod-proxy-uwsgi
