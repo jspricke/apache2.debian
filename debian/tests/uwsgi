@@ -16,7 +16,8 @@ REQUIRED_MODS=(
 	log_config
 	mime
 	reqtimeout
-	uwsgi
+	proxy
+	proxy_uwsgi
 	version
 	watchdog
 )
