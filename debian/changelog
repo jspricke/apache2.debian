@@ -1,3 +1,10 @@
+apache2 (2.4.56-1~deb11u2) bullseye; urgency=medium
+
+  [ Hendrik Jäger ]
+  * Don't automatically enable apache2-doc.conf (Closes: #1018718)
+
+ -- Yadd <yadd@debian.org>  Sat, 01 Apr 2023 08:24:10 +0400
+
 apache2 (2.4.56-1~deb11u1) bullseye-security; urgency=medium
 
   * New upstream version (Closes: #1032476, CVE-2023-27522, CVE-2023-25690)
