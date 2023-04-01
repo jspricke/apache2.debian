@@ -13,3 +13,4 @@ fix-macro.patch
 
 # This patch is applied manually
 #suexec-custom.patch
+fix-2.4.56-regression.patch
