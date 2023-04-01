@@ -1,3 +1,10 @@
+apache2 (2.4.56-2) UNRELEASED; urgency=medium
+
+  * Fix regression in mod_rewrite introduced in version 2.4.56
+    (Closes: #1033284)
+
+ -- Yadd <yadd@debian.org>  Sat, 01 Apr 2023 08:06:07 +0400
+
 apache2 (2.4.56-1) unstable; urgency=medium
 
   * New upstream version (Closes: #1032476, CVE-2023-27522, CVE-2023-25690)
