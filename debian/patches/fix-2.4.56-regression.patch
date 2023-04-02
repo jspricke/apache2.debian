@@ -1,9 +1,10 @@
 Description: fix 2.4.56 regression
-Author: Yadd <yadd@debian.org>
+Author: covener
 Bug-Debian: https://bugs.debian.org/1033284
 Origin: upstream, http://svn.apache.org/viewvc/httpd/httpd/trunk/modules/mappers/mod_rewrite.c?r1=1908813&r2=1908812&pathrev=1908813
 Forwarded: not-needed
 Applied-Upstream: 2.4.57
+Reviewed-By: Yadd <yadd@debian.org>
 Last-Update: 2023-04-01
 
 --- a/modules/mappers/mod_rewrite.c
