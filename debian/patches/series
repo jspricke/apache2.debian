@@ -8,8 +8,6 @@ reproducible_builds.diff
 #buffer-http-request-bodies-for-tlsv13.diff
 #tlsv13-add-logno.diff
 fix-macro.patch
-fix-2.4.56-regression.patch
-fix-2.4.56-regression-2.patch
 #pcre2.patch
 #child_processes_fail_to_start.patch
 
