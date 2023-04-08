@@ -1,9 +1,9 @@
-apache2 (2.4.57-1) UNRELEASED; urgency=medium
+apache2 (2.4.57-1) unstable; urgency=medium
 
   * New upstream version 2.4.57
   * Drop 2.4.56-regression patches
 
- -- Yadd <yadd@debian.org>  Fri, 07 Apr 2023 05:41:23 +0400
+ -- Yadd <yadd@debian.org>  Sat, 08 Apr 2023 06:57:16 +0400
 
 apache2 (2.4.56-2) unstable; urgency=medium
 
