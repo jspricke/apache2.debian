@@ -1,3 +1,9 @@
+apache2 (2.4.57-2) unstable; urgency=medium
+
+  * Revert debian/* changes (Bookworm freeze)
+
+ -- Yadd <yadd@debian.org>  Thu, 13 Apr 2023 07:26:51 +0400
+
 apache2 (2.4.57-1) unstable; urgency=medium
 
   * New upstream version 2.4.57
