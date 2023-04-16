@@ -30,4 +30,4 @@ Depends: apache2, wget, dpkg-dev
 
 Tests: uwsgi
 Restrictions: allow-stderr, needs-root
-Depends: apache2, libapache2-mod-proxy-uwsgi
+Depends: apache2, libapache2-mod-proxy-uwsgi, uwsgi, wget, uwsgi-plugin-python, rsync, netcat-openbsd | netcat-traditional
