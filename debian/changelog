@@ -10,8 +10,9 @@ apache2 (2.4.38-3+deb10u10) unstable; urgency=medium
     some portion of the user-supplied request-target (URL)
     data and is then re-inserted into the proxied request-target
     using variable substitution. (Closes: #1032476)
+  * Backport perl-framework testsuite from sid
 
- -- Bastien Roucariès <rouca@debian.org>  Fri, 21 Apr 2023 15:17:52 +0000
+ -- Bastien Roucariès <rouca@debian.org>  Fri, 21 Apr 2023 21:12:18 +0000
 
 apache2 (2.4.38-3+deb10u9) buster-security; urgency=medium
 
