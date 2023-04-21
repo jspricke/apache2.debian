@@ -4,8 +4,6 @@ suexec-CVE-2007-1742.patch
 customize_apxs.patch
 build_suexec-custom.patch
 reproducible_builds.diff
-fix-2.4.56-regression.patch
-fix-2.4.56-regression-2.patch
 
 # This patch is applied manually
 #suexec-custom.patch
@@ -58,3 +56,8 @@ CVE-2021-33193.patch
 0052-CVE-2023-27522-HTTP-Response-Smuggling-mod_proxy_uws.patch
 0053-CVE-2023-25690-1.patch
 0054-CVE-2023-25690-2.patch
+0055-CVE-2023-25690-Regression-1.patch
+0056-CVE-2023-25690-Regression-2.patch
+0057-CVE-2023-25690-Regression-3.patch
+
+
