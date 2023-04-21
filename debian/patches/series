@@ -54,3 +54,5 @@ CVE-2022-36760.patch
 CVE-2022-37436.patch
 CVE-2021-33193.patch
 0052-CVE-2023-27522-HTTP-Response-Smuggling-mod_proxy_uws.patch
+0053-CVE-2023-25690-1.patch
+0054-CVE-2023-25690-2.patch
