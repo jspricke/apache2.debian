@@ -11,8 +11,10 @@ apache2 (2.4.38-3+deb10u10) unstable; urgency=medium
     data and is then re-inserted into the proxied request-target
     using variable substitution. (Closes: #1032476)
   * Backport perl-framework testsuite from sid
+  * Backport regression fix for CVE-2023-25690
+    (Closes: #1033408, #1033284) 
 
- -- Bastien Roucariès <rouca@debian.org>  Fri, 21 Apr 2023 21:12:18 +0000
+ -- Bastien Roucariès <rouca@debian.org>  Fri, 21 Apr 2023 22:01:00 +0000
 
 apache2 (2.4.38-3+deb10u9) buster-security; urgency=medium
 
