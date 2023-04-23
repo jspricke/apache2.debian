@@ -1,3 +1,9 @@
+apache2 (2.4.25-3+deb9u15) stretch; urgency=medium
+
+  * * Non-maintainer upload by the ELTS team.
+
+ -- Bastien Roucariès <rouca@debian.org>  Sun, 23 Apr 2023 19:10:49 +0000
+
 apache2 (2.4.25-3+deb9u14) stretch; urgency=medium
 
   * Non-maintainer upload by the LTS team.
