@@ -1,4 +1,4 @@
-apache2 (2.4.38-3+deb10u10) unstable; urgency=medium
+apache2 (2.4.38-3+deb10u10) buster-security; urgency=medium
 
   * Non-maintainer upload by the LTS Team.
   * CVE-2023-27522: HTTP Response Smuggling in mod_proxy_uwsgi
