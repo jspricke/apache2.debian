@@ -1,0 +1,775 @@
+From f88e3ce367f922464421d05f41b246e25c7fb63a Mon Sep 17 00:00:00 2001
+From: "William A. Rowe Jr" <wrowe@apache.org>
+Date: Fri, 29 May 2015 20:07:15 +0000
+Subject: [PATCH] core, modules: Avoid error response/document handling by the
+ core if some handler or input filter already did it while reading the request
+ (causing a double response body).
+
+Submitted by: ylavic
+Backports: r1482522 (partial, ap_map_http_request_error() things only!),
+           r1529988, r1529991, r1643537, r1643543, r1657897, r1665625,
+           r1665721, r1674056
+Reviewed by: ylavic, minfrin, wrowe
+
+
+
+
+git-svn-id: https://svn.apache.org/repos/asf/httpd/httpd/branches/2.4.x@1682544 13f79535-47bb-0310-9956-ffa450edef68
+---
+ CHANGES                            |  7 +++
+ STATUS                             | 15 ------
+ include/ap_mmn.h                   |  3 +-
+ include/http_protocol.h            | 17 +++++++
+ modules/cache/mod_file_cache.c     |  4 +-
+ modules/cluster/mod_heartmonitor.c |  2 +-
+ modules/dav/fs/repos.c             |  2 +-
+ modules/dav/main/mod_dav.c         | 13 ++++--
+ modules/filters/mod_reflector.c    | 12 ++---
+ modules/generators/mod_asis.c      |  2 +-
+ modules/generators/mod_cgi.c       |  2 +-
+ modules/generators/mod_cgid.c      |  2 +-
+ modules/http/http_filters.c        | 65 +++++++++++++++++++-------
+ modules/proxy/mod_proxy.c          | 12 ++---
+ modules/proxy/mod_proxy_ajp.c      | 73 ++++++++++++++++++++----------
+ modules/proxy/mod_proxy_balancer.c |  2 +-
+ modules/proxy/mod_proxy_fcgi.c     | 30 ++++++++++--
+ modules/proxy/mod_proxy_http.c     |  8 ++--
+ modules/proxy/mod_proxy_scgi.c     |  5 +-
+ modules/ssl/ssl_engine_io.c        |  2 +-
+ modules/ssl/ssl_engine_kernel.c    |  2 +-
+ modules/test/mod_dialup.c          |  6 +--
+ server/core.c                      |  2 +-
+ server/error_bucket.c              |  3 ++
+ server/util.c                      |  2 +-
+ server/util_xml.c                  |  1 +
+ 26 files changed, 189 insertions(+), 105 deletions(-)
+
+--- a/include/ap_mmn.h
++++ b/include/ap_mmn.h
+@@ -433,6 +433,7 @@
+                             to util_ldap_connection_t
+  * 20120211.36 (2.4.10-dev) Add ap_copy_scoreboard_worker()
+  * 20120211.37 (2.4.11-dev) Add r->trailers_{in,out}
++ * 20120211.46 (2.4.13-dev) Add ap_map_http_request_error()
+  * 20120211.47 (2.4.13-dev) Add ap_some_authn_required, ap_force_authn hook.
+  *                          Deprecate broken ap_some_auth_required.
+  * 20120211.68 (2.4.26-dev) Add ap_get_basic_auth_components() and deprecate
+--- a/include/http_protocol.h
++++ b/include/http_protocol.h
+@@ -509,6 +509,23 @@ AP_DECLARE(int) ap_should_client_block(r
+  */
+ AP_DECLARE(long) ap_get_client_block(request_rec *r, char *buffer, apr_size_t bufsiz);
+ 
++/*
++ * Map specific APR codes returned by the filter stack to HTTP error
++ * codes, or the default status code provided. Use it as follows:
++ *
++ * return ap_map_http_request_error(rv, HTTP_BAD_REQUEST);
++ *
++ * If the filter has already handled the error, AP_FILTER_ERROR will
++ * be returned, which is cleanly passed through.
++ *
++ * These mappings imply that the filter stack is reading from the
++ * downstream client, the proxy will map these codes differently.
++ * @param rv APR status code
++ * @param status Default HTTP code should the APR code not be recognised
++ * @return Mapped HTTP status code
++ */
++AP_DECLARE(int) ap_map_http_request_error(apr_status_t rv, int status);
++
+ /**
+  * In HTTP/1.1, any method can have a body.  However, most GET handlers
+  * wouldn't know what to do with a request body if they received one.
+--- a/modules/cache/mod_file_cache.c
++++ b/modules/cache/mod_file_cache.c
+@@ -283,7 +283,7 @@ static int mmap_handler(request_rec *r,
+     APR_BRIGADE_INSERT_TAIL(bb, b);
+ 
+     if (ap_pass_brigade(r->output_filters, bb) != APR_SUCCESS)
+-        return HTTP_INTERNAL_SERVER_ERROR;
++        return AP_FILTER_ERROR;
+ #endif
+     return OK;
+ }
+@@ -301,7 +301,7 @@ static int sendfile_handler(request_rec
+     APR_BRIGADE_INSERT_TAIL(bb, b);
+ 
+     if (ap_pass_brigade(r->output_filters, bb) != APR_SUCCESS)
+-        return HTTP_INTERNAL_SERVER_ERROR;
++        return AP_FILTER_ERROR;
+ #endif
+     return OK;
+ }
+--- a/modules/cluster/mod_heartmonitor.c
++++ b/modules/cluster/mod_heartmonitor.c
+@@ -753,7 +753,7 @@ static int hm_handler(request_rec *r)
+     input_brigade = apr_brigade_create(r->connection->pool, r->connection->bucket_alloc);
+     status = ap_get_brigade(r->input_filters, input_brigade, AP_MODE_READBYTES, APR_BLOCK_READ, MAX_MSG_LEN);
+     if (status != APR_SUCCESS) {
+-        return HTTP_INTERNAL_SERVER_ERROR;
++        return ap_map_http_request_error(status, HTTP_BAD_REQUEST);
+     }
+     apr_brigade_flatten(input_brigade, buf, &len);
+ 
+--- a/modules/dav/fs/repos.c
++++ b/modules/dav/fs/repos.c
+@@ -1104,7 +1104,7 @@ static dav_error * dav_fs_deliver(const
+     APR_BRIGADE_INSERT_TAIL(bb, bkt);
+ 
+     if ((status = ap_pass_brigade(output, bb)) != APR_SUCCESS) {
+-        return dav_new_error(pool, HTTP_FORBIDDEN, 0, status,
++        return dav_new_error(pool, AP_FILTER_ERROR, 0, status,
+                              "Could not write contents to filter.");
+     }
+ 
+--- a/modules/dav/main/mod_dav.c
++++ b/modules/dav/main/mod_dav.c
+@@ -581,6 +581,11 @@ static int dav_handle_err(request_rec *r
+     /* log the errors */
+     dav_log_err(r, err, APLOG_ERR);
+ 
++    if (!ap_is_HTTP_VALID_RESPONSE(err->status)) {
++        /* we have responded already */
++        return AP_FILTER_ERROR;
++    }
++
+     if (response == NULL) {
+         dav_error *stackerr = err;
+ 
+@@ -1000,10 +1005,10 @@ static int dav_method_put(request_rec *r
+                                        "(URI: %s)", msg);
+                 }
+                 else {
+-                    /* XXX: should this actually be HTTP_BAD_REQUEST? */
+-                    http_err = HTTP_INTERNAL_SERVER_ERROR;
+-                    msg = apr_psprintf(r->pool, "An error occurred while reading"
+-                                       " the request body (URI: %s)", msg);
++                    http_err = ap_map_http_request_error(rc, HTTP_BAD_REQUEST);
++                    msg = apr_psprintf(r->pool,
++                            "An error occurred while reading"
++                                    " the request body (URI: %s)", msg);
+                 }
+                 err = dav_new_error(r->pool, http_err, 0, rc, msg);
+                 break;
+--- a/modules/filters/mod_reflector.c
++++ b/modules/filters/mod_reflector.c
+@@ -116,14 +116,8 @@ static int reflector_handler(request_rec
+                                     APR_BLOCK_READ, HUGE_STRING_LEN);
+ 
+             if (status != APR_SUCCESS) {
+-                if (status == AP_FILTER_ERROR) {
+-                    apr_brigade_destroy(bbin);
+-                    return status;
+-                }
+-                else {
+-                    apr_brigade_destroy(bbin);
+-                    return HTTP_BAD_REQUEST;
+-                }
++                apr_brigade_destroy(bbin);
++                return ap_map_http_request_error(status, HTTP_BAD_REQUEST);
+             }
+ 
+             for (bucket = APR_BRIGADE_FIRST(bbin);
+@@ -160,7 +154,7 @@ static int reflector_handler(request_rec
+                     ap_log_rerror(APLOG_MARK, APLOG_DEBUG, status, r, APLOGNO(01410)
+                              "reflector_handler: ap_pass_brigade returned %i",
+                                   status);
+-                    return HTTP_INTERNAL_SERVER_ERROR;
++                    return AP_FILTER_ERROR;
+                 }
+ 
+             }
+--- a/modules/generators/mod_asis.c
++++ b/modules/generators/mod_asis.c
+@@ -101,7 +101,7 @@ static int asis_handler(request_rec *r)
+         if (rv != APR_SUCCESS) {
+             ap_log_rerror(APLOG_MARK, APLOG_ERR, rv, r, APLOGNO(01236)
+                           "mod_asis: ap_pass_brigade failed for file %s", r->filename);
+-            return HTTP_INTERNAL_SERVER_ERROR;
++            return AP_FILTER_ERROR;
+         }
+     }
+     else {
+--- a/modules/generators/mod_cgi.c
++++ b/modules/generators/mod_cgi.c
+@@ -857,7 +857,7 @@ static int cgi_handler(request_rec *r)
+             }
+             ap_log_rerror(APLOG_MARK, APLOG_ERR, rv, r, APLOGNO(01225)
+                           "Error reading request entity data");
+-            return HTTP_INTERNAL_SERVER_ERROR;
++            return ap_map_http_request_error(rv, HTTP_BAD_REQUEST);
+         }
+ 
+         for (bucket = APR_BRIGADE_FIRST(bb);
+--- a/modules/generators/mod_cgid.c
++++ b/modules/generators/mod_cgid.c
+@@ -1502,7 +1502,7 @@ static int cgid_handler(request_rec *r)
+             }
+             ap_log_rerror(APLOG_MARK, APLOG_ERR, rv, r, APLOGNO(01270)
+                           "Error reading request entity data");
+-            return HTTP_INTERNAL_SERVER_ERROR;
++            return ap_map_http_request_error(rv, HTTP_BAD_REQUEST);
+         }
+ 
+         for (bucket = APR_BRIGADE_FIRST(bb);
+--- a/modules/http/http_filters.c
++++ b/modules/http/http_filters.c
+@@ -483,7 +483,10 @@ apr_status_t ap_http_filter(ap_filter_t
+                 e = apr_bucket_flush_create(f->c->bucket_alloc);
+                 APR_BRIGADE_INSERT_TAIL(bb, e);
+ 
+-                ap_pass_brigade(f->c->output_filters, bb);
++                rv = ap_pass_brigade(f->c->output_filters, bb);
++                if (rv != APR_SUCCESS) {
++                    return AP_FILTER_ERROR;
++                }
+             }
+         }
+     }
+@@ -1497,6 +1500,39 @@ AP_CORE_DECLARE_NONSTD(apr_status_t) ap_
+     return ap_pass_brigade(f->next, b);
+ }
+ 
++/*
++ * Map specific APR codes returned by the filter stack to HTTP error
++ * codes, or the default status code provided. Use it as follows:
++ *
++ * return ap_map_http_request_error(rv, HTTP_BAD_REQUEST);
++ *
++ * If the filter has already handled the error, AP_FILTER_ERROR will
++ * be returned, which is cleanly passed through.
++ *
++ * These mappings imply that the filter stack is reading from the
++ * downstream client, the proxy will map these codes differently.
++ */
++AP_DECLARE(int) ap_map_http_request_error(apr_status_t rv, int status)
++{
++    switch (rv) {
++    case AP_FILTER_ERROR: {
++        return AP_FILTER_ERROR;
++    }
++    case APR_ENOSPC: {
++        return HTTP_REQUEST_ENTITY_TOO_LARGE;
++    }
++    case APR_ENOTIMPL: {
++        return HTTP_NOT_IMPLEMENTED;
++    }
++    case APR_ETIMEDOUT: {
++        return HTTP_REQUEST_TIME_OUT;
++    }
++    default: {
++        return status;
++    }
++    }
++}
++
+ /* In HTTP/1.1, any method can have a body.  However, most GET handlers
+  * wouldn't know what to do with a request body if they received one.
+  * This helper routine tests for and reads any message body in the request,
+@@ -1514,7 +1550,8 @@ AP_CORE_DECLARE_NONSTD(apr_status_t) ap_
+ AP_DECLARE(int) ap_discard_request_body(request_rec *r)
+ {
+     apr_bucket_brigade *bb;
+-    int rv, seen_eos;
++    int seen_eos;
++    apr_status_t rv;
+ 
+     /* Sometimes we'll get in a state where the input handling has
+      * detected an error where we want to drop the connection, so if
+@@ -1537,21 +1574,8 @@ AP_DECLARE(int) ap_discard_request_body(
+                             APR_BLOCK_READ, HUGE_STRING_LEN);
+ 
+         if (rv != APR_SUCCESS) {
+-            /* FIXME: If we ever have a mapping from filters (apr_status_t)
+-             * to HTTP error codes, this would be a good place for them.
+-             *
+-             * If we received the special case AP_FILTER_ERROR, it means
+-             * that the filters have already handled this error.
+-             * Otherwise, we should assume we have a bad request.
+-             */
+-            if (rv == AP_FILTER_ERROR) {
+-                apr_brigade_destroy(bb);
+-                return rv;
+-            }
+-            else {
+-                apr_brigade_destroy(bb);
+-                return HTTP_BAD_REQUEST;
+-            }
++            apr_brigade_destroy(bb);
++            return ap_map_http_request_error(rv, HTTP_BAD_REQUEST);
+         }
+ 
+         for (bucket = APR_BRIGADE_FIRST(bb);
+@@ -1720,6 +1744,13 @@ AP_DECLARE(long) ap_get_client_block(req
+     /* We lose the failure code here.  This is why ap_get_client_block should
+      * not be used.
+      */
++    if (rv == AP_FILTER_ERROR) {
++        /* AP_FILTER_ERROR means a filter has responded already,
++         * we are DONE.
++         */
++        apr_brigade_destroy(bb);
++        return -1;
++    }
+     if (rv != APR_SUCCESS) {
+         /* if we actually fail here, we want to just return and
+          * stop trying to read data from the client.
+--- a/modules/proxy/mod_proxy.c
++++ b/modules/proxy/mod_proxy.c
+@@ -963,19 +963,15 @@ static int proxy_handler(request_rec *r)
+             case M_TRACE: {
+                 int access_status;
+                 r->proxyreq = PROXYREQ_NONE;
+-                if ((access_status = ap_send_http_trace(r)))
+-                    ap_die(access_status, r);
+-                else
+-                    ap_finalize_request_protocol(r);
++                access_status = ap_send_http_trace(r);
++                ap_die(access_status, r);
+                 return OK;
+             }
+             case M_OPTIONS: {
+                 int access_status;
+                 r->proxyreq = PROXYREQ_NONE;
+-                if ((access_status = ap_send_http_options(r)))
+-                    ap_die(access_status, r);
+-                else
+-                    ap_finalize_request_protocol(r);
++                access_status = ap_send_http_options(r);
++                ap_die(access_status, r);
+                 return OK;
+             }
+             default: {
+--- a/modules/proxy/mod_proxy_ajp.c
++++ b/modules/proxy/mod_proxy_ajp.c
+@@ -180,13 +180,13 @@ static int ap_proxy_ajp_request(apr_pool
+     apr_byte_t conn_reuse = 0;
+     const char *tenc;
+     int havebody = 1;
+-    int output_failed = 0;
++    int client_failed = 0;
+     int backend_failed = 0;
+     apr_off_t bb_len;
+     int data_sent = 0;
+     int request_ended = 0;
+     int headers_sent = 0;
+-    int rv = 0;
++    int rv = OK;
+     apr_int32_t conn_poll_fd;
+     apr_pollfd_t *conn_poll;
+     proxy_server_conf *psf =
+@@ -261,10 +261,10 @@ static int ap_proxy_ajp_request(apr_pool
+         if (status != APR_SUCCESS) {
+             /* We had a failure: Close connection to backend */
+             conn->close = 1;
+-            ap_log_rerror(APLOG_MARK, APLOG_DEBUG, 0, r, APLOGNO(00871)
++            ap_log_rerror(APLOG_MARK, APLOG_DEBUG, status, r, APLOGNO(00871)
+                           "ap_get_brigade failed");
+             apr_brigade_destroy(input_brigade);
+-            return HTTP_BAD_REQUEST;
++            return ap_map_http_request_error(status, HTTP_BAD_REQUEST);
+         }
+ 
+         /* have something */
+@@ -394,7 +394,13 @@ static int ap_proxy_ajp_request(apr_pool
+                         if (status != APR_SUCCESS) {
+                             ap_log_rerror(APLOG_MARK, APLOG_DEBUG, status, r, APLOGNO(00880)
+                                           "ap_get_brigade failed");
+-                            output_failed = 1;
++                            if (APR_STATUS_IS_TIMEUP(status)) {
++                                rv = HTTP_REQUEST_TIME_OUT;
++                            }
++                            else if (status == AP_FILTER_ERROR) {
++                                rv = AP_FILTER_ERROR;
++                            }
++                            client_failed = 1;
+                             break;
+                         }
+                         bufsiz = maxsize;
+@@ -404,7 +410,8 @@ static int ap_proxy_ajp_request(apr_pool
+                         if (status != APR_SUCCESS) {
+                             ap_log_rerror(APLOG_MARK, APLOG_DEBUG, status, r, APLOGNO(00881)
+                                          "apr_brigade_flatten failed");
+-                            output_failed = 1;
++                            rv = HTTP_INTERNAL_SERVER_ERROR;
++                            client_failed = 1;
+                             break;
+                         }
+                     }
+@@ -518,7 +525,7 @@ static int ap_proxy_ajp_request(apr_pool
+                                               "error processing body.%s",
+                                               r->connection->aborted ?
+                                               " Client aborted connection." : "");
+-                                output_failed = 1;
++                                client_failed = 1;
+                             }
+                             data_sent = 1;
+                             apr_brigade_cleanup(output_brigade);
+@@ -545,7 +552,7 @@ static int ap_proxy_ajp_request(apr_pool
+                                         output_brigade) != APR_SUCCESS) {
+                         ap_log_rerror(APLOG_MARK, APLOG_DEBUG, 0, r, APLOGNO(00888)
+                                       "error processing end");
+-                        output_failed = 1;
++                        client_failed = 1;
+                     }
+                     /* XXX: what about flush here? See mod_jk */
+                     data_sent = 1;
+@@ -559,23 +566,27 @@ static int ap_proxy_ajp_request(apr_pool
+ 
+         /*
+          * If connection has been aborted by client: Stop working.
+-         * Nevertheless, we regard our operation so far as a success:
+-         * So reset output_failed to 0 and set result to CMD_AJP13_END_RESPONSE
+-         * But: Close this connection to the backend.
++         * Pretend we are done (data_sent) to avoid further processing.
+          */
+         if (r->connection->aborted) {
+-            conn->close = 1;
+-            output_failed = 0;
+-            result = CMD_AJP13_END_RESPONSE;
+-            request_ended = 1;
++            ap_log_rerror(APLOG_MARK, APLOG_DEBUG, 0, r, APLOGNO(02821)
++                          "client connection aborted");
++            /* no response yet (or ever), set status for access log */
++            if (!headers_sent) {
++                r->status = HTTP_BAD_REQUEST;
++            }
++            client_failed = 1;
++            /* return DONE */
++            data_sent = 1;
++            break;
+         }
+ 
+         /*
+          * We either have finished successfully or we failed.
+          * So bail out
+          */
+-        if ((result == CMD_AJP13_END_RESPONSE) || backend_failed
+-            || output_failed)
++        if ((result == CMD_AJP13_END_RESPONSE)
++                || backend_failed || client_failed)
+             break;
+ 
+         /* read the response */
+@@ -597,14 +608,14 @@ static int ap_proxy_ajp_request(apr_pool
+      */
+     apr_brigade_cleanup(output_brigade);
+ 
+-    if (backend_failed || output_failed) {
++    if (backend_failed || client_failed) {
+         ap_log_rerror(APLOG_MARK, APLOG_DEBUG, 0, r, APLOGNO(00890)
+-                      "Processing of request failed backend: %i, "
+-                      "output: %i", backend_failed, output_failed);
++                      "Processing of request failed backend: %i, client: %i",
++                      backend_failed, client_failed);
+         /* We had a failure: Close connection to backend */
+         conn->close = 1;
+-        /* Return DONE to avoid error messages being added to the stream */
+         if (data_sent) {
++            /* Return DONE to avoid error messages being added to the stream */
+             rv = DONE;
+         }
+     }
+@@ -614,8 +625,8 @@ static int ap_proxy_ajp_request(apr_pool
+         /* We had a failure: Close connection to backend */
+         conn->close = 1;
+         backend_failed = 1;
+-        /* Return DONE to avoid error messages being added to the stream */
+         if (data_sent) {
++            /* Return DONE to avoid error messages being added to the stream */
+             rv = DONE;
+         }
+     }
+@@ -665,6 +676,15 @@ static int ap_proxy_ajp_request(apr_pool
+             rv = HTTP_INTERNAL_SERVER_ERROR;
+         }
+     }
++    else if (client_failed) {
++        int level = (r->connection->aborted) ? APLOG_DEBUG : APLOG_ERR;
++        ap_log_rerror(APLOG_MARK, level, status, r, APLOGNO(02822)
++                      "dialog with client %pI failed",
++                      r->connection->client_addr);
++        if (rv == OK) {
++            rv = HTTP_BAD_REQUEST;
++        }
++    }
+ 
+     /*
+      * Ensure that we sent an EOS bucket thru the filter chain, if we already
+@@ -672,14 +692,17 @@ static int ap_proxy_ajp_request(apr_pool
+      * one to the brigade already (no longer making it empty). So we should
+      * not do this in this case.
+      */
+-    if (data_sent && !r->eos_sent && APR_BRIGADE_EMPTY(output_brigade)) {
++    if (data_sent && !r->eos_sent && !r->connection->aborted
++            && APR_BRIGADE_EMPTY(output_brigade)) {
+         e = apr_bucket_eos_create(r->connection->bucket_alloc);
+         APR_BRIGADE_INSERT_TAIL(output_brigade, e);
+     }
+ 
+     /* If we have added something to the brigade above, send it */
+-    if (!APR_BRIGADE_EMPTY(output_brigade))
+-        ap_pass_brigade(r->output_filters, output_brigade);
++    if (!APR_BRIGADE_EMPTY(output_brigade)
++        && ap_pass_brigade(r->output_filters, output_brigade) != APR_SUCCESS) {
++        rv = AP_FILTER_ERROR;
++    }
+ 
+     apr_brigade_destroy(output_brigade);
+ 
+--- a/modules/proxy/mod_proxy_balancer.c
++++ b/modules/proxy/mod_proxy_balancer.c
+@@ -1037,7 +1037,7 @@ static int balancer_handler(request_rec
+         rv = ap_get_brigade(r->input_filters, ib, AP_MODE_READBYTES,
+                                 APR_BLOCK_READ, len);
+         if (rv != APR_SUCCESS) {
+-            return HTTP_INTERNAL_SERVER_ERROR;
++            return ap_map_http_request_error(rv, HTTP_BAD_REQUEST);
+         }
+         apr_brigade_flatten(ib, buf, &len);
+         buf[len] = '\0';
+--- a/modules/proxy/mod_proxy_fcgi.c
++++ b/modules/proxy/mod_proxy_fcgi.c
+@@ -363,8 +363,8 @@ static int handle_headers(request_rec *r
+ 
+ static apr_status_t dispatch(proxy_conn_rec *conn, proxy_dir_conf *conf,
+                              request_rec *r, apr_pool_t *setaside_pool,
+-                             apr_uint16_t request_id,
+-                             const char **err)
++                             apr_uint16_t request_id, const char **err,
++                             int *bad_request, int *has_responded)
+ {
+     apr_bucket_brigade *ib, *ob;
+     int seen_end_of_headers = 0, done = 0, ignore_body = 0;
+@@ -422,6 +422,7 @@ static apr_status_t dispatch(proxy_conn_
+                                 iobuf_size);
+             if (rv != APR_SUCCESS) {
+                 *err = "reading input brigade";
++                *bad_request = 1;
+                 break;
+             }
+ 
+@@ -575,9 +576,14 @@ recv_again:
+                                 apr_brigade_cleanup(ob);
+                                 tmp_b = apr_bucket_eos_create(c->bucket_alloc);
+                                 APR_BRIGADE_INSERT_TAIL(ob, tmp_b);
++
++                                *has_responded = 1;
+                                 r->status = status;
+-                                ap_pass_brigade(r->output_filters, ob);
+-                                if (status == HTTP_NOT_MODIFIED) {
++                                rv = ap_pass_brigade(r->output_filters, ob);
++                                if (rv != APR_SUCCESS) {
++                                    *err = "passing headers brigade to output filters";
++                                }
++                                else if (status == HTTP_NOT_MODIFIED) {
+                                     /* The 304 response MUST NOT contain
+                                      * a message-body, ignore it. */
+                                     ignore_body = 1;
+@@ -609,6 +615,7 @@ recv_again:
+                                 /* Send the part of the body that we read while
+                                  * reading the headers.
+                                  */
++                                *has_responded = 1;
+                                 rv = ap_pass_brigade(r->output_filters, ob);
+                                 if (rv != APR_SUCCESS) {
+                                     *err = "passing brigade to output filters";
+@@ -634,6 +641,7 @@ recv_again:
+                          * along smaller chunks
+                          */
+                         if (script_error_status == HTTP_OK && !ignore_body) {
++                            *has_responded = 1;
+                             rv = ap_pass_brigade(r->output_filters, ob);
+                             if (rv != APR_SUCCESS) {
+                                 *err = "passing brigade to output filters";
+@@ -655,6 +663,8 @@ recv_again:
+                     if (script_error_status == HTTP_OK) {
+                         b = apr_bucket_eos_create(c->bucket_alloc);
+                         APR_BRIGADE_INSERT_TAIL(ob, b);
++
++                        *has_responded = 1;
+                         rv = ap_pass_brigade(r->output_filters, ob);
+                         if (rv != APR_SUCCESS) {
+                             *err = "passing brigade to output filters";
+@@ -705,6 +715,7 @@ recv_again:
+ 
+     if (script_error_status != HTTP_OK) {
+         ap_die(script_error_status, r); /* send ErrorDocument */
++        *has_responded = 1;
+     }
+ 
+     return rv;
+@@ -729,6 +740,8 @@ static int fcgi_do_request(apr_pool_t *p
+     apr_status_t rv;
+     apr_pool_t *temp_pool;
+     const char *err;
++    int bad_request = 0,
++        has_responded = 0;
+ 
+     /* Step 1: Send AP_FCGI_BEGIN_REQUEST */
+     rv = send_begin_request(conn, request_id);
+@@ -751,7 +764,8 @@ static int fcgi_do_request(apr_pool_t *p
+     }
+ 
+     /* Step 3: Read records from the back end server and handle them. */
+-    rv = dispatch(conn, conf, r, temp_pool, request_id, &err);
++    rv = dispatch(conn, conf, r, temp_pool, request_id,
++                  &err, &bad_request, &has_responded);
+     if (rv != APR_SUCCESS) {
+         ap_log_rerror(APLOG_MARK, APLOG_ERR, rv, r, APLOGNO(01075)
+                       "Error dispatching request to %s: %s%s%s",
+@@ -760,6 +774,12 @@ static int fcgi_do_request(apr_pool_t *p
+                       err ? err : "",
+                       err ? ")" : "");
+         conn->close = 1;
++        if (has_responded) {
++            return AP_FILTER_ERROR;
++        }
++        if (bad_request) {
++            return ap_map_http_request_error(rv, HTTP_BAD_REQUEST);
++        }
+         return HTTP_SERVICE_UNAVAILABLE;
+     }
+ 
+--- a/modules/proxy/mod_proxy_http.c
++++ b/modules/proxy/mod_proxy_http.c
+@@ -324,7 +324,7 @@ static int stream_reqbody_chunked(apr_po
+                           " from %s (%s)", p_conn->addr,
+                           p_conn->hostname ? p_conn->hostname: "",
+                           c->client_ip, c->remote_host ? c->remote_host: "");
+-            return HTTP_BAD_REQUEST;
++            return ap_map_http_request_error(status, HTTP_BAD_REQUEST);
+         }
+     }
+ 
+@@ -475,7 +475,7 @@ static int stream_reqbody_cl(apr_pool_t
+                           " from %s (%s)", p_conn->addr,
+                           p_conn->hostname ? p_conn->hostname: "",
+                           c->client_ip, c->remote_host ? c->remote_host: "");
+-            return HTTP_BAD_REQUEST;
++            return ap_map_http_request_error(status, HTTP_BAD_REQUEST);
+         }
+     }
+ 
+@@ -624,7 +624,7 @@ static int spool_reqbody_cl(apr_pool_t *
+                           " from %s (%s)", p_conn->addr,
+                           p_conn->hostname ? p_conn->hostname: "",
+                           c->client_ip, c->remote_host ? c->remote_host: "");
+-            return HTTP_BAD_REQUEST;
++            return ap_map_http_request_error(status, HTTP_BAD_REQUEST);
+         }
+     }
+ 
+@@ -807,7 +807,7 @@ int ap_proxy_http_request(apr_pool_t *p,
+                           " from %s (%s)",
+                           p_conn->addr, p_conn->hostname ? p_conn->hostname: "",
+                           c->client_ip, c->remote_host ? c->remote_host: "");
+-            return HTTP_BAD_REQUEST;
++            return ap_map_http_request_error(status, HTTP_BAD_REQUEST);
+         }
+ 
+         apr_brigade_length(temp_brigade, 1, &bytes);
+--- a/modules/proxy/mod_proxy_scgi.c
++++ b/modules/proxy/mod_proxy_scgi.c
+@@ -431,8 +431,9 @@ static int pass_response(request_rec *r,
+         }
+     }
+ 
+-    /* XXX: What could we do with that return code? */
+-    (void)ap_pass_brigade(r->output_filters, bb);
++    if (ap_pass_brigade(r->output_filters, bb)) {
++        return AP_FILTER_ERROR;
++    }
+ 
+     return OK;
+ }
+--- a/modules/ssl/ssl_engine_io.c
++++ b/modules/ssl/ssl_engine_io.c
+@@ -1706,7 +1706,7 @@ int ssl_io_buffer_fill(request_rec *r, a
+         if (rv) {
+             ap_log_rerror(APLOG_MARK, APLOG_ERR, rv, r, APLOGNO(02015)
+                           "could not read request body for SSL buffer");
+-            return HTTP_INTERNAL_SERVER_ERROR;
++            return ap_map_http_request_error(rv, HTTP_INTERNAL_SERVER_ERROR);
+         }
+ 
+         /* Iterate through the returned brigade: setaside each bucket
+--- a/modules/ssl/ssl_engine_kernel.c
++++ b/modules/ssl/ssl_engine_kernel.c
+@@ -131,7 +131,7 @@ int ssl_hook_ReadReq(request_rec *r)
+         && (upgrade = apr_table_get(r->headers_in, "Upgrade")) != NULL
+         && ap_find_token(r->pool, upgrade, "TLS/1.0")) {
+         if (upgrade_connection(r)) {
+-            return HTTP_INTERNAL_SERVER_ERROR;
++            return AP_FILTER_ERROR;
+         }
+     }
+ 
+--- a/modules/test/mod_dialup.c
++++ b/modules/test/mod_dialup.c
+@@ -85,10 +85,10 @@ dialup_send_pulse(dialup_baton_t *db)
+ 
+         apr_brigade_cleanup(db->tmpbb);
+ 
+-        if (status != OK) {
++        if (status != APR_SUCCESS) {
+             ap_log_rerror(APLOG_MARK, APLOG_ERR, status, db->r, APLOGNO(01867)
+                           "dialup: pulse: ap_pass_brigade failed:");
+-            return status;
++            return AP_FILTER_ERROR;
+         }
+     }
+ 
+@@ -120,7 +120,7 @@ dialup_callback(void *baton)
+         return;
+     }
+     else {
+-        ap_log_rerror(APLOG_MARK, APLOG_ERR, status, db->r, APLOGNO(01868)
++        ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, db->r, APLOGNO(01868)
+                       "dialup: pulse returned: %d", status);
+         db->r->status = HTTP_OK;
+         ap_die(status, db->r);
+--- a/server/core.c
++++ b/server/core.c
+@@ -4534,7 +4534,7 @@ static int default_handler(request_rec *
+             ap_log_rerror(APLOG_MARK, APLOG_DEBUG, status, r, APLOGNO(00133)
+                           "default_handler: ap_pass_brigade returned %i",
+                           status);
+-            return HTTP_INTERNAL_SERVER_ERROR;
++            return AP_FILTER_ERROR;
+         }
+     }
+     else {              /* unusual method (not GET or POST) */
+--- a/server/error_bucket.c
++++ b/server/error_bucket.c
+@@ -61,6 +61,9 @@ AP_DECLARE(apr_bucket *) ap_bucket_error
+     APR_BUCKET_INIT(b);
+     b->free = apr_bucket_free;
+     b->list = list;
++    if (!ap_is_HTTP_VALID_RESPONSE(error)) {
++        error = HTTP_INTERNAL_SERVER_ERROR;
++    }
+     return ap_bucket_error_make(b, error, buf, p);
+ }
+ 
+--- a/server/util.c
++++ b/server/util.c
+@@ -2557,7 +2557,7 @@ AP_DECLARE(int) ap_parse_form_data(reque
+                                 APR_BLOCK_READ, HUGE_STRING_LEN);
+         if (rv != APR_SUCCESS) {
+             apr_brigade_destroy(bb);
+-            return (rv == AP_FILTER_ERROR) ? rv : HTTP_BAD_REQUEST;
++            return ap_map_http_request_error(rv, HTTP_BAD_REQUEST);
+         }
+ 
+         for (bucket = APR_BRIGADE_FIRST(bb);
+--- a/server/util_xml.c
++++ b/server/util_xml.c
+@@ -59,6 +59,7 @@ AP_DECLARE(int) ap_xml_parse_input(reque
+                                 READ_BLOCKSIZE);
+ 
+         if (status != APR_SUCCESS) {
++            result = ap_map_http_request_error(status, HTTP_BAD_REQUEST);
+             goto read_error;
+         }
+ 

@@ -1,0 +1,32 @@
+# backport from stretch: disabled as it requires a full copy of the
+# (separate) test suite, with no indication on which version matches 2.4.10
+#Tests: run-test-suite
+#Features: no-build-needed
+#Restrictions: allow-stderr isolation-container
+#Depends: build-essential, apache2, apache2-dev,
+#         libwww-perl, libnet-ssleay-perl, libanyevent-perl, libdatetime-perl,
+#         libcrypt-ssleay-perl, libhttp-dav-perl
+## XXX Protocol::HTTP2::Client would be nice, too
+
+Tests: duplicate-module-load
+Restrictions: allow-stderr, needs-root
+Depends: apache2
+
+# backport from stretch: disabled since 'htcacheclean' _service_ isn't
+# provided yet
+#Tests: htcacheclean
+#Restrictions: allow-stderr, needs-root
+#Depends: apache2
+
+Tests: default-mods
+Restrictions: allow-stderr, needs-root
+Depends: apache2
+
+Tests: ssl-passphrase
+Restrictions: needs-root allow-stderr breaks-testbed
+Depends: apache2, curl, expect, ssl-cert
+
+Tests: chroot
+Features: no-build-needed
+Restrictions: needs-root allow-stderr breaks-testbed
+Depends: apache2, wget, dpkg-dev, gcc

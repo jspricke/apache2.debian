@@ -1,3 +1,127 @@
+apache2 (2.4.10-10+deb8u24) jessie-security; urgency=medium
+
+  * Non-maintainer upload by the ELTS team.
+  * Fix regression in patch for CVE-2022-31813 that resulted in some request
+    parameters being lost (thanks to Markus Koschany for the patch)
+
+ -- Roberto C. Sánchez <roberto@debian.org>  Sat, 23 Jul 2022 15:20:52 +0200
+
+apache2 (2.4.10-10+deb8u23) jessie; urgency=medium
+
+  * Non-maintainer upload by the ELTS team.
+  * CVE-2022-26377: mod_proxy_ajp: Possible request smuggling.
+  * CVE-2022-28614: read beyond bounds via ap_rwrite().
+  * CVE-2022-28615: Read beyond bounds in ap_strcmp_match().
+  * CVE-2022-29404: Denial of service in mod_lua r:parsebody.
+  * CVE-2022-30522: mod_sed denial of service.
+  * CVE-2022-30556: Information Disclosure in mod_lua with websockets.
+  * CVE-2022-31813: mod_proxy X-Forwarded-For dropped by hop-by-hop mechanism.
+
+ -- Roberto C. Sánchez <roberto@debian.org>  Mon, 20 Jun 2022 13:11:20 -0400
+
+apache2 (2.4.10-10+deb8u22) jessie-security; urgency=medium
+
+  * Non-maintainer upload by the ELTS team.
+  * CVE-2022-22719: denial of service in mod_lua via crafted request body.
+  * CVE-2022-22720: HTTP request smuggling.
+  * CVE-2022-22721: integer overflow leading to buffer overflow write.
+  * CVE-2022-23943: heap memory overwrite via crafted data in mod_sed.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Fri, 18 Mar 2022 13:56:21 +0100
+
+apache2 (2.4.10-10+deb8u21) jessie-security; urgency=high
+
+  * Non-maintainer upload by the ELTS Team.
+  * fix error with symbol names in mod_proxy
+
+ -- Thorsten Alteholz <debian@alteholz.de>  Sun, 20 Feb 2022 10:03:02 +0100
+
+apache2 (2.4.10-10+deb8u20) jessie-security; urgency=high
+
+  * Non-maintainer upload by the ELTS Team.
+  * CVE-2021-44224
+    Fix possible NULL dereference or SSRF in forward proxy configurations
+  * CVE-2021-44790
+    lua: improve error handling
+
+ -- Thorsten Alteholz <debian@alteholz.de>  Sat, 19 Feb 2022 12:03:02 +0100
+
+apache2 (2.4.10-10+deb8u19) jessie-security; urgency=high
+
+  * Non-maintainer upload by the ELTS Security Team.
+  * CVE-2021-34798: malformed requests may cause the server to dereference
+    a NULL pointer.
+  * CVE-2021-39275: ap_escape_quotes() may write beyond the end of a
+    buffer when given malicious input. No included modules pass untrusted
+    data to these functions, but third-party / external modules may.
+  * CVE-2021-40438: a crafted request uri-path can cause mod_proxy to
+    forward the request to an origin server choosen by the remote user.
+  * Backport some DEP-8 tests from stretch.
+
+ -- Sylvain Beucler <beuc@debian.org>  Sat, 02 Oct 2021 15:52:41 +0200
+
+apache2 (2.4.10-10+deb8u18) jessie-security; urgency=medium
+
+  * Non-maintainer upload by the ELTS Team.
+  * Backport patches:
+    - CVE-2021-30641: unexpected URL matching with 'MergeSlashes OFF'
+    - CVE-2021-26691: mod_session response handling heap overflow
+    - CVE-2021-26690: mod_session NULL pointer dereference
+    - CVE-2020-35452: mod_auth_digest stack overflow
+    - CVE-2020-1927: mod_rewrite open redirect
+    - CVE-2020-1934: mod_proxy_ftp uninitialized
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Fri, 09 Jul 2021 10:21:56 +0200
+
+apache2 (2.4.10-10+deb8u17) jessie-security; urgency=medium
+
+  * Non-maintainer upload by the ELTS team.
+  * Use r->useragent_addr as the root trusted address for verifying.
+    (Fixes: CVE-2020-11985)
+
+ -- Utkarsh Gupta <utkarsh@debian.org>  Sun, 30 Aug 2020 19:50:19 +0530
+
+apache2 (2.4.10-10+deb8u16) jessie-security; urgency=high
+
+  * Non-maintainer upload by the LTS team.
+  * Fix incomplete fix for CVE-2019-10092. Revert the old patch that introduced
+    a new CSRF protection but also caused a small regression. (Closes: #941202)
+    Use the correct patch from upstream. https://svn.apache.org/r1864191
+
+ -- Markus Koschany <apo@debian.org>  Mon, 30 Sep 2019 21:21:12 +0200
+
+apache2 (2.4.10-10+deb8u15) jessie-security; urgency=high
+
+  * Non-maintainer upload by the LTS team.
+  * Fix CVE-2019-10092:
+    Matei "Mal" Badanoiu reported a limited cross-site scripting
+    vulnerability in the mod_proxy error page.
+  * Fix CVE-2019-10098:
+    Yukitsugu Sasaki reported a potential open redirect vulnerability in the
+    mod_rewrite module.
+
+ -- Markus Koschany <apo@debian.org>  Wed, 28 Aug 2019 15:01:48 +0200
+
+apache2 (2.4.10-10+deb8u14) jessie-security; urgency=medium
+
+  * Non-maintainer upload by the LTS Security Team.
+  * CVE-2019-0217: mod_auth_digest: Access control bypass
+  * CVE-2019-0220: URL normalization inconsistincy.
+    Consecutive slashes in URL's are now merged before use in LocationMatch
+    and RewriteRule. The old behavior can be restored with the new directive
+    "MergeSlashes off".
+
+ -- Jonas Meurer <jonas@freesources.org>  Wed, 03 Apr 2019 12:43:39 +0200
+
+apache2 (2.4.10-10+deb8u13) jessie-security; urgency=medium
+
+  * Non-maintainer upload by the LTS Team. 
+  * CVE-2018-17199
+    In order to not ignore expire time of cookies, always decode session
+    attributes early.
+ 
+ -- Thorsten Alteholz <debian@alteholz.de>  Tue, 29 Jan 2019 19:03:02 +0100
+
 apache2 (2.4.10-10+deb8u12) jessie-security; urgency=medium
 
   * CVE-2017-15710: mod_authnz_ldap: Out of bound write in mod_authnz_ldap
