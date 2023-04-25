@@ -46,9 +46,7 @@ if $PGREP ; then
 	fatal "htcacheclean did not stop"
 fi
 
-service apache-htcacheclean status
-exit_code = $?
-if test "$exit_code" != "3" ; then
+if ! service apache-htcacheclean status; then
 	fatal "status did not return 'stopped' return $exit_code"
 fi
 
