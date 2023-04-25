@@ -1,8 +1,6 @@
 apache2 (2.4.25-3+deb9u15) stretch; urgency=medium
 
   * Non-maintainer upload by the ELTS team.
-  * CVE-2023-27522: HTTP Response Smuggling in mod_proxy_uwsgi
-    (Closes: #1032476)
   * CVE-2023-25690: Some mod_proxy configurations allow a HTTP
     Request Smuggling attack. Configurations are affected
     when mod_proxy is enabled along with some form of RewriteRule
@@ -10,9 +8,9 @@ apache2 (2.4.25-3+deb9u15) stretch; urgency=medium
     some portion of the user-supplied request-target (URL)
     data and is then re-inserted into the proxied request-target
     using variable substitution. (Closes: #1032476)
-  * Backport regression fix for CVE-2023-25690
+  * Backport regression fix for CVE-2023-25690.
 
- -- Bastien Roucariès <rouca@debian.org>  Sun, 23 Apr 2023 19:10:49 +0000
+ -- Bastien Roucariès <rouca@debian.org>  Tue, 25 Apr 2023 08:16:21 +0000
 
 apache2 (2.4.25-3+deb9u14) stretch; urgency=medium
 

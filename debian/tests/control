@@ -27,10 +27,6 @@ Features: no-build-needed
 Restrictions: needs-root allow-stderr breaks-testbed
 Depends: apache2, wget, dpkg-dev
 
-Tests: uwsgi
-Restrictions: allow-stderr, needs-root
-Depends: apache2, libapache2-mod-proxy-uwsgi, uwsgi, wget, uwsgi-plugin-python, rsync, netcat-openbsd | netcat-traditional
-
 Tests: CVE-2023-25690
 Restrictions: allow-stderr, needs-root
 Depends: apache2, rsync, curl, wget
