@@ -40,13 +40,16 @@ if ! service apache-htcacheclean status ; then
 fi
 
 service apache-htcacheclean stop
+sleep 10
 
 if $PGREP ; then
 	fatal "htcacheclean did not stop"
 fi
 
-if service apache-htcacheclean status ; then
-	fatal "status did not return 'stopped'"
+service apache-htcacheclean status
+exit_code = $?
+if test "$exit_code" != "3" ; then
+	fatal "status did not return 'stopped' return $exit_code"
 fi
 
 a2dismod cache_disk
