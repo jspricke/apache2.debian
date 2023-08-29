@@ -29,17 +29,17 @@ GetOptions(
 
 my $basename = basename($0);
 $basename =~ /^a2(en|dis)(mod|site|conf)((?:-.+)?)$/
-    or die "$basename call name unknown\n";
+  or die "$basename call name unknown\n";
 my $act        = $1;
 my $obj        = $2;
 my $dir_suffix = $3;
 
 my @essential_module_list = qw(alias auth_basic authn_file authz_host
-    authz_user autoindex deflate dir env filter logio mime negotiation
-    setenvif unixd version watchdog);
+  authz_user autoindex deflate dir env filter logio mime negotiation
+  setenvif unixd version watchdog);
 my $env_file = $ENV{APACHE_ENVVARS};
-if (! $env_file) {
-    if ($ENV{APACHE_CONFDIR}) {
+if ( !$env_file ) {
+    if ( $ENV{APACHE_CONFDIR} ) {
         $env_file = "$ENV{APACHE_CONFDIR}/envvars";
     }
     else {
@@ -70,26 +70,27 @@ else {
 }
 $name = ucfirst($obj);
 
-my $confdir = $ENV{APACHE_CONFDIR} || "/etc/apache2$dir_suffix";
+my $confdir  = $ENV{APACHE_CONFDIR} || "/etc/apache2$dir_suffix";
 my $availdir = $ENV{ uc("APACHE_${dir}_AVAILABLE") }
-    || "$confdir/$dir-available";
-my $enabldir = $ENV{ uc("APACHE_${dir}_ENABLED") } || "$confdir/$dir-enabled";
+  || "$confdir/$dir-available";
+my $enabldir = $ENV{ uc("APACHE_${dir}_ENABLED") }  || "$confdir/$dir-enabled";
 my $statedir = $ENV{ uc("APACHE_STATE_DIRECTORY") } || "/var/lib/apache2";
 
 $statedir .= "/$obj";
 
 my $choicedir = $act eq 'enable' ? $availdir : $enabldir;
-my $linkdir = File::Spec->abs2rel( $availdir, $enabldir );
+my $linkdir   = File::Spec->abs2rel( $availdir, $enabldir );
 
 my $request_reload = 0;
 my $request_htcacheclean;
-my $htc = "apache-htcacheclean$dir_suffix";
-my $htc_service = "apache-htcacheclean";  # Service name for systemd
+my $htc            = "apache-htcacheclean$dir_suffix";
+my $htc_service    = "apache-htcacheclean";           # Service name for systemd
 my $apache_service = "apache2";
-if (defined($dir_suffix) and $dir_suffix ne '') {
+if ( defined($dir_suffix) and $dir_suffix ne '' ) {
+
     # Uses '@instance.service' suffix instead of '-instance' suffix
-    my $service_suffix = '@' . substr($dir_suffix, 1) . '.service';
-    $htc_service .= $service_suffix;
+    my $service_suffix = '@' . substr( $dir_suffix, 1 ) . '.service';
+    $htc_service    .= $service_suffix;
     $apache_service .= $service_suffix;
 }
 my $rc = 0;
@@ -120,20 +121,21 @@ foreach my $acton (@objs) {
     doit($acton) or $rc = 1;
 }
 
-my $htcstart = "";
+my $htcstart      = "";
 my $apache_reload = "";
-my $cmd = ($act eq "enable") ? "start" : "stop";
-if (is_systemd()) {
-    $htcstart = "  systemctl $cmd $htc_service\n";
+my $cmd           = ( $act eq "enable" ) ? "start" : "stop";
+if ( is_systemd() ) {
+    $htcstart      = "  systemctl $cmd $htc_service\n";
     $apache_reload = "  systemctl $reload $apache_service\n";
-} else {
-    $htcstart = "  service $htc $cmd\n";
+}
+else {
+    $htcstart      = "  service $htc $cmd\n";
     $apache_reload = "  service apache2$dir_suffix $reload\n";
 }
-info(  "To activate the new configuration, you need to run:\n"
-     . $apache_reload
-     . ($request_htcacheclean ? $htcstart : "")
-) if $request_reload;
+info(   "To activate the new configuration, you need to run:\n"
+      . $apache_reload
+      . ( $request_htcacheclean ? $htcstart : "" ) )
+  if $request_reload;
 
 exit($rc);
 
@@ -158,7 +160,7 @@ sub doit {
     if ( $obj eq 'module' ) {
         if ( $act eq 'enable' && $acton eq 'cgi' && threaded() ) {
             print
-                "Your MPM seems to be threaded. Selecting cgid instead of cgi.\n";
+              "Your MPM seems to be threaded. Selecting cgid instead of cgi.\n";
             $acton = 'cgid';
         }
 
@@ -192,8 +194,9 @@ sub doit {
             }
         }
 
-        if ( $purge ) {
+        if ($purge) {
             switch_marker( $obj, $act, $acton );
+
             # exit silently, we are purging anyway
             return 1;
         }
@@ -256,7 +259,7 @@ sub doit {
                 }
                 else {
                     error(
-                        "Config file $acton.conf not properly enabled: $confcheck\n"
+"Config file $acton.conf not properly enabled: $confcheck\n"
                     );
                     return 0;
                 }
@@ -276,7 +279,7 @@ sub doit {
                 }
                 elsif ( $confcheck ne 'ok' ) {
                     error(
-                        "Config file $acton.conf not properly enabled: $confcheck\n"
+"Config file $acton.conf not properly enabled: $confcheck\n"
                     );
                     return 0;
                 }
@@ -285,7 +288,7 @@ sub doit {
             print "Enabling $obj $acton.\n";
             special_module_handling($acton);
             return add_link( $tgt, $link )
-                && switch_marker( $obj, $act, $acton );
+              && switch_marker( $obj, $act, $acton );
         }
         else {
             error("$name $acton not properly enabled: $check\n");
@@ -295,8 +298,10 @@ sub doit {
     else {
         if ( -e $link || -l $link ) {
             special_module_handling($acton);
-            if ($obj eq 'module' && grep {$_ eq $acton} @essential_module_list) {
-                  $force || essential_module_handling($acton);
+            if ( $obj eq 'module' && grep { $_ eq $acton }
+                @essential_module_list )
+            {
+                $force || essential_module_handling($acton);
             }
             remove_link($link);
             if ( $conflink && -e $conflink ) {
@@ -311,7 +316,7 @@ sub doit {
         }
         else {
             info("$name $acton already disabled\n");
-            if ( $purge ) {
+            if ($purge) {
                 switch_marker( $obj, $act, $acton );
             }
             return 1;
@@ -357,7 +362,7 @@ sub do_deps {
 }
 
 sub warn_deps {
-    my $acton = shift;
+    my $acton        = shift;
     my $modsenabldir = $ENV{APACHE_MODS_ENABLED} || "$confdir/mods-enabled";
     foreach my $d (@_) {
         info("Checking dependency $d for $acton:\n");
@@ -383,7 +388,7 @@ sub check_conflicts {
         my $confcheck = check_link( $tgt, $link );
         if ( $confcheck eq 'ok' ) {
             error(
-                "Module $d is enabled - cannot proceed due to conflicts. It needs to be disabled first!\n"
+"Module $d is enabled - cannot proceed due to conflicts. It needs to be disabled first!\n"
             );
 
             # Don't return immediately, there could be several conflicts
@@ -448,12 +453,11 @@ sub remove_link {
 sub threaded {
     my $result = "";
     $result = qx{/usr/sbin/apache2ctl -V | grep 'threaded'}
-        if -x '/usr/sbin/apache2ctl';
+      if -x '/usr/sbin/apache2ctl';
     if ( $? != 0 ) {
 
         # config doesn't work
-        if ( -e "$enabldir/mpm_prefork.load" )
-        {
+        if ( -e "$enabldir/mpm_prefork.load" ) {
             return 0;
         }
         elsif (-e "$enabldir/mpm_worker.load"
@@ -517,7 +521,7 @@ sub read_env_file {
 
 sub switch_marker {
     die('usage: switch_marker([module|site|conf], [enable|disable], $name)')
-        if @_ != 3;
+      if @_ != 3;
     my $which = shift;
     my $what  = shift;
     my $name  = shift;
@@ -531,8 +535,7 @@ sub switch_marker {
     my $state_marker     = "$state_marker_dir/$name";
     if ( !-d $state_marker_dir ) {
         File::Path::mkpath("$state_marker_dir")
-            || error(
-            "Failed to create marker directory: '$state_marker_dir'\n");
+          || error("Failed to create marker directory: '$state_marker_dir'\n");
     }
 
     # XXX: swap find with perl alternative
@@ -558,58 +561,56 @@ sub essential_module_handling {
     print "WARNING: The following essential module will be disabled.\n";
     print "This might result in unexpected behavior and should NOT be done\n";
     print "unless you know exactly what you are doing!\n $module\n\n";
-    print "To continue type in the phrase 'Yes, do as I say!' or retry by passing '-f': ";
+    print
+"To continue type in the phrase 'Yes, do as I say!' or retry by passing '-f': ";
     my $input = <STDIN>;
     chomp($input);
-    if ($input ne 'Yes, do as I say!') {
+    if ( $input ne 'Yes, do as I say!' ) {
         print("Aborting\n");
-        exit(1)
+        exit(1);
     }
 }
 
 sub special_module_handling {
     my $acton = shift;
 
-    if ($obj ne 'module') {
+    if ( $obj ne 'module' ) {
         return;
     }
 
-    given ($acton) {
-        when ('ssl') {
-            if ( $act eq 'enable' ) {
-                info(  "See /usr/share/doc/apache2/README.Debian.gz on "
-                     . "how to configure SSL and create self-signed "
-                     . "certificates.\n"
-                );
-            }
+    if ( $acton eq 'ssl' ) {
+        if ( $act eq 'enable' ) {
+            info(   "See /usr/share/doc/apache2/README.Debian.gz on "
+                  . "how to configure SSL and create self-signed "
+                  . "certificates.\n" );
         }
-        when ('cache_disk') {
-            $request_htcacheclean = 1;
-            my $verb = "\u$act";
-            my $command;
-            $verb =~ s/e$/ing/;
-            if (-d "/run/systemd" and -x "/bin/systemctl") {
-                info("$verb external service $htc_service\n");
-                $command = "systemctl $act $htc_service";
-            } else {
-                info("$verb external service $htc\n");
-                $command = "update-rc.d $htc $act";
-            }
-            my $res = system($command);
-            if ($res == 0) {
-                info("The service will be started on next reboot.\n")
-                    if $act eq 'enable';
-            }
-            else {
-                warning("'$command' failed\n");
-            }
+    }
+    elsif ( $acton eq 'cache_disk' ) {
+        $request_htcacheclean = 1;
+        my $verb = "\u$act";
+        my $command;
+        $verb =~ s/e$/ing/;
+        if ( -d "/run/systemd" and -x "/bin/systemctl" ) {
+            info("$verb external service $htc_service\n");
+            $command = "systemctl $act $htc_service";
+        }
+        else {
+            info("$verb external service $htc\n");
+            $command = "update-rc.d $htc $act";
+        }
+        my $res = system($command);
+        if ( $res == 0 ) {
+            info("The service will be started on next reboot.\n")
+              if $act eq 'enable';
+        }
+        else {
+            warning("'$command' failed\n");
+        }
 
-        }
     }
 }
 
-sub is_systemd
-{
+sub is_systemd {
     my $init = readlink("/proc/1/exe") || "";
     return scalar $init =~ /systemd/;
 }
