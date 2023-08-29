@@ -37,6 +37,9 @@
 # When multiple arguments are given, only the error from the _last_
 # one is reported.  Run "apachectl help" for usage info
 #
+
+set -e
+
 ARGV="$@"
 #
 # |||||||||||||||||||| START CONFIGURATION SECTION  ||||||||||||||||||||
@@ -152,7 +155,7 @@ case "$ARGV" in
 start)
     # ssl_scache shouldn't be here if we're just starting up.
     # (this is bad if there are several apache2 instances running)
-    rm -f ${APACHE_RUN_DIR:-/var/run/apache2}/*ssl_scache*
+    [ -e ${APACHE_RUN_DIR:-/var/run/apache2}/*ssl_scache* ] && rm -f ${APACHE_RUN_DIR:-/var/run/apache2}/*ssl_scache*
 
     need_systemd=false
     if [ -z "$APACHE_STARTED_BY_SYSTEMD" ] ; then
