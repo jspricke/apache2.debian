@@ -1,3 +1,10 @@
+apache2 (2.4.57-3) unstable; urgency=medium
+
+  * Update a2enmod to drop given/when (Closes: #1050458)
+  * Restore changes not included in Bookworm (set -e in apache2ctl)
+
+ -- Yadd <yadd@debian.org>  Tue, 29 Aug 2023 11:39:32 +0400
+
 apache2 (2.4.57-2) unstable; urgency=medium
 
   * Revert debian/* changes (Bookworm freeze)
