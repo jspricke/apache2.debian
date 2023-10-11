@@ -1,3 +1,10 @@
+apache2 (2.4.57-4) UNRELEASED; urgency=medium
+
+  [ Bas Couwenberg ]
+  * Provide dh-sequence-apache2 (Closes: #1050870)
+
+ -- Yadd <yadd@debian.org>  Wed, 11 Oct 2023 21:40:24 +0400
+
 apache2 (2.4.57-3) unstable; urgency=medium
 
   * Update a2enmod to drop given/when (Closes: #1050458)

@@ -157,7 +157,8 @@ Depends: debhelper (>= 10),
          openssl,
          ${misc:Depends},
          ${perl:Depends}
-Provides: dh-apache2
+Provides: dh-apache2,
+          dh-sequence-apache2
 Description: Apache HTTP Server (development headers)
  The Apache HTTP Server Project's goal is to build a secure, efficient and
  extensible HTTP server as standards-compliant open source software. The
