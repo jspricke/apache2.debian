@@ -36,7 +36,6 @@ Architecture: any
 Depends: apache2-bin (= ${binary:Version}),
          apache2-data (= ${source:Version}),
          apache2-utils (= ${binary:Version}),
-         lsb-base,
          media-types,
          ${perl:Depends},
          procps [!hurd-i386],
