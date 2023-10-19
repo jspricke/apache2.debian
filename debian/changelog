@@ -1,9 +1,15 @@
-apache2 (2.4.57-4) UNRELEASED; urgency=medium
+apache2 (2.4.58-1) unstable; urgency=medium
 
   [ Bas Couwenberg ]
   * Provide dh-sequence-apache2 (Closes: #1050870)
 
- -- Yadd <yadd@debian.org>  Wed, 11 Oct 2023 21:40:24 +0400
+  [ Yadd ]
+  * Drop dependency to obsolete lsb-base
+  * New upstream version 2.4.58 (Closes: CVE-2023-31122, CVE-2023-43622,
+    CVE-2023-45802)
+  * Refresh patches
+
+ -- Yadd <yadd@debian.org>  Thu, 19 Oct 2023 14:56:29 +0400
 
 apache2 (2.4.57-3) unstable; urgency=medium
 
