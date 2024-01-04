@@ -13,3 +13,7 @@ fix-macro.patch
 
 # This patch is applied manually
 #suexec-custom.patch
+
+0008-ECH-experimental-collected-changes.patch
+0009-remove-old-_ESNI-hangover-code.patch
+0010-change-in-external-ext-name.patch
