@@ -1,0 +1,80 @@
+Format: 1.8
+Date: Wed, 18 Oct 2023 21:53:04 +0200
+Source: apache2
+Binary: apache2 apache2-bin apache2-bin-dbgsym apache2-data apache2-dev apache2-doc apache2-ssl-dev apache2-suexec-custom apache2-suexec-custom-dbgsym apache2-suexec-pristine apache2-suexec-pristine-dbgsym apache2-utils apache2-utils-dbgsym libapache2-mod-md libapache2-mod-proxy-uwsgi
+Architecture: amd64 all
+Version: 2.4.58-1.1~1.gbpc70f2ec340
+Distribution: unstable
+Urgency: medium
+Maintainer: Debian Apache Maintainers <debian-apache@lists.debian.org>
+Changed-By: Jochen Sprickerhof <jspricke@debian.org>
+Description:
+ apache2    - Apache HTTP Server
+ apache2-bin - Apache HTTP Server (modules and other binary files)
+ apache2-data - Apache HTTP Server (common files)
+ apache2-dev - Apache HTTP Server (development headers)
+ apache2-doc - Apache HTTP Server (on-site documentation)
+ apache2-ssl-dev - Apache HTTP Server (mod_ssl development headers)
+ apache2-suexec-custom - Apache HTTP Server configurable suexec program for mod_suexec
+ apache2-suexec-pristine - Apache HTTP Server standard suexec program for mod_suexec
+ apache2-utils - Apache HTTP Server (utility programs for web servers)
+ libapache2-mod-md - transitional package
+ libapache2-mod-proxy-uwsgi - transitional package
+Changes:
+ apache2 (2.4.58-1.1~1.gbpc70f2ec340) UNRELEASED; urgency=medium
+ .
+   ** SNAPSHOT build @c70f2ec340 **
+ .
+   * Non-maintainer upload.
+   * Add DEfO patches
+Checksums-Sha1:
+ 7d8d8b883a133ca122888b9d9ba31c63de831ab0 3751660 apache2-bin-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 13144d19225d5dec532e66f6a490f735b6340234 1378204 apache2-bin_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ f492538136903401432532846cc1161fffc3f039 160060 apache2-data_2.4.58-1.1~1.gbpc70f2ec340_all.deb
+ 05bc9e2955a29b8693ba722be2349c66e9e5d715 309860 apache2-dev_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 69315f55ef53892ddd444c726cc3bf959021803b 4017836 apache2-doc_2.4.58-1.1~1.gbpc70f2ec340_all.deb
+ 7a020b7451bd241c2b05eb9f8171f9c043198f7c 3120 apache2-ssl-dev_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 0e1d8757fb12b97bf0ff88593752ef160ccb3451 12236 apache2-suexec-custom-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ bbe128b500b514033609ca8e6095a5c96f76db8d 138656 apache2-suexec-custom_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ f61e071e2697f82b81ccbe2d9c14bef40ae463a2 11052 apache2-suexec-pristine-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ d233f5d236dd0381da742e20448a0c664ede58c5 137128 apache2-suexec-pristine_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 343980e9541770507717ab9435cdeee98e5892df 114700 apache2-utils-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 4ef977f51b707389a88b6ab6e539d6b64f44fd65 204852 apache2-utils_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ e6405d78345ae041432d0b7490bc076af9de613f 11783 apache2_2.4.58-1.1~1.gbpc70f2ec340_amd64.buildinfo
+ 7f4c421e82667626d6605ea9cb9dc7f199636157 212288 apache2_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 48ec2123e538e612d569412665639fddd4c1e603 964 libapache2-mod-md_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 966dce18411bfc8c2fbd6468d9adf69890a0bf7a 1144 libapache2-mod-proxy-uwsgi_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+Checksums-Sha256:
+ 0f0ebb14a50e05d6fa9bc570350ed1666e2ce79caaf1222ee09f1cd8def47fe8 3751660 apache2-bin-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ a3d98bd2553733532fb35f1fad0780f7d67a122636b1c3cc1353083e794c5d91 1378204 apache2-bin_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 4b2898197cd1775f7a65b9df53c9c989de72dea0d1f4e06e605d57f96b4e96ed 160060 apache2-data_2.4.58-1.1~1.gbpc70f2ec340_all.deb
+ ba7a58b3290a7b9ddd6f5e7c1102890f17e27052eeec1e99763b5aaf7c42920f 309860 apache2-dev_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 6d633e599a1504733f7493ba77e805eb0c496f1af2891c32e8da513af992b7ce 4017836 apache2-doc_2.4.58-1.1~1.gbpc70f2ec340_all.deb
+ 6df1e6dc72e69e64304ca711367042d5213f0b5afc495529fa2aad473795234c 3120 apache2-ssl-dev_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ a070c7927131833f3c5a04247cc9a231d127093ec9063d99ff771c24305056c8 12236 apache2-suexec-custom-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 67a2e22379ea4ffc237103da1456b1c01e54677a869deba4f696dc3536301ca5 138656 apache2-suexec-custom_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 6e79c72132dacd18230323200b1beee6e9e6f3cca3ab38a57519cf67a5bd32fb 11052 apache2-suexec-pristine-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ c0709cc31c2a39553cb3812efbabfa8bcee165b730e00daf64612059184a600f 137128 apache2-suexec-pristine_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 001167f94a71a6317b5fe3119a13bf8bfc3b4e14625d709e28d3e7d835c54e97 114700 apache2-utils-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 06c3b6136518bed33b0fa69934c87b8a07dcb2726dc970ece5ad324f742e173e 204852 apache2-utils_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 88ef8aa6c1f8642536a62c4338e79943272a21343da42436d7e3536118d39eec 11783 apache2_2.4.58-1.1~1.gbpc70f2ec340_amd64.buildinfo
+ de5ca2adb16e14b8e16c56c8d5cfb2bc42c565d0d303a812586eeb159f8169a2 212288 apache2_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 909efa6b143830fe7f924f841da593f1b57da366bb3d31713b4ac4389dce8eac 964 libapache2-mod-md_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 325e8288a9263e2b2ef4c28ff249efd39638959a7df79922df8e339e944c9212 1144 libapache2-mod-proxy-uwsgi_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+Files:
+ b2140e404dedebd98940de64f0dd5f21 3751660 debug optional apache2-bin-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 98e214afff9d3fcf1131facfaa987d84 1378204 httpd optional apache2-bin_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ ecb2f38878529670a29476ea566f2c5e 160060 httpd optional apache2-data_2.4.58-1.1~1.gbpc70f2ec340_all.deb
+ b39e74f70fb4a587c3c0c2bcedde8e23 309860 httpd optional apache2-dev_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 6747b80510be8d7b711eb53f11feb130 4017836 doc optional apache2-doc_2.4.58-1.1~1.gbpc70f2ec340_all.deb
+ 173598206fbac3d556607ef8d06314b3 3120 httpd optional apache2-ssl-dev_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 1d7fd89cb41f1d1888b011773fd8a2a8 12236 debug optional apache2-suexec-custom-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 6d1d0e28124a4b89a447572a2a572e95 138656 httpd optional apache2-suexec-custom_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ a972e09ab44d461b21e218229915578f 11052 debug optional apache2-suexec-pristine-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 852e50f9969623cc211996a7eaff8f78 137128 httpd optional apache2-suexec-pristine_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 465c32019e62bbd067bdd8d500c8131f 114700 debug optional apache2-utils-dbgsym_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ 0c001d309da2ec0a972dcf9782b55807 204852 httpd optional apache2-utils_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ cadbae0a05d000da1b4795acd95eeeef 11783 httpd optional apache2_2.4.58-1.1~1.gbpc70f2ec340_amd64.buildinfo
+ be1f37146c1f6a9b4d942ee6ea56eb96 212288 httpd optional apache2_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ d69d7affeecf69b5e8d40922ae16afe7 964 oldlibs optional libapache2-mod-md_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
+ b08dc3d603382b21ced02fea8cf95569 1144 oldlibs optional libapache2-mod-proxy-uwsgi_2.4.58-1.1~1.gbpc70f2ec340_amd64.deb
